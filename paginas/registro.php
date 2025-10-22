@@ -21,7 +21,7 @@
                 </div>";
             }
         ?>
-        <form action="" class="form" method="post">
+        <form action="../log/register.php" class="form" method="post">
             <p class="title">Registrarse</p>
             <p class="message">Registrate para poder ingresar a la app</p>
             <div class="flex">

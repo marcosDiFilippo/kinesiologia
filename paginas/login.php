@@ -9,15 +9,26 @@
 </head>
 <body>
     <main>
-        <form action="" class="form" method="post">
+        <?php
+            if (isset($_GET["ambos"])) {
+                echo "-Ambos campos son obligatorios";
+            }
+            if (isset($_GET["no"])) {
+                echo "-El email debe contener @";
+            }
+            if (isset($_GET["log"])) {
+                echo "-La contrasenia ingresada es incorrecta";
+            }
+        ?>
+        <form action="../log/log.php" class="form" method="post">
             <p class="form-title">Iniciar Sesion</p>
             <div class="input-container">
-                <input type="email" placeholder="Ingresar Email">
+                <input type="email" name="email" placeholder="Ingresar Email">
                 <span>
                 </span>
             </div>
             <div class="input-container">
-                <input type="password" placeholder="Ingresar Password">
+                <input type="password" name="contrasenia" placeholder="Ingresar contrasenia">
             </div>
             <button type="submit" class="submit">
                 Iniciar Sesion
