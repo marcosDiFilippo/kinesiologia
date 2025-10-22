@@ -1,4 +1,5 @@
 <?php
+    include_once("../../componentes/config/config.php");
     include_once("./lectura.php");
     function validarSubida ($nombre, $apellido, $dni, $fechaNacimiento, $email, $telefono, $fecha, $hora, $metodoPago, $monto, $estado, $tratamientoss, $conexion, $lecturaUsuarios) {
         if (
@@ -18,16 +19,19 @@
             header("Location: ../pacientes.php?campos=vacios");
             return;
         }
-        if (!str_contains($email,"@")) {
+        if  (!str_contains($email,"@")) {
             header("Location: ../pacientes.php?email=no");
             return;
         }
-        //seguir con las validaciones y empezar hacer alta de pacientes
-        $lecturaUsuarios .= " WHERE `email`=$email OR `dni`=$dni";
+        $lecturaUsuarios .= " WHERE `email`='$email' or `dni`='$dni'";
         $usuarios = mysqli_query($conexion, $lecturaUsuarios);
+
         if ($usuario = mysqli_fetch_array($usuarios)) {
             header("Location: ../pacientes.php?campos=existentes");
             return;
+        }
+        else {
+            realizarAlta($nombre, $apellido, $dni, $fechaNacimiento, $email, $telefono, $fecha, $hora, $metodoPago, $monto, $estado, $conexion);
         }
     }
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -75,5 +79,10 @@
 
             validarSubida($nombre, $apellido, $dni, $fechaNacimiento, $email, $telefono, $fecha, $hora, $metodoPago, $monto, $estado, $tratamientoss, $conexion, $lecturaUsuarios);
         }
+    }
+    function realizarAlta ($nombre, $apellido, $dni, $fechaNacimiento, $email, $telefono, $fecha, $hora, $metodoPago, $monto, $estado, $conexion) {
+        mysqli_query($conexion,"INSERT INTO `personas`(`nombre`, `apellido`, `dni`, `fecha_nacimiento`, `telefono`, `email`) VALUES ('$nombre','$apellido','$dni','$fechaNacimiento','$telefono','$email')");
+
+        mysqli_query($conexion,"");
     }
 ?>

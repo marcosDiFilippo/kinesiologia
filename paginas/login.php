@@ -13,11 +13,14 @@
             if (isset($_GET["ambos"])) {
                 echo "-Ambos campos son obligatorios";
             }
-            if (isset($_GET["no"])) {
+            if (isset($_GET["arroba"])) {
                 echo "-El email debe contener @";
             }
-            if (isset($_GET["log"])) {
+            if (isset($_GET["contrasenia"])) {
                 echo "-La contrasenia ingresada es incorrecta";
+            }
+            if (isset($_GET["email"])) {
+                echo "-El email ingresado no existe";
             }
         ?>
         <form action="../log/log.php" class="form" method="post">

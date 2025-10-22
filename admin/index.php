@@ -2,6 +2,7 @@
     include_once("../componentes-admin/header.php");
 ?>
     <main>
+        
         <section id="tratamientos">
 
         </section>

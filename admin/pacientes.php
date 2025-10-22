@@ -1,39 +1,32 @@
 <?php
+    include_once("../componentes-admin/header.php");
     include_once("../componentes/config/config.php");
     include_once("../admin/abml/lectura.php");
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
     <section>
         <article>
             <form action="./abml/alta.php" method="post">
                 <div>
-                    <input type="text" name="nombre" id="nombre">
-                    <input type="text" name="apellido" id="apellido">
+                    <input type="text" name="nombre" id="nombre" placeholder="Ingresa el nombre">
+                    <input type="text" name="apellido" id="apellido" placeholder="Ingresa el apellido">
                 </div>
                 <div>
+                    <label for="fecha-nacimiento">Fecha Nacimiento</label>
                     <input type="date" name="fecha-nacimiento" id="fecha-nacimiento">
-                    <input type="number" name="dni" id="dni">
+                    <input type="number" name="dni" id="dni" placeholder="Ingrese el dni">
                 </div>
                 <div>
-                    <input type="email" name="email" id="email">
-                    <input type="number" name="telefono" id="telefono">
+                    <input type="email" name="email" id="email" placeholder="Ingrese el email">
+                    <input type="number" name="telefono" id="telefono" placeholder="Ingrese el telefono">
                 </div>
                 <div>   
                     <label for="Fecha Consulta">Fecha Consulta</label>
-                    <input type="date" name="fecha" id="fecha">
-                    <input type="time" name="hora" id="hora">
+                    <input type="date" name="fecha" id="fecha" placeholder="Ingrese fecha de la consulta">
+                    <input type="time" name="hora" id="hora" placeholder="Ingrese horario de la consulta">
                 </div>
                 <div>
                     <label for="pago">Pago</label>
-                    <input type="number" name="monto" id="monto">
+                    <input type="number" name="monto" id="monto" placeholder="Ingrese el monto de la sesion">
                     <?php
                         $metodosPago = mysqli_query($conexion,$lecturaMetodosPago);
                     
