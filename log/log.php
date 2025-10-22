@@ -25,7 +25,7 @@
         echo $lecturaUsuarios;
         
         $resultado = mysqli_query($conexion, $lecturaUsuarios);
-
+        
         if ($fila = mysqli_fetch_array($resultado)) {
             $_SESSION = $fila;
 
