@@ -1,0 +1,28 @@
+.article-talbe {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+table {
+    width: 100%;
+}
+
+tr {
+    height: 70px;
+    transition: background-color 0.2s ease;
+}
+
+tr:hover {
+    background-color: rgba(0, 0, 0, 0.041);
+}
+
+#th-num-tratamiento {
+    text-align: center;
+}
+
+.num-tratamiento {
+    text-align: center;
+}
