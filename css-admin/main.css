@@ -26,3 +26,43 @@ tr:hover {
 .num-tratamiento {
     text-align: center;
 }
+
+#section-alta-pacientes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#section-alta-pacientes article {
+    width: 100%;
+}
+
+#form-alta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 1rem;
+    width: 100%;
+}
+
+#form-alta > div {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.input-column {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.input-column input {
+    width: 20%;
+}
+
+#form-alta input {
+    padding: 1rem;
+    margin: 0.5rem;
+}

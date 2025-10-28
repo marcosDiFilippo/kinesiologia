@@ -31,7 +31,7 @@
             return;
         }
         else {
-            realizarAlta($nombre, $apellido, $dni, $fechaNacimiento, $email, $telefono, $fecha, $hora, $metodoPago, $monto, $estado, $conexion);
+            realizarAlta($nombre, $apellido, $dni, $fechaNacimiento, $email, $telefono, $fecha, $hora, $metodoPago, $monto, $estado, $conexion, $lecturaUsuarios);
         }
     }
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -80,9 +80,20 @@
             validarSubida($nombre, $apellido, $dni, $fechaNacimiento, $email, $telefono, $fecha, $hora, $metodoPago, $monto, $estado, $tratamientoss, $conexion, $lecturaUsuarios);
         }
     }
-    function realizarAlta ($nombre, $apellido, $dni, $fechaNacimiento, $email, $telefono, $fecha, $hora, $metodoPago, $monto, $estado, $conexion) {
+    function realizarAlta ($nombre, $apellido, $dni, $fechaNacimiento, $email, $telefono, $fecha, $hora, $metodoPago, $monto, $estado, $conexion, $lecturaUsuarios) {
         mysqli_query($conexion,"INSERT INTO `personas`(`nombre`, `apellido`, `dni`, `fecha_nacimiento`, `telefono`, `email`) VALUES ('$nombre','$apellido','$dni','$fechaNacimiento','$telefono','$email')");
 
-        mysqli_query($conexion,"");
+        mysqli_query($conexion,"INSERT INTO `fechas_horas`(`fecha`, `hora`) VALUES ('$fecha','$hora')");
+
+        $lecturaUsuarios .= "WHERE `mail`='$email'";
+        var_dump($lecturaUsuarios);
+
+        $usuarios = mysqli_query($conexion, $lecturaUsuarios);
+
+        if ($usuario = mysqli_fetch_array($usuarios)) {
+            foreach ($metodoPago as $metodo) {
+                mysqli_query($conexion,"INSERT INTO `pago_sesiones`(`fk_metodos_pago`, `fk_sesiones`) VALUES ('$metodo','$usuario[id_personas]')");
+            }
+        }
     }
 ?>
