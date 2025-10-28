@@ -1,3 +1,8 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 .article-talbe {
     width: 100%;
     display: flex;
@@ -47,22 +52,43 @@ tr:hover {
 }
 
 #form-alta > div {
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-}
-
-.input-column {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-}
-
-.input-column input {
-    width: 20%;
+    width: 40%;
 }
 
 #form-alta input {
+    width: 100%;
     padding: 1rem;
     margin: 0.5rem;
+}
+
+.checkbox-metodos-pago {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.motivo-consulta {
+    text-align: center;
+}
+
+.div-consulta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.div-checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.label-checkbox {
+    font-size: 1.3rem;
+}
+
+#submit-alta {
+    width: 50%;
 }

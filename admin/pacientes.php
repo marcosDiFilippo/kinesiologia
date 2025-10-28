@@ -6,42 +6,42 @@
     <section id="section-alta-pacientes">
         <article>
             <form id="form-alta" action="./abml/alta.php" method="post">
-                <div class="input-row">
+                <div>
                     <input type="text" name="nombre" id="nombre" placeholder="Ingresa el nombre">
                     <input type="text   " name="apellido" id="apellido" placeholder="Ingresa el apellido">
                 </div>
-                <div class="input-column">
+                <div>
                     <label for="fecha-nacimiento">Fecha Nacimiento</label>
                     <div>
                         <input type="date" name="fecha-nacimiento" id="fecha-nacimiento">
                         <input type="number" name="dni" id="dni" placeholder="Ingrese el dni">
                     </div>
                 </div>
-                <div class="input-row">
-                    <input type="email" name="email" id="email" placeholder="Ingrese el email">
+                <div>
+                    <input type="email" name="email" id="email" placeholder="Ingrese el email" autocomplete="additional-name">
                     <input type="number" name="telefono" id="telefono" placeholder="Ingrese el telefono">
                 </div>
-                <div class="input-column">   
-                    <label for="Fecha Consulta">Fecha Consulta</label>
+                <div>   
+                    <label for="fecha">Fecha Consulta</label>
                     <div>
                         <input type="date" name="fecha" id="fecha" placeholder="Ingrese fecha de la consulta">
                         <input type="time" name="hora" id="hora" placeholder="Ingrese horario de la consulta">
                     </div>
                 </div>
-                <div class="input-column">
-                    <label for="pago">Pago</label>
-                    <div>
-                        <input type="number" name="monto" id="monto" placeholder="Ingrese el monto de la sesion">
-                        <?php
+                <div>
+                    <label for="monto">Pago</label>
+                    <input type="number" name="monto" id="monto" placeholder="Ingrese el monto de la sesion">
+                    <div class="checkbox-metodos-pago">
+                    <?php
                         $metodosPago = mysqli_query($conexion,$lecturaMetodosPago);
                         
                         while($metodoPago = mysqli_fetch_array($metodosPago)) {
                             echo "<input type='checkbox' name='metodos-pago[]' id='$metodoPago[nombre]' value='$metodoPago[id_metodos_pago]'>";
-                            echo "<label for='$metodoPago[nombre]'>$metodoPago[nombre]</label>";
+                            echo "<label class='label-checkbox' for='$metodoPago[nombre]'>$metodoPago[nombre]</label>";
                         }
-                        ?>
+                    ?>
                     </div>
-                </div class="input-row">
+                </div>
                     <label for="estado">Estado</label>
                     <select name="estado" id="estado">
                         <?php
@@ -53,21 +53,24 @@
                         ?>
                     </select>
                 <div>
-                    <label for="tratamiento">Motivo Consulta</label>
-                    <div>
+                    <p class="motivo-consulta">Motivo Consulta</p>
+                    <div class="div-consulta">
 
-                        <?php
+                    <?php
                         $tratamientos = mysqli_query($conexion,$lecturaTratamientos);
                         
                         while($tratamiento = mysqli_fetch_array($tratamientos)) {
+                            echo "<div class='div-checkbox'>";
                             echo "<input type='checkbox' name='tratamientos[]' id='$tratamiento[nombre]' value='$tratamiento[nombre]'>";
-                            echo "<label for='$tratamiento[nombre]'>$tratamiento[nombre]</label>";
+                            echo "<label class='label-checkbox' for='$tratamiento[nombre]'>$tratamiento[nombre]</label>";
+                            echo "</div>";
                         }
-                        ?>
+                    ?>
                     </div>
                 </div>
-
-                <input type="submit" value="Cargar Paciente">
+                <div>
+                    <button id="submit-alta" class="btn btn-primary" type="submit">Submit form</button>
+                </div>
             </form>
         </article>
     </section>
