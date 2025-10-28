@@ -1,7 +1,7 @@
 <?php
     include_once("../../componentes/config/config.php");
     include_once("./lectura.php");
-    function validarSubida ($nombre, $apellido, $dni, $fechaNacimiento, $email, $telefono, $fecha, $hora, $metodoPago, $monto, $estado, $tratamientoss, $conexion, $lecturaUsuarios) {
+    function validarSubida ($nombre, $apellido, $dni, $fechaNacimiento, $email, $telefono, $fecha, $hora, $metodoPago, $monto, $estado, $tratamientoss, $conexion, $lecturaUsuarios, $detalles, $lecturaHorarios, $imagen) : bool {
         if (
             empty($nombre) or
             empty($apellido) or
@@ -17,21 +17,37 @@
             empty($tratamientoss)
         ) {
             header("Location: ../pacientes.php?campos=vacios");
-            return;
+            return false;
         }
         if  (!str_contains($email,"@")) {
             header("Location: ../pacientes.php?email=no");
-            return;
+            return false;
         }
         $lecturaUsuarios .= " WHERE `email`='$email' or `dni`='$dni'";
         $usuarios = mysqli_query($conexion, $lecturaUsuarios);
 
         if ($usuario = mysqli_fetch_array($usuarios)) {
             header("Location: ../pacientes.php?campos=existentes");
-            return;
+            return false;
+        }
+        return true;
+    }
+    function realizarAltaPaciente ($nombre, $apellido, $dni, $fechaNacimiento, $email, $telefono, $conexion) {
+        mysqli_query($conexion,"INSERT INTO `personas`(`nombre`, `apellido`, `dni`, `fecha_nacimiento`, `telefono`, `email`, `fk_rol`) VALUES ('$nombre','$apellido','$dni','$fechaNacimiento','$telefono','$email',3)");
+
+        $resultadoUsuario = mysqli_query($conexion,"SELECT * FROM  `personas` WHERE `email`='$email'");
+        
+        return $resultadoUsuario;
+    }
+    function realizarAltaHorarios ($lecturaHorarios, $fecha, $hora, $conexion) {
+        $lecturaHorarios .= "WHERE `fecha`=$fecha and `hora`=$hora";
+        $resultadoHorarios = mysqli_query($conexion, $lecturaHorarios);
+        
+        if ($horario = mysqli_fetch_array($resultadoHorarios)) {
+            $fk_fechas_horas = $horario["id_fechas_horas"];
         }
         else {
-            realizarAlta($nombre, $apellido, $dni, $fechaNacimiento, $email, $telefono, $fecha, $hora, $metodoPago, $monto, $estado, $conexion, $lecturaUsuarios);
+            $horarios = mysqli_query($conexion,"INSERT INTO `fechas_horas`(`fecha`, `hora`) VALUES ('$fecha','$hora')");
         }
     }
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -47,8 +63,11 @@
             isset($_POST["metodos-pago"]) &&
             isset($_POST["monto"]) &&
             isset($_POST["estado"]) &&
-            isset($_POST["tratamientos"])
+            isset($_POST["tratamientos"]) &&
+            isset($_FILES["imagen"])
         ) {
+            $flag;
+
             $nombre = htmlspecialchars($_POST["nombre"]);
 
             $apellido = htmlspecialchars($_POST["apellido"]);
@@ -77,22 +96,45 @@
                 return htmlspecialchars($tratamiento);
             }, $_POST["tratamientos"]);
 
-            validarSubida($nombre, $apellido, $dni, $fechaNacimiento, $email, $telefono, $fecha, $hora, $metodoPago, $monto, $estado, $tratamientoss, $conexion, $lecturaUsuarios);
-        }
-    }
-    function realizarAlta ($nombre, $apellido, $dni, $fechaNacimiento, $email, $telefono, $fecha, $hora, $metodoPago, $monto, $estado, $conexion, $lecturaUsuarios) {
-        mysqli_query($conexion,"INSERT INTO `personas`(`nombre`, `apellido`, `dni`, `fecha_nacimiento`, `telefono`, `email`) VALUES ('$nombre','$apellido','$dni','$fechaNacimiento','$telefono','$email')");
+            $detalles = htmlspecialchars($_POST["detalles"]);
 
-        mysqli_query($conexion,"INSERT INTO `fechas_horas`(`fecha`, `hora`) VALUES ('$fecha','$hora')");
+            $imagen = $_FILES["imagen"];
 
-        $lecturaUsuarios .= "WHERE `mail`='$email'";
-        var_dump($lecturaUsuarios);
+            $flag = validarSubida($nombre,
+            $apellido, 
+            $dni, 
+            $fechaNacimiento, 
+            $email, 
+            $telefono, 
+            $fecha, 
+            $hora, 
+            $metodoPago, 
+            $monto, 
+            $estado, 
+            $tratamientoss, 
+            $conexion, 
+            $lecturaUsuarios, 
+            $detalles, 
+            $lecturaHorarios,
+            $imagen);
 
-        $usuarios = mysqli_query($conexion, $lecturaUsuarios);
+            if ($flag == true) {
+                $resultadoAltaUsuario = realizarAltaPaciente(
+                    $nombre, 
+                    $apellido, 
+                    $dni, 
+                    $fechaNacimiento, 
+                    $email, 
+                    $telefono, 
+                    $conexion
+                );
 
-        if ($usuario = mysqli_fetch_array($usuarios)) {
-            foreach ($metodoPago as $metodo) {
-                mysqli_query($conexion,"INSERT INTO `pago_sesiones`(`fk_metodos_pago`, `fk_sesiones`) VALUES ('$metodo','$usuario[id_personas]')");
+                realizarAltaHorarios(
+                    $lecturaHorarios,
+                    $fecha, 
+                    $hora, 
+                    $conexion
+                );
             }
         }
     }

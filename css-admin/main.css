@@ -21,7 +21,7 @@ tr {
 }
 
 tr:hover {
-    background-color: rgba(0, 0, 0, 0.041);
+    background-color: rgba(0, 0, 0, 0.13);
 }
 
 #th-num-tratamiento {
@@ -75,14 +75,12 @@ tr:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
 }
 
 .div-checkbox {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 100%;
+    justify-content: center;
 }
 
 .label-checkbox {
@@ -91,4 +89,10 @@ tr:hover {
 
 #submit-alta {
     width: 50%;
+}
+
+textarea {
+    resize: vertical;
+    width: 100%;
+    padding: 1rem;
 }
