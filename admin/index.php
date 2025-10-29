@@ -1,10 +1,13 @@
-<?php
-    include_once("../componentes-admin/header.php");
-?>
+    <?php
+        include_once("../componentes-admin/header.php");
+    ?>
     <main>
-        
-        <section id="tratamientos">
-
+        <section>
+            <article>
+                <h1>
+                    Bienvenido al panel del consultorio
+                </h1>
+            </article>
         </section>
     </main>
     <?php
