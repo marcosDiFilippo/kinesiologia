@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+#main-pacientes {
+    position: relative;
+}
+
 .td-links {
     display: flex;
     column-gap: 1rem;
@@ -58,9 +62,7 @@ tr:hover {
 }
 
 #section-alta-pacientes {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: none;
 }
 
 #section-alta-pacientes article {

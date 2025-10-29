@@ -3,10 +3,20 @@
     include_once("../componentes/config/config.php");
     include_once("./abml/lectura.php");
 ?>
-<main>
+<main id="main-pacientes">
+    <section>
+        <article>
+            <button id="button-alta">Agregar Paciente</button>
+        </article>
+    </section>
     <section id="section-alta-pacientes">
         <article>
             <?php
+                if (isset($_GET["alta"])) {
+                    echo "<div class='alert alert-success' role='alert'>
+                            Paciente cargado $_GET[alta]  
+                        </div>";
+                }
                 if (isset($_GET["baja"])) {
                     echo "<div class='alert alert-danger' role='alert'>
                             Se dio de baja al paciente $_GET[baja]  
@@ -153,6 +163,7 @@
         </article>
     </section>
 </main>
+<script src="../js-admin/script.js"></script>
 <?php
     include_once("../componentes-admin/footer.php");
 ?>
