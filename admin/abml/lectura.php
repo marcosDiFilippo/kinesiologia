@@ -5,4 +5,5 @@
     $lecturaEstados = "SELECT * FROM `estados_sesiones`";
     $lecturaTratamientos = "SELECT * FROM `tratamientos`";
     $lecturaHorarios = "SELECT * FROM `fechas_horas`";
+    $lecturaSesiones = "SELECT * FROM `sesiones`";
 ?>
