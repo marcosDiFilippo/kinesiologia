@@ -36,19 +36,35 @@
         mysqli_query($conexion,"INSERT INTO `personas`(`nombre`, `apellido`, `dni`, `fecha_nacimiento`, `telefono`, `email`, `fk_rol`) VALUES ('$nombre','$apellido','$dni','$fechaNacimiento','$telefono','$email',3)");
 
         $resultadoUsuario = mysqli_query($conexion,"SELECT * FROM  `personas` WHERE `email`='$email'");
+
+        $fk_persona = 0;
+        if ($usuario = mysqli_fetch_array($resultadoUsuario)) {
+            $fk_persona = $usuario["id_personas"];
+        }
         
-        return $resultadoUsuario;
+        return $fk_persona;
     }
-    function realizarAltaHorarios ($lecturaHorarios, $fecha, $hora, $conexion) {
+    function realizarAltaHorarios ($lecturaHorarios, $fecha, $hora, $conexion) : int {
         $lecturaHorarios .= "WHERE `fecha`=$fecha and `hora`=$hora";
         $resultadoHorarios = mysqli_query($conexion, $lecturaHorarios);
         
+        $fk_fechas_horas = 0;
+
         if ($horario = mysqli_fetch_array($resultadoHorarios)) {
             $fk_fechas_horas = $horario["id_fechas_horas"];
+            return $fk_fechas_horas;
         }
         else {
-            $horarios = mysqli_query($conexion,"INSERT INTO `fechas_horas`(`fecha`, `hora`) VALUES ('$fecha','$hora')");
+            mysqli_query($conexion,"INSERT INTO `fechas_horas`(`fecha`, `hora`) VALUES ('$fecha','$hora')");
+
+            if ($horario = mysqli_fetch_array($resultadoHorarios)) {
+                $fk_fechas_horas = $horario["id_fechas_horas"];
+            }
         }
+        return $fk_fechas_horas;
+    }
+    function realizarAltaSesion ($detalles, $imagen, $fk_persona, $fk_horario, $fk_estado, $monto, $conexion) {
+        mysqli_query($conexion,"INSERT INTO `sesiones`(`detalles`, `imagen`, `fk_personas`, `fk_fechas_horas`, `fk_estado_sesion`, `monto`) VALUES ('$detalles','$imagen','$fk_persona','$fk_horario','$fk_estado','$monto')");
     }
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (
@@ -119,7 +135,7 @@
             $imagen);
 
             if ($flag == true) {
-                $resultadoAltaUsuario = realizarAltaPaciente(
+                $fk_persona = realizarAltaPaciente(
                     $nombre, 
                     $apellido, 
                     $dni, 
@@ -129,12 +145,14 @@
                     $conexion
                 );
 
-                realizarAltaHorarios(
+                $fk_horario = realizarAltaHorarios(
                     $lecturaHorarios,
                     $fecha, 
                     $hora, 
                     $conexion
                 );
+
+                realizarAltaSesion($detalles, $imagen, $fk_persona, $fk_horario, $estado, $monto, $conexion);
             }
         }
     }
