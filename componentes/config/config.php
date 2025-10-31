@@ -1,6 +1,6 @@
 <?php
     $servidor = "localhost";
-    $usuario = "marcos";
+    $usuario = "root";
     $clave = "";
     $base_datos = "kinesiologia";
     $puerto = 3306;
