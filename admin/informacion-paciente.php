@@ -30,31 +30,50 @@
                         if ($persona = mysqli_fetch_array($resultadoUsuario)) {
                             echo "<h1>Paciente: $persona[nombre] $persona[apellido]</h1>";
                             echo "<h2>Detalles del paciente</h3>";
-                            echo "<h3>Email: $persona[email]</h3>";
-                            echo "<h3>Dni: $persona[dni]</h3>";
-                            echo "<h3>Fecha Nacimiento: $persona[fecha_nacimiento]</h3>";
-                            echo "<h3>Telefono: $persona[telefono]</h3>";
+                            echo "<ul>";
+                                echo "<li>Email: $persona[email]</li>";
+                                echo "<li>Dni: $persona[dni]</li>";
+                                echo "<li>Fecha Nacimiento: $persona[fecha_nacimiento]</li>";
+                                echo "<li>Telefono: $persona[telefono]</li>";
+                            echo "</ul>";
                         }
                         echo "<hr>";
-                        echo "<h2>Detalles de la sesion</h2>";
-                        echo "<h3>$sesion[detalles]</h3>";
+                        echo "<div>";
+                        echo "<h2>Sesion</h2>";
+                        echo "<ul>";
+                        echo "<li>Detalles: $sesion[detalles]</li>";
+                        echo "</ul>";
                         
                         $idSesion = $sesion["id_sesiones"];
 
                         $lecturaSesionesTratamientos .= " WHERE `fk_sesiones`='$idSesion'";
-                        $resultadoSesionTratamiento = mysqli_query($conexion, $lecturaSesionesTratamiento);
                         
+                        $resultadoSesionTratamiento = mysqli_query($conexion, $lecturaSesionesTratamientos);
+                        
+                        echo "<h3>Tratamientos</h3>";
+                        echo "<ul>";
                         while ($sesionTratamiento = mysqli_fetch_array($resultadoSesionTratamiento)) {
 
                             $fk_tratamiento = $sesionTratamiento["fk_tratamientos"];
-                            $lecturaTratamientos .= " WHERE `id_tratamientos`='$fk_tratamiento'";
-
+                            $lecturaTratamientos .= " WHERE `id_tratamientos`=$fk_tratamiento";
+                            
                             $resultadoTratamientos = mysqli_query($conexion, $lecturaTratamientos);
+
+                            $lecturaTratamientos = "SELECT * FROM `tratamientos`";
                             
                             while ($tratamiento = mysqli_fetch_array($resultadoTratamientos)) {
-                                echo "<h3>$tratamiento[nombre]</h3>";
+                                echo "<li>$tratamiento[nombre]</li>";
                             }
                         }
+                        echo "</ul>";
+                        $lecturaEstados . " WHERE `id_estado`='fk_estado_sesion'";
+                        $resultadoEstado = mysqli_query($conexion, $lecturaEstados);
+
+                        if ($estado = mysqli_fetch_array($resultadoEstado)) {
+                            echo "<h3>Estado: $estado[nombre]</h3>";
+                        }
+                        echo "<img src='../imagenes-subidas/$sesion[imagen]' alt=''>";
+                        echo "</div>";
                     }
                 }
                 else {
@@ -65,5 +84,5 @@
     </section>
 </main>
 <?php
-    include_once("../../componentes-admin/footer.php");
+    include_once("../componentes-admin/footer.php");
 ?>
