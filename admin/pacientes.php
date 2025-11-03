@@ -4,6 +4,18 @@
     include_once("./abml/lectura.php");
 ?>
 <main id="main-pacientes">
+    <?php
+        if (isset($_GET["alta"])) {
+            echo "<div class='alert alert-success' role='alert'>
+                    Paciente cargado $_GET[alta]  
+                </div>";
+        }
+        if (isset($_GET["baja"])) {
+            echo "<div class='alert alert-danger' role='alert'>
+                    Se dio de baja al paciente $_GET[baja]  
+                </div>";
+        }
+    ?>
     <section>
         <article id="article-buttons">
             <button class="d-flex align-items-center" id="button-alta">
@@ -17,18 +29,6 @@
     </section>
     <section id="section-alta-pacientes">
         <article class="container" id="article-alta-pacientes"> 
-            <?php
-                if (isset($_GET["alta"])) {
-                    echo "<div class='alert alert-success' role='alert'>
-                            Paciente cargado $_GET[alta]  
-                        </div>";
-                }
-                if (isset($_GET["baja"])) {
-                    echo "<div class='alert alert-danger' role='alert'>
-                            Se dio de baja al paciente $_GET[baja]  
-                        </div>";
-                }
-            ?>
             <form class="container-fluid" id="form-alta" action="./abml/alta.php" method="post" enctype="multipart/form-data">
                 <div class="row">
                     <input class="col-6" type="text" name="nombre" id="nombre" placeholder="Ingresa el nombre">

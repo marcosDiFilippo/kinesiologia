@@ -61,6 +61,8 @@
     }   
     function realizarAltaSesion ($detalles, $imagen, $fk_persona, $fk_horario, $fk_estado, $monto, $conexion, $lecturaSesiones) : int {
 
+        var_dump($imagen);
+
         $temp = $imagen["tmp_name"];
         $nombreImagen = time() . ".jpg";
 

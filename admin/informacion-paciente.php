@@ -39,10 +39,10 @@
                         }
                         echo "<hr>";
                         echo "<div>";
-                        echo "<h2>Sesion</h2>";
-                        echo "<ul>";
-                        echo "<li>Detalles: $sesion[detalles]</li>";
-                        echo "</ul>";
+                            echo "<h2>Sesion</h2>";
+                                echo "<ul>";
+                                    echo "<li>Detalles: $sesion[detalles]</li>";
+                                echo "</ul>";
                         
                         $idSesion = $sesion["id_sesiones"];
 
@@ -72,8 +72,8 @@
                         if ($estado = mysqli_fetch_array($resultadoEstado)) {
                             echo "<h3>Estado: $estado[nombre]</h3>";
                         }
-                        echo "<img src='../imagenes-subidas/$sesion[imagen]' alt=''>";
                         echo "</div>";
+                        echo "<img src='../imagenes-subidas/$sesion[imagen]' alt=''>";
                     }
                 }
                 else {
