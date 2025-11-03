@@ -87,7 +87,7 @@ tr:hover {
     padding: 0.5rem 1rem;
 }
 
-#form-alta {
+#form-alta, #form-modificacion {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -135,4 +135,8 @@ textarea {
 #cerrar.visible svg {
     width: 50px;
     height: auto;
+}
+
+.marcar-completado {
+    background-color: #44c444;
 }

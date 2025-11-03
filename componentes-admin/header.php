@@ -8,9 +8,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <link rel="stylesheet" href="../css-admin/main.css">
-    <?php
-        include_once("../librerias/bootstrap-css.php");
+    <?php 
+        $linkCss = "<link rel='stylesheet' href='../css-admin/main.css'>";
+        $rutaAbml = false;
+        $rutaTratamientos;
+        $rutaPacientes;
+        $rutaAdministradores;
+        $rutaCerrarSesion;
+
+        if (str_contains($_SERVER["PHP_SELF"], "abml")) {
+            include_once("../../librerias/bootstrap-css.php");
+            $rutaTratamientos = "../tratamientos.php";
+            $rutaPacientes = "../pacientes.php";
+            $rutaAdministradores = "../administradores.php";
+            $rutaCerrarSesion = "../../log/cerrarSesion.php";
+
+            $rutaAbml = true;
+            $linkCss = "<link rel='stylesheet' href='../../css-admin/main.css'>";
+        }
+        else {
+            include_once("../librerias/bootstrap-css.php");
+            $rutaTratamientos = "../admin/tratamientos.php";
+            $rutaPacientes = "../admin/pacientes.php";
+            $rutaAdministradores = "../admin/administradores.php";
+            $rutaCerrarSesion = "../log/cerrarSesion.php";
+        }
+        echo $linkCss;
     ?>
 </head>
 <body>
@@ -22,10 +45,10 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                        <a class="nav-link active" aria-current="page" href="../admin/tratamientos.php">Tratamientos</a>
-                        <a class="nav-link" href="../admin/pacientes.php">Pacientes</a>
-                        <a class="nav-link" href="../admin/administradores.php">Administradores</a>
-                        <a class="nav-link" href="../log/cerrarSesion.php">Cerrar Sesion</a>
+                        <a class="nav-link active" aria-current="page" href=<?php echo $rutaTratamientos?>>Tratamientos</a>
+                        <a class="nav-link" href=<?php echo $rutaPacientes?>>Pacientes</a>
+                        <a class="nav-link" href=<?php echo $rutaAdministradores?>>Administradores</a>
+                        <a class="nav-link" href=<?php echo $rutaCerrarSesion?>>Cerrar Sesion</a>
                     </div>
                 </div>
             </div>
