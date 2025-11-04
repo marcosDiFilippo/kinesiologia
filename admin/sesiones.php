@@ -4,9 +4,9 @@
     include_once("./abml/lectura.php");
 ?>
     <main>
-        <section>
-            <article>
-                <form action="./abml/alta-sesion.php" enctype="multipart/form-data" method="post">
+        <section id="section-form">
+            <article id="article-form">
+                <form class="container-fluid" action="./abml/alta-sesion.php" enctype="multipart/form-data" method="post">
                     <p>
                         Elija el usuario con el que quiere realizar la sesion
                     </p>
@@ -27,7 +27,7 @@
                         </div>
                         <div class="col-6 d-flex flex-column"">
                             <label for="hora">Horario</label>
-                            <input type="time" name="hora" id="hora" placeholder="Ingrese horario de la consulta">
+                            <input type="time" name="hora" placeholder="Ingrese horario de la consulta">
                         </div>
                     </div>
                     <hr>
@@ -86,6 +86,7 @@
                         <label for="imagen">Ingrese la imagen relacionada a la sesion</label>
                         <input type="file" name="imagen" id="imagen" required>
                     </div>
+                    <input type="submit" value="Cargar sesion">
                 </form>
             </article>
         </section>
@@ -99,17 +100,20 @@
                         <th>
                             Paciente
                         </th>
-                        <th>
+                        <th class="columna-fecha">
                             Fecha
-                        </th>
-                        <th>
-                            Horario
                         </th>
                         <th>
                             Monto
                         </th>
                         <th>
                             Estado
+                        </th>
+                        <th class="columna-tratamientos">
+                            Tratamientos
+                        </th>
+                        <th>
+                            Detalles
                         </th>
                     </thead>
                     <tbody>
@@ -118,24 +122,80 @@
                             
                             while($sesion = mysqli_fetch_array($sesiones)) {
                                 $lecturaUsuarios = "SELECT * FROM `personas`";
+                                $lecturaHorarios = "SELECT * FROM `fechas_horas`";
+                                $lecturaEstados = "SELECT * FROM `estados_sesiones`";
+                                $lecturaSesionesTratamientos = "SELECT * FROM `sesiones_tratamientos`";
+
                                 echo "<tr>";
+                                echo "<td class='td-imagen'>
+                                        <img class='imagen-alta' src='../imagenes-subidas/$sesion[imagen]' alt=''>
+                                    </td>";
                                 $lecturaUsuarios .= "WHERE `id_personas`='$sesion[fk_personas]'";
                                 $usuarios = mysqli_query($conexion,$lecturaUsuarios);
+
                                 if ($usuario = mysqli_fetch_array($usuarios)) {
-                                    echo "<td>$usuario[nombre] $usuario[apellido]</td>";
+                                    echo "<td><p>$usuario[nombre] $usuario[apellido]</p></td>";
                                 }
-                                    echo "<td></td>";
-                                    echo "<td></td>";
-                                    echo "<td></td>";
-                                    echo "<td></td>";
-                                    echo "<td></td>";
+                                $lecturaHorarios .= "WHERE `id_fechas_horas`='$sesion[fk_fechas_horas]'";
+                                $horarios = mysqli_query($conexion,$lecturaHorarios);
+
+                                if ($horario = mysqli_fetch_array($horarios)) {
+                                    echo "<td class='columna-fecha'><p>$horario[fecha] - $horario[hora] </p></td>";
+                                }
+                                $lecturaEstados .= " WHERE `id_estado`='$sesion[fk_estado_sesion]'";
+                                $estados = mysqli_query($conexion,$lecturaEstados);
+
+                                echo "<td><p>$sesion[monto]</p></td>";
+                                $estadoActual;
+                                if ($estado = mysqli_fetch_array($estados)) {
+                                    echo "<td>";
+                                    echo "<p>$estado[nombre]</p>";
+                                    $estadoActual = $estado["nombre"];
+                                    /*
+                                    if ($estado["nombre"] != "completado") {
+                                        echo "<a href=''>Marcar como completado</a>";
+                                    }
+                                    */
+                                    echo "</td>";
+                                }
+                                $lecturaSesionesTratamientos .= " WHERE `fk_sesiones`='$sesion[id_sesiones]'";
+                                $sesionesTratamientos = mysqli_query($conexion,$lecturaSesionesTratamientos);
+                                echo "<td class='columna-tratamientos'>";
+                                while ($sesionTratamiento = mysqli_fetch_array($sesionesTratamientos)) {
+                                    $lecturaTratamientos = "SELECT * FROM `tratamientos`";
+                                    $lecturaTratamientos .= " WHERE `id_tratamientos`='$sesionTratamiento[fk_tratamientos]'";
+                                    $tratamientos = mysqli_query($conexion,$lecturaTratamientos);
+                                    if ($tratamiento = mysqli_fetch_array($tratamientos)) {
+                                        echo "<p>$tratamiento[nombre]</p>";
+                                    }
+                                }
+                                $verDetalles = $sesion["detalles"];
+                                if (empty($verDetalles) || $verDetalles == null) {
+                                    $verDetalles = "Ninguno";
+                                }
+                                else {
+                                    $verDetalles = "<a href='informacion-sesion.php?id=$sesion[id_sesiones]'>Ver Detalles</a>";
+                                }
+                                if ($estadoActual != "completada") {
+                                    $marcarCompletada = "<a class='marcar-completada' href=''>
+                                    <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='icon icon-tabler icons-tabler-outline icon-tabler-check'><path stroke='none' d='M0 0h24v24H0z' fill='none'/><path d='M5 12l5 5l10 -10' /></svg>
+                                    <span>Marcar como completada</span>
+                                    </a>";
+                                }
+                                else {
+                                    $marcarCompletada = "";
+                                }
+                                echo "</td>";
+                                echo "<td class='td-detalles'>
+                                        $verDetalles
+                                        $marcarCompletada
+                                        </td>";
                                 echo "</tr>";
                             }
                         ?>
                     </tbody>
-                </table>
             </article>
-        </section>
+        </section><p>
     </main>
 <script src="../js-admin/script.js"></script>
 <?php

@@ -10,7 +10,6 @@
             empty($metodoPago) or
             empty($tratamientoss) or
             empty($idUsuario) or
-            empty($detalles) or
             empty($imagen)
         ) {
             header("Location: ../pacientes.php?campos=vacios");
