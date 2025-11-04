@@ -15,6 +15,7 @@
         $rutaPacientes;
         $rutaAdministradores;
         $rutaCerrarSesion;
+        $rutaSesiones;
 
         if (str_contains($_SERVER["PHP_SELF"], "abml")) {
             include_once("../../librerias/bootstrap-css.php");
@@ -22,6 +23,7 @@
             $rutaPacientes = "../pacientes.php";
             $rutaAdministradores = "../administradores.php";
             $rutaCerrarSesion = "../../log/cerrarSesion.php";
+            $rutaSesiones = "../sesiones.php";
 
             $rutaAbml = true;
             $linkCss = "<link rel='stylesheet' href='../../css-admin/main.css'>";
@@ -32,6 +34,7 @@
             $rutaPacientes = "../admin/pacientes.php";
             $rutaAdministradores = "../admin/administradores.php";
             $rutaCerrarSesion = "../log/cerrarSesion.php";
+            $rutaSesiones = "../admin/sesiones.php";
         }
         echo $linkCss;
     ?>
@@ -47,6 +50,7 @@
                     <div class="navbar-nav">
                         <a class="nav-link active" aria-current="page" href=<?php echo $rutaTratamientos?>>Tratamientos</a>
                         <a class="nav-link" href=<?php echo $rutaPacientes?>>Pacientes</a>
+                        <a class="nav-link" href=<?php echo $rutaSesiones?>>Sesiones</a>
                         <a class="nav-link" href=<?php echo $rutaAdministradores?>>Administradores</a>
                         <a class="nav-link" href=<?php echo $rutaCerrarSesion?>>Cerrar Sesion</a>
                     </div>

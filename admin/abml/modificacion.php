@@ -5,6 +5,44 @@
     if (isset($_GET["id"])) {
         $id = $_GET["id"];
     }   
+    /*
+    $nombre;
+    $apellido; 
+    $dni; 
+    $fechaNacimiento; 
+    $email; 
+    $telefono; 
+    */
+    $fecha; 
+    $hora; 
+    $metodoPago; 
+    $monto; 
+    $estado; 
+    $tratamientoss; 
+    $detalles; 
+    $imagen;
+    $fk_persona;
+
+    $lecturaSesiones .= " WHERE `id_sesiones`='$id'";
+
+    $sesiones = mysqli_query($conexion, $lecturaSesiones);
+
+    if ($sesion = mysqli_fetch_array($sesiones)) {
+        $fk_persona = $sesion["fk_personas"];
+    }
+    /*
+    $lecturaUsuarios .= " WHERE `id_personas`='$fk_persona'";
+    $usuarios = mysqli_query($conexion, $lecturaUsuarios);
+    
+    if ($usuario = mysqli_fetch_array($usuarios)) {
+        $nombre = $usuario["nombre"];
+        $apellido = $usuario["apellido"];
+        $dni = $usuario["dni"];
+        $fechaNacimiento = $usuario["fecha_nacimiento"];
+        $email = $usuario["email"];
+        $telefono = $usuario["telefono"];
+    }
+    */
 ?>
 <main>
     <section>
@@ -28,6 +66,14 @@
                     <input class="col-6" type="email" name="email" id="email" placeholder="Ingrese el email" autocomplete="additional-name">
                     <input class="col-6" type="number" name="telefono" id="telefono" placeholder="Ingrese el telefono">
                 </div>
+                <div>
+                    <button id="submit-modificar" class="btn btn-primary col-6" type="submit" value="Modificar Paciente">Modificar Paciente</button>
+                </div>
+            </form>
+                <?php
+                    /*
+                    
+                ?>
                 <div class="row">   
                     <div class="col-6 d-flex flex-column">
                         <label for="fecha">Fecha Consulta</label>
@@ -94,14 +140,11 @@
                     <label for="imagen">Ingrese la imagen relacionada a la sesion</label>
                     <input type="file" name="imagen" id="imagen" required>
                 </div>
-                <div>
-                    <button id="submit-modificar" class="btn btn-primary col-6" type="submit" value="Modificar Paciente">Modificar Paciente</button>
-                </div>
-            </form>
         </article>
     </section>
 </main>
 <script src="../../librerias/bootstrap-js"></script>
 <?php
+    */
     include_once("../../componentes-admin/footer.php");
 ?>

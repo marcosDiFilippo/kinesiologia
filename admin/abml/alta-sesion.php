@@ -1,48 +1,22 @@
 <?php
     include_once("../../componentes/config/config.php");
     include_once("./lectura.php");
-    function validarSubida ($nombre, $apellido, $dni, $fechaNacimiento, $email, $telefono, $fecha, $hora, $metodoPago, $monto, $estado, $tratamientoss, $conexion, $lecturaUsuarios, $detalles, $lecturaHorarios, $imagen) : bool {
+    function validarSubida ($fecha, $hora, $metodoPago, $monto, $estado, $tratamientoss, $idUsuario, $detalles, $imagen) : bool {
         if (
-            empty($nombre) or
-            empty($apellido) or
-            empty($dni) or
-            empty($fechaNacimiento) or
-            empty($email) or
-            empty($telefono) or
             empty($fecha) or
             empty($hora) or
             empty($monto) or
             empty($estado) or
             empty($metodoPago) or
-            empty($tratamientoss)
+            empty($tratamientoss) or
+            empty($idUsuario) or
+            empty($detalles) or
+            empty($imagen)
         ) {
             header("Location: ../pacientes.php?campos=vacios");
             return false;
         }
-        if  (!str_contains($email,"@")) {
-            header("Location: ../pacientes.php?email=no");
-            return false;
-        }
-        $lecturaUsuarios .= " WHERE `email`='$email' or `dni`='$dni'";
-        $usuarios = mysqli_query($conexion, $lecturaUsuarios);
-
-        if ($usuario = mysqli_fetch_array($usuarios)) {
-            header("Location: ../pacientes.php?campos=existentes");
-            return false;
-        }
         return true;
-    }
-    function realizarAltaPaciente ($nombre, $apellido, $dni, $fechaNacimiento, $email, $telefono, $conexion) {
-        mysqli_query($conexion,"INSERT INTO `personas`(`nombre`, `apellido`, `dni`, `fecha_nacimiento`, `telefono`, `email`, `fk_rol`) VALUES ('$nombre','$apellido','$dni','$fechaNacimiento','$telefono','$email',3)");
-
-        $resultadoUsuario = mysqli_query($conexion,"SELECT * FROM  `personas` WHERE `email`='$email'");
-
-        $fk_persona = 0;
-        if ($usuario = mysqli_fetch_array($resultadoUsuario)) {
-            $fk_persona = $usuario["id_personas"];
-        }
-        
-        return $fk_persona;
     }
     function validarAltaHorarios ($lecturaHorarios, $fecha, $hora, $conexion) : int {
         $lecturaHorarios .= " WHERE `fecha`='$fecha' and `hora`='$hora'";
@@ -87,12 +61,6 @@
     }
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (
-            isset($_POST["nombre"]) &&
-            isset($_POST["apellido"]) &&
-            isset($_POST["dni"]) &&
-            isset($_POST["fecha-nacimiento"]) &&
-            isset($_POST["email"]) &&
-            isset($_POST["telefono"]) &&
             isset($_POST["fecha"]) &&
             isset($_POST["hora"]) &&
             isset($_POST["metodos-pago"]) &&
@@ -103,17 +71,7 @@
         ) {
             $flag;
 
-            $nombre = htmlspecialchars($_POST["nombre"]);
-
-            $apellido = htmlspecialchars($_POST["apellido"]);
-
-            $dni = htmlspecialchars($_POST["dni"]);
-
-            $fechaNacimiento = htmlspecialchars($_POST["fecha-nacimiento"]);
-
-            $email = htmlspecialchars($_POST["email"]);
-
-            $telefono = htmlspecialchars($_POST["telefono"]);
+            $idUsuario = htmlspecialchars($_POST["id-usuario"]);
 
             $fecha = htmlspecialchars($_POST["fecha"]);
 
@@ -135,35 +93,18 @@
 
             $imagen = $_FILES["imagen"];
 
-            $flag = validarSubida($nombre,
-            $apellido, 
-            $dni, 
-            $fechaNacimiento, 
-            $email, 
-            $telefono, 
+            $flag = validarSubida(
             $fecha, 
             $hora, 
             $metodoPago, 
             $monto, 
             $estado, 
             $tratamientoss, 
-            $conexion, 
-            $lecturaUsuarios, 
+            $idUsuario,
             $detalles, 
-            $lecturaHorarios,
             $imagen);
 
             if ($flag == true) {
-                $fk_persona = realizarAltaPaciente(
-                    $nombre, 
-                    $apellido, 
-                    $dni, 
-                    $fechaNacimiento, 
-                    $email, 
-                    $telefono, 
-                    $conexion
-                );
-
                 $fk_horario_aux = validarAltaHorarios(
                     $lecturaHorarios,
                     $fecha, 
@@ -187,7 +128,17 @@
                     }
                 }
 
-                $fk_sesion = realizarAltaSesion($detalles, $imagen, $fk_persona, $fk_horario, $estado, $monto, $conexion, $lecturaSesiones);
+                $fk_persona = $idUsuario;
+
+                $fk_sesion = realizarAltaSesion(
+                    $detalles, 
+                    $imagen, 
+                    $fk_persona, 
+                    $fk_horario, 
+                    $estado, 
+                    $monto, 
+                    $conexion, 
+                    $lecturaSesiones);
                 
                 realizarAltaPago($metodoPago, $fk_sesion, $conexion);
 

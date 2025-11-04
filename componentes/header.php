@@ -19,20 +19,12 @@
                 <a class="navbar-brand" href="../paginas/index.php">
                     <img id="logo" src="../imagenes/logo-kine.webp" alt="logo">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
-                        <!--<li class="nav-item">
-                            <a class="nav-link" href="#">
-                                Features
-                            </a>
-                        </li>-->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Tipos de tratamientos
-                            </a>
+                            </button>
                             <ul class="dropdown-menu">
                                 <?php
                                     $tratamientos = mysqli_query($conexion, $lecturaTratamientos);

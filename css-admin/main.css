@@ -57,17 +57,6 @@ tr:hover {
     text-align: center;
 }
 
-#section-alta-pacientes {
-    display: none;
-    position: relative;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 3;
-    transition: all 1s ease;
-}
-
 #section-alta-pacientes.visible {
     display: flex;
     padding: 2rem;
@@ -122,21 +111,4 @@ textarea {
 
 #article-buttons button {
     z-index: 4;
-}
-
-#cerrar {
-    display: none;
-}
-
-#cerrar.visible {
-    display: block;
-    border: none;
-}
-#cerrar.visible svg {
-    width: 50px;
-    height: auto;
-}
-
-.marcar-completado {
-    background-color: #44c444;
 }
