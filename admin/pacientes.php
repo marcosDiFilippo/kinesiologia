@@ -1,4 +1,8 @@
 <?php
+    session_start();
+    if ($_SESSION == NULL) {
+        header("Location: ../paginas/index.php");
+    }
     include_once("../componentes-admin/header.php");
     include_once("../componentes/config/config.php");
     include_once("./abml/lectura.php");
@@ -20,19 +24,22 @@
         <article class="container" id="article-alta-pacientes"> 
             <form class="container-fluid" id="form-alta" action="./abml/alta-paciente.php" method="post">
                 <div class="row">
-                    <input class="col-6" type="text" name="nombre" id="nombre" placeholder="Ingresa el nombre">
-                    <input class="col-6" type="text" name="apellido" id="apellido" placeholder="Ingresa el apellido">
-                </div>
-                <div>
-                    <label for="fecha-nacimiento">Fecha Nacimiento</label>
-                    <div class="row"> 
-                        <input class="col-6" type="date" name="fecha-nacimiento" id="fecha-nacimiento">
-                        <input class="col-6" type="number" name="dni" id="dni" placeholder="Ingrese el dni">
+                    <div class="col-6 text-start">
+                        <label for="nombre">Nombre:</label>
+                        <input class="col-11" type="text" name="nombre" id="nombre" placeholder="Ingresa el nombre">
+                        <label for="fecha-nacimiento">Fecha Nacimiento</label>
+                        <input class="col-11" type="date" name="fecha-nacimiento" id="fecha-nacimiento">
+                        <label class="label-email" for="email">Email:</label>
+                        <input class="col-11" type="email" name="email" id="email" placeholder="Ingrese el email" autocomplete="additional-name">
                     </div>
-                </div>
-                <div class="row">
-                    <input class="col-6" type="email" name="email" id="email" placeholder="Ingrese el email" autocomplete="additional-name">
-                    <input class="col-6" type="number" name="telefono" id="telefono" placeholder="Ingrese el telefono">
+                    <div class="col-6">
+                        <label for="apellido">Apellido:</label>
+                        <input class="col-12" type="text" name="apellido" id="apellido" placeholder="Ingresa el apellido">
+                        <label for="dni">Dni:</label>
+                        <input class="col-12" type="number" name="dni" id="dni" placeholder="Ingrese el dni">
+                        <label for="telefono">Telefono:</label>
+                        <input class="col-12" type="number" name="telefono" id="telefono" placeholder="Ingrese el telefono">
+                    </div>
                 </div>
                 <div>
                     <button id="submit-alta" class="btn btn-primary col-6" type="submit" value="Cargar Paciente">Cargar Paciente</button>

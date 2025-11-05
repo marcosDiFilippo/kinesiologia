@@ -26,6 +26,7 @@
 
             if ($usuario = mysqli_fetch_array($usuarios)) {
                 if ($usuario["email"] === $email) {
+                    $_SESSION = $usuario;
                     header("Location: ../admin/index.php");
                 }
                 else {

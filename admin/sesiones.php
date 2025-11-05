@@ -1,4 +1,8 @@
 <?php
+    session_start();
+    if ($_SESSION == NULL) {
+        header("Location: ../paginas/index.php");
+    }
     include_once("../componentes-admin/header.php");
     include_once("../componentes/config/config.php");
     include_once("./abml/lectura.php");
@@ -151,11 +155,7 @@
                                     echo "<td>";
                                     echo "<p>$estado[nombre]</p>";
                                     $estadoActual = $estado["nombre"];
-                                    /*
-                                    if ($estado["nombre"] != "completado") {
-                                        echo "<a href=''>Marcar como completado</a>";
-                                    }
-                                    */
+                                    
                                     echo "</td>";
                                 }
                                 $lecturaSesionesTratamientos .= " WHERE `fk_sesiones`='$sesion[id_sesiones]'";
@@ -177,13 +177,13 @@
                                     $verDetalles = "<a href='informacion-sesion.php?id=$sesion[id_sesiones]'>Ver Detalles</a>";
                                 }
                                 if ($estadoActual != "completada") {
-                                    $marcarCompletada = "<a class='marcar-completada' href=''>
+                                    $marcarCompletada = "<a class='marcar-completada' href='./abml/procesar-modificacion.php?idC=$sesion[id_sesiones]'>
                                     <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='icon icon-tabler icons-tabler-outline icon-tabler-check'><path stroke='none' d='M0 0h24v24H0z' fill='none'/><path d='M5 12l5 5l10 -10' /></svg>
                                     <span>Marcar como completada</span>
                                     </a>";
                                 }
                                 else {
-                                    $marcarCompletada = "";
+                                    $marcarCompletada = "<svg xmlns='http://www.w3.org/2000/svg' width='30' height='35' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='icon icon-tabler icons-tabler-outline icon-tabler-checks'><path stroke='none' d='M0 0h24v24H0z' fill='none'/><path d='M7 12l5 5l10 -10' /><path d='M2 12l5 5m5 -5l5 -5' /></svg><span class='completada'>Completada</span>";
                                 }
                                 echo "</td>";
                                 echo "<td class='td-detalles'>

@@ -1,0 +1,46 @@
+#form-alta {
+    display: flex;
+}
+
+.label-email {
+    margin-left: 0.4rem;
+}
+
+#section-alta-pacientes {
+    display: flex;
+    padding: 2rem;
+    background-color: rgba(0, 0, 0, 0.11);
+}
+
+#article-alta-pacientes {
+    position: relative;
+    width: 100%;
+}
+
+#button-alta {
+    background-color: rgba(0, 0, 255, 0.692);
+    color: aliceblue;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+}
+
+.links-pacientes {
+    border-radius: 5px;
+    padding: 0.3rem 1rem;
+    color: aliceblue;
+    text-decoration: none;
+    margin-top: 1rem;
+}
+
+.modificar-paciente {
+    background-color: rgba(4, 18, 141, 0.788);
+}
+
+.eliminar-paciente {
+    background-color: rgba(255, 0, 0, 0.76);
+}
+
+#submit-alta {
+    width: 45%;
+}

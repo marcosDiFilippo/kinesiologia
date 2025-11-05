@@ -1,6 +1,10 @@
-    <?php
+<?php
+    session_start();
+    if ($_SESSION == NULL) {
+        header("Location: ../paginas/index.php");
+    }
         include_once("../componentes-admin/header.php");
-    ?>
+?>
     <main>
         <section>
             <article>
@@ -10,8 +14,8 @@
             </article>
         </section>
     </main>
-    <?php
-        include_once("../librerias/bootstrap-js.php");
-    ?>
+<?php
+    include_once("../librerias/bootstrap-js.php");
+?>
 </body>
 </html>

@@ -9,6 +9,14 @@
     <title>Document</title>
 
     <?php 
+        if (str_contains($_SERVER["PHP_SELF"], "sesiones.php")) {
+            $cssPaginas = "<link rel='stylesheet' href='../css-admin/sesiones.css'>";
+        }
+        else if (str_contains($_SERVER["PHP_SELF"],"pacientes.php")) {
+            $cssPaginas = "<link rel='stylesheet' href='../css-admin/pacientes.css'>";
+        }
+        echo $cssPaginas;
+
         $linkCss = "<link rel='stylesheet' href='../css-admin/main.css'>";
         $rutaAbml = false;
         $rutaTratamientos;
