@@ -41,7 +41,7 @@ tr:hover {
     text-align: center;
 }
 
-#form-alta, #form-modificacion {
+#form-alta, .form-modificacion {
     display: flex;
     flex-direction: column;
     justify-content: center;

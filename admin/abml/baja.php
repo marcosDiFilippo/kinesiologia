@@ -9,9 +9,9 @@
     $bajaSesion;
     $bajaTratamiento;
     
-    if (isset($_GET["id"])) {
-        if (!empty($_GET["id"])) {
-            $id = htmlspecialchars($_GET["id"]);
+    if (isset($_GET["idU"])) {
+        if (!empty($_GET["idU"])) {
+            $id = htmlspecialchars($_GET["idU"]);
             $lecturaUsuarios .= " WHERE `id_personas`='$id'";
             
             $resultadoUsuario = mysqli_query($conexion, $lecturaUsuarios);

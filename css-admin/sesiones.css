@@ -88,6 +88,10 @@ textarea {
     font-size: 0.95rem;
 }
 
+.form-modificacion {
+    max-width: 1000px;
+}
+
 .div-checkbox {
     display: flex;
     align-items: center;
