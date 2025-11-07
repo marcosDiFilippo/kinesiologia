@@ -2,10 +2,6 @@
     display: flex;
 }
 
-.label-email {
-    margin-left: 0.4rem;
-}
-
 #section-alta-pacientes {
     display: flex;
     padding: 2rem;

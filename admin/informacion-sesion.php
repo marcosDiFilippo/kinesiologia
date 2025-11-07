@@ -71,7 +71,7 @@
     ?>
     <header>
         <nav>
-            <a href="sesiones.php">Volver atras</a>
+            <a class="volver-atras" href="sesiones.php">Volver atras</a>
         </nav>
     </header>
     <main>

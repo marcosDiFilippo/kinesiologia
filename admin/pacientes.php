@@ -24,25 +24,28 @@
         <article class="container" id="article-alta-pacientes"> 
             <form class="container-fluid" id="form-alta" action="./abml/alta-paciente.php" method="post">
                 <div class="row">
+                    <input type="hidden" name="id_paciente" value="<?php echo $idPersona?>">
+                </div>
+                <div class="row">
                     <div class="col-6 text-start">
                         <label for="nombre">Nombre:</label>
-                        <input class="col-11" type="text" name="nombre" id="nombre" placeholder="Ingresa el nombre">
+                        <input class="col-11 input-paciente" type="text" name="nombre" id="nombre" placeholder="Ingresa el nombre">
                         <label for="fecha-nacimiento">Fecha Nacimiento</label>
-                        <input class="col-11" type="date" name="fecha-nacimiento" id="fecha-nacimiento">
-                        <label class="label-email" for="email">Email:</label>
-                        <input class="col-11" type="email" name="email" id="email" placeholder="Ingrese el email" autocomplete="additional-name">
+                        <input class="col-11 input-paciente" type="date" name="fecha-nacimiento" id="fecha-nacimiento">
+                        <label class="ms-2" for="email">Email:</label>
+                        <input class="col-11 input-paciente" type="email" name="email" id="email" placeholder="Ingrese el email" autocomplete="additional-name">
                     </div>
                     <div class="col-6">
                         <label for="apellido">Apellido:</label>
-                        <input class="col-12" type="text" name="apellido" id="apellido" placeholder="Ingresa el apellido">
+                        <input class="col-12 input-paciente" type="text" name="apellido" id="apellido" placeholder="Ingresa el apellido">
                         <label for="dni">Dni:</label>
-                        <input class="col-12" type="number" name="dni" id="dni" placeholder="Ingrese el dni">
+                        <input class="col-12 input-paciente" type="number" name="dni" id="dni" placeholder="Ingrese el dni">
                         <label for="telefono">Telefono:</label>
-                        <input class="col-12" type="number" name="telefono" id="telefono" placeholder="Ingrese el telefono">
+                        <input class="col-12 input-paciente" type="number" name="telefono" id="telefono" placeholder="Ingrese el telefono">
                     </div>
                 </div>
                 <div>
-                    <button id="submit-alta" class="btn btn-primary col-6" type="submit" value="Cargar Paciente">Cargar Paciente</button>
+                    <button id="submit-modificar" class="btn btn-primary col-6" type="submit" value="Cargar Paciente">Cargar Paciente</button>
                 </div>
             </form>
         </article>

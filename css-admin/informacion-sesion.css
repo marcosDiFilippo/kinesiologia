@@ -8,7 +8,7 @@ nav {
     align-items: center;
 }
 
-a {
+.volver-atras {
     text-decoration: none;
     padding: 2rem !important;
     color: black;

@@ -76,7 +76,7 @@
                             while($tratamiento = mysqli_fetch_array($tratamientos)) {
                                 echo "<div class='div-checkbox col-2'>";
                                 echo "<input type='checkbox' name='tratamientos[]' id='$tratamiento[nombre]' value='$tratamiento[id_tratamientos]'>";
-                                echo "<label class='label-checkbox' for='$tratamiento[nombre]'>$tratamiento[nombre]</label>";
+                                echo "<label class='label-checkbox m-0' for='$tratamiento[nombre]'>$tratamiento[nombre]</label>";
                                 echo "</div>";
                             }
                         ?>
@@ -112,9 +112,6 @@
                         </th>
                         <th>
                             Estado
-                        </th>
-                        <th class="columna-tratamientos">
-                            Tratamientos
                         </th>
                         <th>
                             Detalles
@@ -160,6 +157,7 @@
                                 }
                                 $lecturaSesionesTratamientos .= " WHERE `fk_sesiones`='$sesion[id_sesiones]'";
                                 $sesionesTratamientos = mysqli_query($conexion,$lecturaSesionesTratamientos);
+                                /*
                                 echo "<td class='columna-tratamientos'>";
                                 while ($sesionTratamiento = mysqli_fetch_array($sesionesTratamientos)) {
                                     $lecturaTratamientos = "SELECT * FROM `tratamientos`";
@@ -169,6 +167,7 @@
                                         echo "<p>$tratamiento[nombre]</p>";
                                     }
                                 }
+                                */
                                 $verDetalles = $sesion["detalles"];
                                 if (empty($verDetalles) || $verDetalles == null) {
                                     $verDetalles = "Ninguno";

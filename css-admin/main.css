@@ -7,6 +7,19 @@ a {
     text-decoration: none;
 }
 
+.volver-atras {
+    text-decoration: none;
+    padding: 2rem !important;
+    color: black;
+    font-size: 1.5rem;
+}
+
+.input-paciente {
+    padding: 0.6rem 1rem !important;
+    border: 1px solid rgba(0, 0, 0, 0.13);
+    border-radius: 8px;
+}
+
 .td-links {
     display: flex;
     column-gap: 1rem;
