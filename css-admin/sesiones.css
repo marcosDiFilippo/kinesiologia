@@ -25,6 +25,14 @@ td p {
     background-color: none;
 }
 
+.columna-usuario {
+    max-width: 200px;
+}
+
+.columna-usuario > p {
+    margin-left: 1rem;
+}
+
 .columna-fecha {
     width: 270px;
 }

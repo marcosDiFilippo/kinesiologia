@@ -8,6 +8,10 @@ nav {
     align-items: center;
 }
 
+.section-sesion {
+    display: flex;
+}
+
 .volver-atras {
     text-decoration: none;
     padding: 2rem !important;
@@ -35,8 +39,12 @@ img {
     flex-direction: column;
     justify-content: left;
     align-items: baseline;
-    row-gap: 0.5rem;
+    row-gap: 1rem;
     padding: 1rem !important;
+    overflow-x: hidden;
+    max-width: 100%;
+    box-sizing: border-box;
+    max-width: 700px !important;
 }
 
 .text-body-secondary {
@@ -53,4 +61,12 @@ span {
     height: 0.2px;
     width: 100%;
     border-radius: 1rem;
+}
+
+.card-text {
+    display: block !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+    box-sizing: border-box !important;
 }

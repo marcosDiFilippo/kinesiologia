@@ -70,7 +70,7 @@
                     <div class="col-6 text-start">
                         <label for="nombre">Nombre:</label>
                         <input class="col-11 input-paciente" type="text" name="nombre" id="nombre" placeholder="Ingresa el nombre" value="<?php echo "$nombre"?>">
-                        <label for="fecha-nacimiento">Fecha Nacimiento</label>
+                        <label for="fecha-nacimiento">Fecha Nacimiento:</label>
                         <input class="col-11 input-paciente" type="date" name="fecha-nacimiento" id="fecha-nacimiento" value="<?php echo $fechaNacimiento?>">
                         <label class="ms-2" for="email">Email:</label>
                         <input class="col-11 input-paciente" type="email" name="email" id="email" placeholder="Ingrese el email" autocomplete="additional-name" value="<?php echo $email?>">

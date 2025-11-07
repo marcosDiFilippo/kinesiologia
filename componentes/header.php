@@ -42,8 +42,8 @@
                     </ul>
                 </div>
             </div>
-            <div>
-                <a href="login.php">Iniciar Sesion</a>
+            <div class="div-sesion">
+                <a class="iniciar-sesion" href="login.php">Iniciar Sesion</a>
             </div>
         </nav>
     </header>

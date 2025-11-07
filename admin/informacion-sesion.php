@@ -24,35 +24,37 @@
 
             $rutaImagen;
             $usuarioSesion;
-            $horarioSesion;
+            $fecha;
+            $hora;
             $estadoSesion;
-            $tratamientosSesion = "<p><span>Tratamientos:</span> ";
+            $tratamientosSesion = "<span>Tratamientos:</span> ";
             $montoSesion;
             $detallesSesion;
 
             if ($sesion = mysqli_fetch_array($sesiones)) {
                 $rutaImagen = "../imagenes-subidas/$sesion[imagen]";
                 
-                $detallesSesion = "<p><span>Detalles:</span> $sesion[detalles]</p>";
+                $detallesSesion = "<span>Detalles:</span> $sesion[detalles]";
 
                 $lecturaUsuarios .= "WHERE `id_personas`='$sesion[fk_personas]'";
                 $usuarios = mysqli_query($conexion,$lecturaUsuarios);
 
                 if ($usuario = mysqli_fetch_array($usuarios)) {
-                    $usuarioSesion = "<p><span>Paciente:</span> $usuario[nombre] $usuario[apellido]</p>";
+                    $usuarioSesion = "<span>Paciente:</span> $usuario[nombre] $usuario[apellido]";
                 }
                 $lecturaHorarios .= "WHERE `id_fechas_horas`='$sesion[fk_fechas_horas]'";
                 $horarios = mysqli_query($conexion,$lecturaHorarios);
 
                 if ($horario = mysqli_fetch_array($horarios)) {
-                    $horarioSesion = "<p><span>Fecha y hora:</span> $horario[fecha]   -   $horario[hora]</p>";
+                    $fecha = "<span>Fecha: </span> $horario[fecha]";
+                    $hora = "<span>Hora: </span> $horario[hora]";
                 }
                 $lecturaEstados .= " WHERE `id_estado`='$sesion[fk_estado_sesion]'";
                 $estados = mysqli_query($conexion,$lecturaEstados);
 
-                $montoSesion = "<p>$ $sesion[monto]</p>";
+                $montoSesion = "$ $sesion[monto]";
                 if ($estado = mysqli_fetch_array($estados)) {
-                    $estadoSesion = "<p><span>Estado:</span> $estado[nombre]</p>";
+                    $estadoSesion = "<span>Estado:</span> $estado[nombre]";
                 }
                 $lecturaSesionesTratamientos .= " WHERE `fk_sesiones`='$sesion[id_sesiones]'";
                 $sesionesTratamientos = mysqli_query($conexion,$lecturaSesionesTratamientos);
@@ -64,32 +66,34 @@
                         $tratamientosSesion .= "  $tratamiento[nombre]  ";
                     }
                 }
-                $tratamientosSesion .= "</p>";
             }
         }
     include_once("../librerias/bootstrap-js.php");
     ?>
     <header>
         <nav>
-            <a class="volver-atras" href="sesiones.php">Volver atras</a>
-        </nav>
-    </header>
-    <main>
-        <section>
-            <article class="card mb-3">
-                <div>
-                    <img src="<?php echo $rutaImagen ?>" class="card-img-top" alt="...">
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title"><?php echo $usuarioSesion ?></h5>
-                    <p class="card-text"><?php echo $estadoSesion ?></p>
-                    <p class="card-text"><?php echo $horarioSesion ?></p>
-                    <p class="card-text"><?php echo $tratamientosSesion ?></p>
-                    <p class="card-text"><small class="text-body-secondary"><?php echo $montoSesion ?></small></p>
-                    <span class="subrayado"></span>
-                    <p class="card-text"><?php echo $detallesSesion ?></p>
-                </div>
-            </article>
+            </nav>
+        </header>
+        <main>
+            <section class="section-sesion">
+                <article>
+                    <a class="volver-atras" href="sesiones.php">Volver atras</a>
+                </article>
+                <article class="card mb-3">
+                    <div>
+                        <img src="<?php echo $rutaImagen ?>" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo $usuarioSesion ?></h5>
+                        <p class="card-text"><?php echo $estadoSesion ?></p>
+                        <p class="card-text"><?php echo $fecha ?></p>
+                        <p class="card-text"><?php echo $hora ?></p>
+                        <p class="card-text"><?php echo $tratamientosSesion ?></p>
+                        <p class="card-text"><small class="text-body-secondary"><?php echo $montoSesion ?></small></p>
+                        <span class="subrayado"></span>
+                        <p class="card-text"><?php echo $detallesSesion?></p>
+                    </div>
+                </article>
         </section>
     </main>
 </body>

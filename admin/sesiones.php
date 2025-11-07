@@ -98,14 +98,14 @@
             <article>
                 <table>
                     <thead>
-                        <th>
-                            Imagen
-                        </th>
-                        <th>
+                        <th class="text-center">
                             Paciente
                         </th>
                         <th class="columna-fecha">
                             Fecha
+                        </th>
+                        <th>
+                            Hora
                         </th>
                         <th>
                             Monto
@@ -128,20 +128,18 @@
                                 $lecturaSesionesTratamientos = "SELECT * FROM `sesiones_tratamientos`";
 
                                 echo "<tr>";
-                                echo "<td class='td-imagen'>
-                                        <img class='imagen-alta' src='../imagenes-subidas/$sesion[imagen]' alt=''>
-                                    </td>";
                                 $lecturaUsuarios .= "WHERE `id_personas`='$sesion[fk_personas]'";
                                 $usuarios = mysqli_query($conexion,$lecturaUsuarios);
 
                                 if ($usuario = mysqli_fetch_array($usuarios)) {
-                                    echo "<td><p>$usuario[nombre] $usuario[apellido]</p></td>";
+                                    echo "<td class='columna-usuario'><p>$usuario[nombre] $usuario[apellido]</p></td>";
                                 }
                                 $lecturaHorarios .= "WHERE `id_fechas_horas`='$sesion[fk_fechas_horas]'";
                                 $horarios = mysqli_query($conexion,$lecturaHorarios);
 
                                 if ($horario = mysqli_fetch_array($horarios)) {
-                                    echo "<td class='columna-fecha'><p>$horario[fecha] - $horario[hora] </p></td>";
+                                    echo "<td class='columna-fecha'><p>$horario[fecha]</p></td>";
+                                    echo "<td><p>$horario[hora]</p></td>";
                                 }
                                 $lecturaEstados .= " WHERE `id_estado`='$sesion[fk_estado_sesion]'";
                                 $estados = mysqli_query($conexion,$lecturaEstados);

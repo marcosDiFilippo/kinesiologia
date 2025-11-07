@@ -11,3 +11,14 @@
 header {
     background-color: rgba(172, 255, 47, 0.534);
 }
+
+.div-sesion {
+    width: 100px;
+    margin-right: 2.5rem;
+}
+
+.iniciar-sesion {
+    text-decoration: none;
+    width: 100%;
+    color: black;
+}
