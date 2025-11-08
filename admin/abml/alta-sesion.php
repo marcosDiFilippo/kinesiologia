@@ -144,7 +144,7 @@
                 realizarAltaTratamientos($fk_sesion, $tratamientoss, $conexion);
 
                 $mensaje = $nombre . " " . $apellido;
-                header("Location: ../pacientes.php?alta=$mensaje");
+                header("Location: ../sesiones.php?alta=ok");
             }
         }
     }

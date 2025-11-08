@@ -37,61 +37,59 @@
         include_once("../../librerias/bootstrap-css.php");
     ?>
 </head>
-<main>
-    <header>
-        <nav class="mt-4">
-            <a class="volver-atras" href="../pacientes.php">Volver atras</a>
-        </nav>
-    </header>
-    <section>
-        <article class="container" id="article-alta-pacientes"> 
-            <div>
-                <p>
-                    Paciente Seleccionado: <?php echo $nombre . " " . $apellido?>
-                </p>
-                <p>
-                    Dni: <?php echo $dni?>
-                </p>
-                <p>
-                    Fecha Nacimiento: <?php echo $fechaNacimiento ?>
-                </p>
-                <p>
-                    Email <?php echo $email?>
-                </p>
-                <p>
-                    Telefono: <?php echo $telefono?>
-                </p>
-            </div>
-            <form class="container-fluid form-modificacion" action="procesar-modificacion.php" method="post" enctype="multipart/form-data">
-                <div class="row">
-                    <input type="hidden" name="id_paciente" value="<?php echo $idPersona?>">
-                </div>
-                <div class="row">
-                    <div class="col-6 text-start">
-                        <label for="nombre">Nombre:</label>
-                        <input class="col-11 input-paciente" type="text" name="nombre" id="nombre" placeholder="Ingresa el nombre" value="<?php echo "$nombre"?>">
-                        <label for="fecha-nacimiento">Fecha Nacimiento:</label>
-                        <input class="col-11 input-paciente" type="date" name="fecha-nacimiento" id="fecha-nacimiento" value="<?php echo $fechaNacimiento?>">
-                        <label class="ms-2" for="email">Email:</label>
-                        <input class="col-11 input-paciente" type="email" name="email" id="email" placeholder="Ingrese el email" autocomplete="additional-name" value="<?php echo $email?>">
-                    </div>
-                    <div class="col-6">
-                        <label for="apellido">Apellido:</label>
-                        <input class="col-12 input-paciente" type="text" name="apellido" id="apellido" placeholder="Ingresa el apellido" value="<?php echo $apellido?>">
-                        <label for="dni">Dni:</label>
-                        <input class="col-12 input-paciente" type="number" name="dni" id="dni" placeholder="Ingrese el dni" value="<?php echo $dni?>">
-                        <label for="telefono">Telefono:</label>
-                        <input class="col-12 input-paciente" type="number" name="telefono" id="telefono" placeholder="Ingrese el telefono" value="<?php echo $telefono?>">
-                    </div>
-                </div>
+<body>
+    <main class="main-mod-paciente">
+        <section>
+            <article>
+                <a class="volver-atras" href="../pacientes.php">Volver atras</a>
+            </article>
+            <article class="container"> 
                 <div>
-                    <button id="submit-modificar" class="btn btn-primary col-6" type="submit" value="Modificar Paciente">Modificar Paciente</button>
+                    <p>
+                        Paciente Seleccionado: <?php echo $nombre . " " . $apellido?>
+                    </p>
+                    <p>
+                        Dni: <?php echo $dni?>
+                    </p>
+                    <p>
+                        Fecha Nacimiento: <?php echo $fechaNacimiento ?>
+                    </p>
+                    <p>
+                        Email <?php echo $email?>
+                    </p>
+                    <p>
+                        Telefono: <?php echo $telefono?>
+                    </p>
                 </div>
-            </form>
-        </article>
-    </section>
-</main>
-<script src="../../librerias/bootstrap-js"></script>
+                <form class="container-fluid form-modificacion" action="procesar-modificacion.php" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <input type="hidden" name="id_paciente" value="<?php echo $idPersona?>">
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-start">
+                            <label for="nombre">Nombre:</label>
+                            <input class="col-11 input-paciente" type="text" name="nombre" id="nombre" placeholder="Ingresa el nombre" value="<?php echo "$nombre"?>">
+                            <label for="fecha-nacimiento">Fecha Nacimiento:</label>
+                            <input class="col-11 input-paciente" type="date" name="fecha-nacimiento" id="fecha-nacimiento" value="<?php echo $fechaNacimiento?>">
+                            <label class="ms-2" for="email">Email:</label>
+                            <input class="col-11 input-paciente" type="email" name="email" id="email" placeholder="Ingrese el email" autocomplete="additional-name" value="<?php echo $email?>">
+                        </div>
+                        <div class="col-6">
+                            <label for="apellido">Apellido:</label>
+                            <input class="col-12 input-paciente" type="text" name="apellido" id="apellido" placeholder="Ingresa el apellido" value="<?php echo $apellido?>">
+                            <label for="dni">Dni:</label>
+                            <input class="col-12 input-paciente" type="number" name="dni" id="dni" placeholder="Ingrese el dni" value="<?php echo $dni?>">
+                            <label for="telefono">Telefono:</label>
+                            <input class="col-12 input-paciente" type="number" name="telefono" id="telefono" placeholder="Ingrese el telefono" value="<?php echo $telefono?>">
+                        </div>
+                    </div>
+                    <div>
+                        <button class="submit-paciente" type="submit" value="Modificar Paciente">Modificar Paciente</button>
+                    </div>
+                </form>
+            </article>
+        </section>
+    </main>
 <?php
     include_once("../../componentes-admin/footer.php");
 ?>

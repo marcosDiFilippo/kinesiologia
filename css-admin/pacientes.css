@@ -5,12 +5,7 @@
 #section-alta-pacientes {
     display: flex;
     padding: 2rem;
-    background-color: rgba(0, 0, 0, 0.11);
-}
-
-#article-alta-pacientes {
-    position: relative;
-    width: 100%;
+    background-color: #d6eaf4;
 }
 
 #button-alta {
@@ -35,8 +30,4 @@
 
 .eliminar-paciente {
     background-color: rgba(255, 0, 0, 0.76);
-}
-
-#submit-alta {
-    width: 45%;
 }

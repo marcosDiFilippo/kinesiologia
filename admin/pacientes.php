@@ -8,24 +8,21 @@
     include_once("./abml/lectura.php");
 ?>
 <main id="main-pacientes">
-    <?php
-        if (isset($_GET["alta"])) {
-            echo "<div class='alert alert-success' role='alert'>
-                    Paciente cargado $_GET[alta]  
-                </div>";
-        }
-        if (isset($_GET["baja"])) {
-            echo "<div class='alert alert-danger' role='alert'>
-                    Se dio de baja al paciente $_GET[baja]  
-                </div>";
-        }
-    ?>
     <section id="section-alta-pacientes">
         <article class="container" id="article-alta-pacientes"> 
             <form class="container-fluid" id="form-alta" action="./abml/alta-paciente.php" method="post">
-                <div class="row">
-                    <input type="hidden" name="id_paciente" value="<?php echo $idPersona?>">
-                </div>
+                <?php
+                    if (isset($_GET["alta"])) {
+                        echo "<div class='alert alert-success' role='alert'>
+                                Paciente cargado $_GET[alta]  
+                            </div>";
+                    }
+                    if (isset($_GET["baja"])) {
+                        echo "<div class='alert alert-danger' role='alert'>
+                                Se dio de baja al paciente $_GET[baja]  
+                            </div>";
+                    }
+                ?>
                 <div class="row">
                     <div class="col-6 text-start">
                         <label for="nombre">Nombre:</label>
@@ -45,7 +42,7 @@
                     </div>
                 </div>
                 <div>
-                    <button id="submit-modificar" class="btn btn-primary col-6" type="submit" value="Cargar Paciente">Cargar Paciente</button>
+                    <button class="submit-paciente" type="submit" value="Cargar Paciente">Cargar Paciente</button>
                 </div>
             </form>
         </article>
