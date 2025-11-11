@@ -21,6 +21,7 @@ nav {
     align-items: center;
     width: 1000px;  
     height: 600px;
+    height: 700px;
     column-gap: 1rem;
 }
 
@@ -30,6 +31,7 @@ nav {
     justify-content: center; 
     height: 100%;
     align-items: center; 
+    height: 100%;
 }
 
 .volver-atras {

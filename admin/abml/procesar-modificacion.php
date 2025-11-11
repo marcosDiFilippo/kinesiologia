@@ -52,8 +52,10 @@ error_reporting(E_ALL);
         }
 
         //modificacion de sesion
+        
         if (
             isset($_POST["id_sesion"]) &&
+            isset($_GET["idS"]) &&
             isset($_POST["fecha"]) &&
             isset($_POST["hora"]) &&
             isset($_POST["metodos-pago"]) &&
@@ -63,6 +65,8 @@ error_reporting(E_ALL);
             isset($_FILES["imagen"])
         ) {
             $idSesion = $_POST["id_sesion"];
+
+            $idSesion = $_GET["idS"];
 
             $fecha = htmlspecialchars($_POST["fecha"]);
 
