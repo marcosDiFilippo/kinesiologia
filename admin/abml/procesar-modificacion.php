@@ -65,8 +65,6 @@ error_reporting(E_ALL);
         ) {
             $idSesion = $_POST["id_sesion"];
 
-            $idSesion = $_GET["idS"];
-
             $fecha = htmlspecialchars($_POST["fecha"]);
 
             $hora = htmlspecialchars($_POST["hora"]);
@@ -123,7 +121,7 @@ error_reporting(E_ALL);
             
             mysqli_query($conexion,"DELETE FROM `pago_sesiones` WHERE `fk_sesiones`='$idSesion'");
 
-            foreach ($metodo as $metodoPago) {
+            foreach ($metodoPago as $metodo) {
                 mysqli_query($conexion,"INSERT INTO `pago_sesiones`(`fk_metodos_pago`, `fk_sesiones`) VALUES ('$metodo','$idSesion')");
             }
 

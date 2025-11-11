@@ -1,4 +1,8 @@
 <?php
+    session_start();
+    if ($_SESSION == NULL) {
+        header("Location: ../../index.php");
+    }
     include_once("../../componentes/config/config.php");
     include_once("./lectura.php");
     function validarSubida ($fecha, $hora, $metodoPago, $monto, $estado, $tratamientoss, $idUsuario, $detalles, $imagen) : bool {

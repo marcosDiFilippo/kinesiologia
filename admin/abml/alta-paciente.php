@@ -1,4 +1,8 @@
 <?php
+    session_start();
+    if ($_SESSION == NULL) {
+        header("Location: ../../index.php");
+    }
     include_once("../../componentes/config/config.php");
     function realizarAltaPaciente ($nombre, $apellido, $dni, $fechaNacimiento, $email, $telefono, $conexion) {
         mysqli_query($conexion,"INSERT INTO `personas`(`nombre`, `apellido`, `dni`, `fecha_nacimiento`, `telefono`, `email`, `fk_rol`) VALUES ('$nombre','$apellido','$dni','$fechaNacimiento','$telefono','$email',3)");

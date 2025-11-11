@@ -1,4 +1,9 @@
 <?php
+    session_start();
+    if ($_SESSION == NULL) {
+        header("Location: ../../index.php");
+    }
+
     include_once("../../componentes/config/config.php");
     include_once("lectura.php");
     $nombre;

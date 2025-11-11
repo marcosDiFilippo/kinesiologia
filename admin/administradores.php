@@ -1,7 +1,7 @@
 <?php
     session_start();
     if ($_SESSION == NULL) {
-        header("Location: ../paginas/index.php");
+        header("Location: ../index.php");
     }
     include_once("../componentes/config/config.php");
     include_once("./abml/lectura.php");
