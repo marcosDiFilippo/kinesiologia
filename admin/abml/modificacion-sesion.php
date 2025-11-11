@@ -28,6 +28,9 @@
     <main>
         <section>
             <article>
+                <a class="volver-atras" href="../informacion-sesion.php?id=<?php echo $idSesion?>">Volver Atras</a>
+            </article>
+            <article>
                 <form class="container-fluid form-modificacion" action="procesar-modificacion.php" method="post" enctype="multipart/form-data">
                     <div>
                         <input type="hidden" name="id_sesion" value="<?php echo $idSesion?>">

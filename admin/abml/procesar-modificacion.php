@@ -1,17 +1,8 @@
 <?php
-    ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-
     include_once("../../componentes/config/config.php");
     include_once("lectura.php");
-    function validarCamposVacios ($campo1, $campo2, $campo3, $campo4, $campo5, $campo6) : bool  {
-        if (empty($campo1) or empty($campo2) or empty($campo3) or empty($campo4) or empty($campo5) or empty($campo6)) {
-            return true;
-        }
-        return false;
-    }
+    include_once("../validaciones.php");
+
     if (isset($_GET["idC"])) {
         $idSesionC = $_GET["idC"];
         $consultaEstado = "UPDATE `sesiones` SET `fk_estado_sesion`=3 WHERE `id_sesiones`=$idSesionC";
@@ -24,30 +15,84 @@ error_reporting(E_ALL);
         if (isset($_POST["nombre"]) and isset($_POST["apellido"]) and isset($_POST["dni"]) and isset($_POST["fecha-nacimiento"]) and isset($_POST["email"]) and isset($_POST["telefono"]) and isset($_POST["id_paciente"])) {
 
             $idPaciente = $_POST["id_paciente"];
-            $nombre = htmlspecialchars($_POST["nombre"]);
-            $apellido = htmlspecialchars($_POST["apellido"]);
-            $dni = htmlspecialchars($_POST["dni"]);
-            $fechaNacimiento = htmlspecialchars($_POST["fecha-nacimiento"]);
-            $email = htmlspecialchars($_POST["email"]);
-            $telefono = htmlspecialchars($_POST["telefono"]);
 
-            if (validarCamposVacios(
-                $nombre, 
-                $apellido, 
-                $dni, 
-                $fechaNacimiento, 
-                $email, 
-                $telefono
-            ) == true) { 
-                header("Location: modificacion-paciente.php?mod=no");
+            $emailAnterior;
+            $telefonoAnterior;
+            $dniAnterior;
+            $lectura = $lecturaUsuarios . " WHERE `id_personas`='$idPaciente'";
+            $usuarios = mysqli_query($conexion, $lectura);
+
+            if ($usuario = mysqli_fetch_array($usuarios)) {
+                $emailAnterior = $usuario["email"];
+                $telefonoAnterior = $usuario["telefono"];
+                $dniAnterior = $usuario["dni"];
+            }
+
+            $nombre = htmlspecialchars($_POST["nombre"]);
+
+            $apellido = htmlspecialchars($_POST["apellido"]);
+
+            $dniAux = htmlspecialchars($_POST["dni"]);
+
+            $fechaNacimiento = htmlspecialchars($_POST["fecha-nacimiento"]);
+
+            $email = htmlspecialchars($_POST["email"]);
+
+            $telefonoAux = htmlspecialchars($_POST["telefono"]);
+
+            $campos = [$nombre, $apellido, $dniAux, $fechaNacimiento, $email, $telefonoAux];
+            if (validarCamposVacios($campos) == true) {
+                header("Location: ../pacientes.php?camposVacios=ok");
                 exit();
             }
+
+            $camposNumericos = [$dniAux, $telefonoAux];
+            if (validarLetrasCampo($camposNumericos) == true) {
+                header("Location: ../pacientes.php?camposNoNumericos=ok");
+                exit();
+            }
+
+            if (validarCampoNegativo($camposNumericos) == true) {
+                header("Location: ../pacientes.php?camposNegativos=ok");
+                exit();
+            }
+
+            if ($emailAnterior !== $email) {
+                $valorEmail = validarEmail($email, $conexion, $lecturaUsuarios);
+                if ($valorEmail == -1) {
+                    header("Location: ../pacientes.php?sinArroba=ok");
+                    exit();
+                }  
+                if ($valorEmail == -2) {
+                    header("Location: ../pacientes.php?emailYaRegistrado=ok");
+                    exit();
+                }
+            }
+
+            if ($dniAnterior !== $dniAux) {
+                $valorDni = validarDni($dniAux, $conexion, $lecturaUsuarios);
+                if ($valorDni == true) {
+                    header("Location: ../pacientes.php?dniYaRegistrado=ok");
+                    exit();
+                }
+            }
+
+            if ($telefonoAnterior !== $telefonoAux) {
+                $valorTelefono = validarTelefono($telefonoAux, $conexion, $lecturaUsuarios);
+    
+                if ($valorTelefono == true) {
+                    header("Location: ../pacientes.php?telYaRegistrado=ok");
+                    exit();
+                }
+            }
+            $dni = (int) $dniAux;
+            $telefono = (int) $telefonoAux;
 
             $consultaMod = "UPDATE `personas` SET `nombre`='$nombre',`apellido`='$apellido',`dni`='$dni',`fecha_nacimiento`='$fechaNacimiento',`telefono`='$telefono',`email`='$email' WHERE `id_personas`='$idPaciente'";
             
             $modificacionUsuario = mysqli_query($conexion, $consultaMod);
             
-            header("Location: ../pacientes.php");
+            header("Location: ../pacientes.php?mod=ok");
             exit();
         }
 
@@ -73,44 +118,66 @@ error_reporting(E_ALL);
                 return (int) $metodo;
             }, $_POST["metodos-pago"]);
 
-            $monto = htmlspecialchars($_POST["monto"]);
+            $monto = (double) htmlspecialchars($_POST["monto"]);
 
-            $estado = htmlspecialchars($_POST["estado"]);
+            $estado = (int) htmlspecialchars($_POST["estado"]);
 
             $tratamientoss = array_map(function ($tratamiento) {
-                return (int) $tratamiento;
+                return $tratamiento;
             }, $_POST["tratamientos"]);
 
             $detalles = htmlspecialchars($_POST["detalles"]);
 
             $imagen = $_FILES["imagen"];
 
-            if (validarCamposVacios(
-                $fecha,
-                $hora,
-                $metodoPago,
-                $monto,
-                $tratamientoss,
-                $imagen
-            ) == true) { 
-                header("Location: modificacion-sesion.php?mod=no");
+            $metodosPagoString = "";
+
+            $tratamientosString = "";
+
+            foreach ($metodoPago as $metodo) {
+                $metodosPagoString .= $metodo;
+            }
+            foreach ($tratamientoss as $trata) {
+                $tratamientosString .= $trata;
+            }
+
+            $campos = [$fecha, $hora, $metodosPagoString, $monto, $estado, $tratamientosString, $imagen];
+
+            if (validarCamposVacios($campos) == true) {
+                header("Location: ../informacion-sesion.php?camposVacios=ok&id=$idSesion");
                 exit();
             }
 
-            $lecturaHorarios .= " WHERE `fecha`='$fecha' and `hora`='$hora'";
-            $resultadoHorarios = mysqli_query($conexion, $lecturaHorarios);
-
-            $fk_fechas_horas = -1;
-            if ($horario = mysqli_fetch_array($resultadoHorarios)) {
-                $fk_fechas_horas = $horario["id_fechas_horas"];
+            $camposNumericos = [$metodosPagoString, $tratamientosString, $monto];
+            if (validarLetrasCampo($camposNumericos) == true) {
+                header("Location: ../informacion-sesion.php?campoNoNumericos=ok&id=$idSesion");
+                exit();
             }
 
+            $posiblesCamposNegativos = array_map(function ($numero) {
+                return (float) $numero;
+            }, $camposNumericos);
+
+            if (validarCampoNegativo($posiblesCamposNegativos) == true) {
+                header("Location: ../informacion-sesion.php?camposNegativos=ok&id=$idSesion");
+                exit();
+            }
+
+            $fk_horario_aux = validarHorarios(
+                $lecturaHorarios,
+                $fecha, 
+                $hora, 
+                $conexion
+            );
+
             $fk_horario;
-            if ($fk_fechas_horas != -1) {
-                $fk_horario = $fk_fechas_horas;
+            if ($fk_horario_aux != -1) {
+                $fk_horario = $fk_horario_aux;
             }
             else {
                 mysqli_query($conexion,"INSERT INTO `fechas_horas`(`fecha`, `hora`) VALUES ('$fecha','$hora')");
+
+                $lecturaHorarios .= " WHERE `fecha`='$fecha' and `hora`='$hora'";
                 
                 $resultadoHorario = mysqli_query($conexion,$lecturaHorarios);
                 
@@ -138,9 +205,14 @@ error_reporting(E_ALL);
 
             mysqli_query($conexion, "UPDATE `sesiones` SET `detalles`='$detalles',`imagen`='$nombreImagen', `fk_fechas_horas`='$fk_horario',`fk_estado_sesion`='$estado',`monto`='$monto' WHERE `id_sesiones`='$idSesion'");
 
-            header("Location: ../sesiones.php?modS=ok");
+            header("Location: ../informacion-sesion.php?modS=ok&id=$idSesion");
 
             mysqli_query($conexion,"UPDATE `sesiones` SET `detalles`='$detalles',`imagen`='$imagen', `fk_fechas_horas`='[value-5]',`fk_estado_sesion`='[value-6]',`monto`='[value-7]' WHERE `id_sesiones`='$idSesion'");
+        }
+        else {
+            $idSesion = $_POST["id_sesion"];
+            header("Location: ../informacion-sesion.php?camposVacios=ok&id=$idSesion");
+            exit();
         }
     }
 ?>

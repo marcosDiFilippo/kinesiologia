@@ -5,6 +5,20 @@
 
 #main-info {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 1rem;
+}
+
+.section-alerts {
+    width: 40%;
+    margin-top: 1rem !important;
+}
+
+.section-alerts div {
+    padding: 2rem !important;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
@@ -15,7 +29,6 @@ nav {
 }
 
 .section-sesion {
-    margin-top: 6rem !important;
     display: flex;
     justify-content: center;
     align-items: center;

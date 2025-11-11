@@ -2,6 +2,23 @@ td p {
     font-size: 1.4rem;
 }
 
+.volver-atras {
+    text-decoration: none;
+    padding: 0 2rem !important;
+    color: black;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 300px;
+    transition: font-size 0.3s ease;
+}
+
+.volver-atras:hover {
+    font-size: 1.8rem;
+}
+
 .td-detalles {
     max-width: 200px;
     word-break: break-all;

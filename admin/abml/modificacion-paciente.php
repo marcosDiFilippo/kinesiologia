@@ -2,6 +2,7 @@
     session_start();
     if ($_SESSION == NULL) {
         header("Location: ../../index.php");
+        exit();
     }
 
     include_once("../../componentes/config/config.php");

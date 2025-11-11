@@ -1,8 +1,4 @@
 <?php
-    session_start();
-    if ($_SESSION == NULL) {
-        header("Location: ../../index.php");
-    }
     $lecturaUsuarios = "SELECT * FROM `personas`";
     $lecturaAdmins = "SELECT * FROM `admins`";
     $lecturaMetodosPago = "SELECT * FROM `metodos_pago`";

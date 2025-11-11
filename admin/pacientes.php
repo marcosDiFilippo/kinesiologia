@@ -18,6 +18,46 @@
                                 Se dio de baja al paciente $_GET[baja]  
                             </div>";
                     }
+                    if (isset($_GET["camposVacios"])) {
+                        echo "<div class='alert alert-danger' role='alert'>
+                                Todos los campos son obligatorios  
+                            </div>";
+                    }
+                    if (isset($_GET["camposNoNumericos"])) {
+                        echo "<div class='alert alert-danger' role='alert'>
+                                Los campos de telefono o dni no son numericos  
+                            </div>";
+                    }
+                    if (isset($_GET["camposNegativos"])) {
+                        echo "<div class='alert alert-danger' role='alert'>
+                                Los campos de telefono o dni no pueden ser negativos  
+                            </div>";
+                    }
+                    if (isset($_GET["sinArroba"])) {
+                        echo "<div class='alert alert-danger' role='alert'>
+                                El email ingresado no contiene @
+                            </div>";
+                    }
+                    if (isset($_GET["emailYaRegistrado"])) {
+                        echo "<div class='alert alert-danger' role='alert'>
+                                El email ingresado ya esta registrado, por favor ingrese otro
+                            </div>";
+                    }
+                    if (isset($_GET["dniYaRegistrado"])) {
+                        echo "<div class='alert alert-danger' role='alert'>
+                                El dni ingresado ya esta registrado, por favor ingrese otro
+                            </div>";
+                    }
+                    if (isset($_GET["telYaRegistrado"])) {
+                        echo "<div class='alert alert-danger' role='alert'>
+                                El telefono ingresado ya esta registrado, por favor ingrese otro
+                            </div>";
+                    }
+                    if (isset($_GET["mod"])) {
+                        echo "<div class='alert alert-success' role='alert'>
+                                Paciente modificado exitosamente  
+                            </div>";
+                    }
                 ?>
                 <div class="row">
                     <div class="col-6 text-start">

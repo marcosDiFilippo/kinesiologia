@@ -1,9 +1,5 @@
 <?php
-    session_start();
-    if ($_SESSION == NULL) {
-        header("Location: ../index.php");
-    }
-        include_once("../componentes-admin/header.php");
+    include_once("../componentes-admin/header.php");
 ?>
     <main>
         <section>

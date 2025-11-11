@@ -5,22 +5,7 @@
     }
     include_once("../../componentes/config/config.php");
     include_once("./lectura.php");
-    function validarSubida ($fecha, $hora, $metodoPago, $monto, $estado, $tratamientoss, $idUsuario, $detalles, $imagen) : bool {
-        if (
-            empty($fecha) or
-            empty($hora) or
-            empty($monto) or
-            empty($estado) or
-            empty($metodoPago) or
-            empty($tratamientoss) or
-            empty($idUsuario) or
-            empty($imagen)
-        ) {
-            header("Location: ../pacientes.php?campos=vacios");
-            return false;
-        }
-        return true;
-    }
+    include_once("../validaciones.php");
     function validarHorarios ($lecturaHorarios, $fecha, $hora, $conexion) : int {
         $lecturaHorarios .= " WHERE `fecha`='$fecha' and `hora`='$hora'";
         $resultadoHorarios = mysqli_query($conexion, $lecturaHorarios);
@@ -69,8 +54,6 @@
             isset($_POST["tratamientos"]) &&
             isset($_FILES["imagen"])
         ) {
-            $flag;
-
             $idUsuario = htmlspecialchars($_POST["id-usuario"]);
 
             $fecha = htmlspecialchars($_POST["fecha"]);
@@ -78,12 +61,12 @@
             $hora = htmlspecialchars($_POST["hora"]);
 
             $metodoPago = array_map(function ($metodo) {
-                return $metodo;
+                return (int) $metodo;
             }, $_POST["metodos-pago"]);
 
-            $monto = htmlspecialchars($_POST["monto"]);
+            $monto = (double) htmlspecialchars($_POST["monto"]);
 
-            $estado = htmlspecialchars($_POST["estado"]);
+            $estado = (int) htmlspecialchars($_POST["estado"]);
 
             $tratamientoss = array_map(function ($tratamiento) {
                 return $tratamiento;
@@ -93,60 +76,83 @@
 
             $imagen = $_FILES["imagen"];
 
-            $flag = validarSubida(
-            $fecha, 
-            $hora, 
-            $metodoPago, 
-            $monto, 
-            $estado, 
-            $tratamientoss, 
-            $idUsuario,
-            $detalles, 
-            $imagen);
+            $metodosPagoString = "";
 
-            if ($flag == true) {
-                $fk_horario_aux = validarHorarios(
-                    $lecturaHorarios,
-                    $fecha, 
-                    $hora, 
-                    $conexion
-                );
+            $tratamientosString = "";
 
-                $fk_horario;
-                if ($fk_horario_aux != -1) {
-                    $fk_horario = $fk_horario_aux;
-                }
-                else {
-                    mysqli_query($conexion,"INSERT INTO `fechas_horas`(`fecha`, `hora`) VALUES ('$fecha','$hora')");
-
-                    $lecturaHorarios .= " WHERE `fecha`='$fecha' and `hora`='$hora'";
-                    
-                    $resultadoHorario = mysqli_query($conexion,$lecturaHorarios);
-                    
-                    if ($horario = mysqli_fetch_array($resultadoHorario)) {
-                        $fk_horario = $horario["id_fechas_horas"];
-                    }
-                }
-
-                $fk_persona = $idUsuario;
-
-                $fk_sesion = realizarAltaSesion(
-                    $detalles, 
-                    $imagen, 
-                    $fk_persona, 
-                    $fk_horario, 
-                    $estado, 
-                    $monto, 
-                    $conexion, 
-                    $lecturaSesiones);
-                
-                realizarAltaPago($metodoPago, $fk_sesion, $conexion);
-
-                realizarAltaTratamientos($fk_sesion, $tratamientoss, $conexion);
-
-                $mensaje = $nombre . " " . $apellido;
-                header("Location: ../sesiones.php?alta=ok");
+            foreach ($metodoPago as $metodo) {
+                $metodosPagoString .= $metodo;
             }
+            foreach ($tratamientoss as $trata) {
+                $tratamientosString .= $trata;
+            }
+
+            $campos = [$fecha, $hora, $metodosPagoString, $monto, $estado, $tratamientosString, $imagen];
+
+            if (validarCamposVacios($campos) == true) {
+                header("Location: ../sesiones.php?camposVacios=ok");
+                exit();
+            }
+
+            $camposNumericos = [$metodosPagoString, $tratamientosString, $monto];
+            if (validarLetrasCampo($camposNumericos) == true) {
+                header("Location: ../sesiones.php?campoNoNumericos=ok");
+                exit();
+            }
+
+            $posiblesCamposNegativos = array_map(function ($numero) {
+                return (float) $numero;
+            }, $camposNumericos);
+
+            if (validarCampoNegativo($posiblesCamposNegativos) == true) {
+                header("Location: ../sesiones.php?camposNegativos=ok");
+                exit();
+            }
+
+            $fk_horario_aux = validarHorarios(
+                $lecturaHorarios,
+                $fecha, 
+                $hora, 
+                $conexion
+            );
+
+            $fk_horario;
+            if ($fk_horario_aux != -1) {
+                $fk_horario = $fk_horario_aux;
+            }
+            else {
+                mysqli_query($conexion,"INSERT INTO `fechas_horas`(`fecha`, `hora`) VALUES ('$fecha','$hora')");
+
+                $lecturaHorarios .= " WHERE `fecha`='$fecha' and `hora`='$hora'";
+                
+                $resultadoHorario = mysqli_query($conexion,$lecturaHorarios);
+                
+                if ($horario = mysqli_fetch_array($resultadoHorario)) {
+                    $fk_horario = $horario["id_fechas_horas"];
+                }
+            }
+
+            $fk_persona = $idUsuario;
+
+            $fk_sesion = realizarAltaSesion(
+                $detalles, 
+                $imagen, 
+                $fk_persona, 
+                $fk_horario, 
+                $estado, 
+                $monto, 
+                $conexion, 
+                $lecturaSesiones);
+            
+            realizarAltaPago($metodoPago, $fk_sesion, $conexion);
+
+            realizarAltaTratamientos($fk_sesion, $tratamientoss, $conexion);
+
+            $mensaje = $nombre . " " . $apellido;
+            header("Location: ../sesiones.php?alta=ok");
+        }
+        else {
+            header("Location: ../sesiones.php?camposVacios=ok");
         }
     }
 ?>
