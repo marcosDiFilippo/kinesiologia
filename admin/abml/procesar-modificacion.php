@@ -55,7 +55,6 @@ error_reporting(E_ALL);
         
         if (
             isset($_POST["id_sesion"]) &&
-            isset($_GET["idS"]) &&
             isset($_POST["fecha"]) &&
             isset($_POST["hora"]) &&
             isset($_POST["metodos-pago"]) &&
@@ -142,6 +141,8 @@ error_reporting(E_ALL);
             mysqli_query($conexion, "UPDATE `sesiones` SET `detalles`='$detalles',`imagen`='$nombreImagen', `fk_fechas_horas`='$fk_horario',`fk_estado_sesion`='$estado',`monto`='$monto' WHERE `id_sesiones`='$idSesion'");
 
             header("Location: ../sesiones.php?modS=ok");
+
+            mysqli_query($conexion,"UPDATE `sesiones` SET `detalles`='$detalles',`imagen`='$imagen', `fk_fechas_horas`='[value-5]',`fk_estado_sesion`='[value-6]',`monto`='[value-7]' WHERE `id_sesiones`='$idSesion'");
         }
     }
 ?>
