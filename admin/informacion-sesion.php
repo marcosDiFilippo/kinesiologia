@@ -17,6 +17,7 @@
 </head>
 <body>
     <?php
+        $id;
         if (isset($_GET["id"])) {
             $id = $_GET["id"];
             $lecturaSesiones .= " WHERE `id_sesiones`='$id'";
@@ -68,32 +69,33 @@
                 }
             }
         }
-    include_once("../librerias/bootstrap-js.php");
+        include_once("../librerias/bootstrap-js.php");
     ?>
-    <header>
-        <nav>
-            </nav>
-        </header>
-        <main>
-            <section class="section-sesion">
-                <article>
-                    <a class="volver-atras" href="sesiones.php">Volver atras</a>
-                </article>
-                <article class="card mb-3">
-                    <div>
-                        <img src="<?php echo $rutaImagen ?>" class="card-img-top" alt="...">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title"><?php echo $usuarioSesion ?></h5>
-                        <p class="card-text"><?php echo $estadoSesion ?></p>
-                        <p class="card-text"><?php echo $fecha ?></p>
-                        <p class="card-text"><?php echo $hora ?></p>
-                        <p class="card-text"><?php echo $tratamientosSesion ?></p>
-                        <p class="card-text"><small class="text-body-secondary"><?php echo $montoSesion ?></small></p>
-                        <span class="subrayado"></span>
-                        <p class="card-text"><?php echo $detallesSesion?></p>
-                    </div>
-                </article>
+    <main id="main-info">
+        <section class="section-sesion">
+            <article>
+                <a class="volver-atras" href="sesiones.php">Volver atras</a>
+            </article>
+            <article class="card mb-3">
+                <div>
+                    <img src="<?php echo $rutaImagen ?>" class="card-img-top" alt="...">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title"><?php echo $usuarioSesion ?></h5>
+                    <p class="card-text"><?php echo $estadoSesion ?></p>
+                    <p class="card-text"><?php echo $fecha ?></p>
+                    <p class="card-text"><?php echo $hora ?></p>
+                    <p class="card-text"><?php echo $tratamientosSesion ?></p>
+                    <p class="card-text"><small class="text-body-secondary"><?php echo $montoSesion ?></small></p>
+                    <span class="subrayado"></span>
+                    <p class="card-text"><?php echo $detallesSesion?></p>
+                </div>
+                <hr>
+                <div class="acciones-sesion">
+                    <a href="./abml/baja.php?idS=<?php echo$id?>">Dar de baja</a>
+                    <a href="./abml/modificacion-sesion.php?idS=<?php echo$id?>">Editar</a>
+                </div>
+            </article>
         </section>
     </main>
 </body>

@@ -13,20 +13,20 @@
     <link rel="stylesheet" href="../../css-admin/sesiones.css">
     <?php
         include_once("../../librerias/bootstrap-css.php");
+
+        $idSesion;
+        if (isset($_GET["idS"])) {
+            $idSesion = $_GET["idS"];
+        }
     ?>
 </head>
 <body>
-    <header>
-        <nav>
-            
-        </nav>
-    </header>
     <main>
         <section>
             <article>
                 <form class="container-fluid form-modificacion" action="procesar-modificacion.php" method="post" enctype="multipart/form-data">
                     <div>
-                        <input type="hidden" name="id_sesion">
+                        <input type="hidden" name="id_sesion" value="<?php echo $idSesion?>">
                     </div>
                     <div class="row">  
                         <div class="col-6 d-flex flex-column">

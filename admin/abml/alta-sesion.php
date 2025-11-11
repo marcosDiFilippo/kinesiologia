@@ -17,7 +17,7 @@
         }
         return true;
     }
-    function validarAltaHorarios ($lecturaHorarios, $fecha, $hora, $conexion) : int {
+    function validarHorarios ($lecturaHorarios, $fecha, $hora, $conexion) : int {
         $lecturaHorarios .= " WHERE `fecha`='$fecha' and `hora`='$hora'";
         $resultadoHorarios = mysqli_query($conexion, $lecturaHorarios);
 
@@ -33,9 +33,6 @@
         }
     }   
     function realizarAltaSesion ($detalles, $imagen, $fk_persona, $fk_horario, $fk_estado, $monto, $conexion, $lecturaSesiones) : int {
-
-        var_dump($imagen);
-
         $temp = $imagen["tmp_name"];
         $nombreImagen = time() . ".jpg";
 
@@ -104,7 +101,7 @@
             $imagen);
 
             if ($flag == true) {
-                $fk_horario_aux = validarAltaHorarios(
+                $fk_horario_aux = validarHorarios(
                     $lecturaHorarios,
                     $fecha, 
                     $hora, 

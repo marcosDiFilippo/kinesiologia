@@ -90,6 +90,5 @@
             </article>
         </section>
     </main>
-<?php
-    include_once("../../componentes-admin/footer.php");
-?>
+</body>
+</html>

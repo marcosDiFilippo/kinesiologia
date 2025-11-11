@@ -1,6 +1,3 @@
-<?php
-    session_start();
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +6,7 @@
     <title>Document</title>
 
     <?php 
+        $cssPaginas = "";
         if (str_contains($_SERVER["PHP_SELF"], "sesiones.php")) {
             $cssPaginas = "<link rel='stylesheet' href='../css-admin/sesiones.css'>";
         }

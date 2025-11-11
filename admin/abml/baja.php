@@ -37,6 +37,16 @@
             mysqli_query($conexion, $bajaPersonas);
 
             header("Location: ../pacientes.php?baja=$nombrePaciente");
+            exit();
         }
+    }
+    if (isset($_GET["idS"])) {
+        $idSesion = htmlspecialchars($_GET["idS"]);
+        mysqli_query($conexion,"DELETE FROM `sesiones` WHERE `id_sesiones`='$idSesion'");
+        mysqli_query($conexion,"DELETE FROM `sesiones_tratamientos` WHERE `fk_sesiones`='$idSesion'");
+        mysqli_query($conexion,"DELETE FROM `pago_sesiones` WHERE `fk_sesiones`='$idSesion'");
+
+        header("Location: ../sesiones.php?bajaS=ok");
+        exit();
     }
 ?>

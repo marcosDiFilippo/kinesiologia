@@ -155,17 +155,7 @@
                                 }
                                 $lecturaSesionesTratamientos .= " WHERE `fk_sesiones`='$sesion[id_sesiones]'";
                                 $sesionesTratamientos = mysqli_query($conexion,$lecturaSesionesTratamientos);
-                                /*
-                                echo "<td class='columna-tratamientos'>";
-                                while ($sesionTratamiento = mysqli_fetch_array($sesionesTratamientos)) {
-                                    $lecturaTratamientos = "SELECT * FROM `tratamientos`";
-                                    $lecturaTratamientos .= " WHERE `id_tratamientos`='$sesionTratamiento[fk_tratamientos]'";
-                                    $tratamientos = mysqli_query($conexion,$lecturaTratamientos);
-                                    if ($tratamiento = mysqli_fetch_array($tratamientos)) {
-                                        echo "<p>$tratamiento[nombre]</p>";
-                                    }
-                                }
-                                */
+                                
                                 $verDetalles = $sesion["detalles"];
                                 if (empty($verDetalles) || $verDetalles == null) {
                                     $verDetalles = "Ninguno";
@@ -192,7 +182,7 @@
                         ?>
                     </tbody>
             </article>
-        </section><p>
+        </section>
     </main>
 <script src="../js-admin/script.js"></script>
 <?php
