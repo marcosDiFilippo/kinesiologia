@@ -32,6 +32,23 @@
             </article>
             <article>
                 <form class="container-fluid form-modificacion" action="procesar-modificacion.php" method="post" enctype="multipart/form-data">
+                    <?php 
+                        if (isset($_GET["camposVacios"])) {
+                            echo "<div class='alert alert-danger' role='alert'>
+                                    Todos los campos son obligatorios  
+                                </div>";
+                        }
+                        if (isset($_GET["camposNoNumericos"])) {
+                            echo "<div class='alert alert-danger' role='alert'>
+                                    Has ingresado letras en campos numericos, por favor vuelva ingresar 
+                                </div>";
+                        }
+                        if (isset($_GET["camposNegativos"])) {
+                            echo "<div class='alert alert-danger' role='alert'>
+                                    El monto no puede ser negativo, por favor vuelva ingresar   
+                                </div>";
+                        }
+                    ?>
                     <div>
                         <input type="hidden" name="id_sesion" value="<?php echo $idSesion?>">
                     </div>

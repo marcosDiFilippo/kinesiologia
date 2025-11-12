@@ -76,25 +76,6 @@
         include_once("../librerias/bootstrap-js.php");
     ?>
     <main id="main-info">
-        <section class="section-alerts">
-            <?php 
-                if (isset($_GET["camposVacios"])) {
-                    echo "<div class='alert alert-danger' role='alert'>
-                            Todos los campos son obligatorios  
-                        </div>";
-                }
-                if (isset($_GET["camposNoNumericos"])) {
-                    echo "<div class='alert alert-danger' role='alert'>
-                            Has ingresado letras en campos numericos, por favor vuelva ingresar 
-                        </div>";
-                }
-                if (isset($_GET["camposNegativos"])) {
-                    echo "<div class='alert alert-danger' role='alert'>
-                            El monto no puede ser negativo, por favor vuelva ingresar   
-                        </div>";
-                }
-            ?>
-        </section>
         <section class="section-sesion">
             <article>
                 <a class="volver-atras" href="sesiones.php">Volver atras</a>

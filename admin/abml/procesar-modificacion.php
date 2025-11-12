@@ -144,13 +144,13 @@
             $campos = [$fecha, $hora, $metodosPagoString, $monto, $estado, $tratamientosString, $imagen];
 
             if (validarCamposVacios($campos) == true) {
-                header("Location: ../informacion-sesion.php?camposVacios=ok&id=$idSesion");
+                header("Location: modificacion-sesion.php?camposVacios=ok&idS=$idSesion");
                 exit();
             }
 
             $camposNumericos = [$metodosPagoString, $tratamientosString, $monto];
             if (validarLetrasCampo($camposNumericos) == true) {
-                header("Location: ../informacion-sesion.php?campoNoNumericos=ok&id=$idSesion");
+                header("Location: modificacion-sesion.php?campoNoNumericos=ok&idS=$idSesion");
                 exit();
             }
 
@@ -159,7 +159,7 @@
             }, $camposNumericos);
 
             if (validarCampoNegativo($posiblesCamposNegativos) == true) {
-                header("Location: ../informacion-sesion.php?camposNegativos=ok&id=$idSesion");
+                header("Location: modificacion-sesion.php?camposNegativos=ok&idS=$idSesion");
                 exit();
             }
 
@@ -205,13 +205,13 @@
 
             mysqli_query($conexion, "UPDATE `sesiones` SET `detalles`='$detalles',`imagen`='$nombreImagen', `fk_fechas_horas`='$fk_horario',`fk_estado_sesion`='$estado',`monto`='$monto' WHERE `id_sesiones`='$idSesion'");
 
-            header("Location: ../informacion-sesion.php?modS=ok&id=$idSesion");
+            header("Location: modificacion-sesion.php?modS=ok&idS=$idSesion");
 
             mysqli_query($conexion,"UPDATE `sesiones` SET `detalles`='$detalles',`imagen`='$imagen', `fk_fechas_horas`='[value-5]',`fk_estado_sesion`='[value-6]',`monto`='[value-7]' WHERE `id_sesiones`='$idSesion'");
         }
         else {
             $idSesion = $_POST["id_sesion"];
-            header("Location: ../informacion-sesion.php?camposVacios=ok&id=$idSesion");
+            header("Location: modificacion-sesion.php?camposVacios=ok&idS=$idSesion");
             exit();
         }
     }

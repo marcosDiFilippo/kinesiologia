@@ -11,18 +11,6 @@
     row-gap: 1rem;
 }
 
-.section-alerts {
-    width: 40%;
-    margin-top: 1rem !important;
-}
-
-.section-alerts div {
-    padding: 2rem !important;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 nav {
     display: flex;
     align-items: center;
@@ -36,6 +24,7 @@ nav {
     height: 600px;
     height: 700px;
     column-gap: 1rem;
+    margin-top: 2rem !important;
 }
 
 .section-sesion article {
