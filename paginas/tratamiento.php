@@ -12,5 +12,6 @@
         }
     ?>
 </main>
-</body>
-</html>
+<?php
+    include_once("../componentes/footer.php");
+?>

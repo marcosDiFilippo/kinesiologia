@@ -4,6 +4,8 @@
         header("Location: ../paginas/index.php");
         exit();
     }
+    include_once("../admin/abml/lectura.php");
+    include_once("../componentes/config/config.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +25,9 @@
         echo $cssPaginas;
 
         $linkCss = "<link rel='stylesheet' href='../css-admin/main.css'>";
+        $rutaIndex;
         $rutaAbml = false;
+        $rutaTodasSesiones;
         $rutaTratamientos;
         $rutaPacientes;
         $rutaAdministradores;
@@ -32,6 +36,8 @@
 
         if (str_contains($_SERVER["PHP_SELF"], "abml")) {
             include_once("../../librerias/bootstrap-css.php");
+            $rutaIndex = "../index.php";
+            $rutaTodasSesiones = "../sesiones-completas.php";
             $rutaTratamientos = "../tratamientos.php";
             $rutaPacientes = "../pacientes.php";
             $rutaAdministradores = "../administradores.php";
@@ -43,6 +49,8 @@
         }
         else {
             include_once("../librerias/bootstrap-css.php");
+            $rutaIndex = "../admin/index.php";
+            $rutaTodasSesiones = "../admin/sesiones-completas.php";
             $rutaTratamientos = "../admin/tratamientos.php";
             $rutaPacientes = "../admin/pacientes.php";
             $rutaAdministradores = "../admin/administradores.php";
@@ -60,11 +68,42 @@
                 <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
+                    <div class="navbar-nav d-flex align-items-center">
+                        <a href="<?php echo $rutaIndex?>">
+                            <img class="logo" src="../imagenes/logo-kine.webp" alt="Inicio">
+                        </a>
                         <a class="nav-link active" aria-current="page" href=<?php echo $rutaTratamientos?>>Tratamientos</a>
                         <a class="nav-link" href=<?php echo $rutaPacientes?>>Pacientes</a>
                         <a class="nav-link" href=<?php echo $rutaSesiones?>>Sesiones</a>
                         <a class="nav-link" href=<?php echo $rutaAdministradores?>>Administradores</a>
+                        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                            <ul class="navbar-nav">
+                                <li class="nav-item dropdown">
+                                    <button class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Sesiones por tratamiento
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <?php
+                                            $tratamientos = mysqli_query($conexion, $lecturaTratamientos);
+                                            while ($tratamiento = mysqli_fetch_array($tratamientos)) {
+                                                $conteoTratamientos = mysqli_query($conexion,"SELECT COUNT(`fk_tratamientos`) FROM `sesiones_tratamientos` WHERE `fk_tratamientos`='$tratamiento[id_tratamientos]'");
+                                
+                                                
+                                                while ($c = mysqli_fetch_array($conteoTratamientos))
+                                                {
+                                                    echo "<li class='d-flex align-items-center'>
+                                                    <a class='dropdown-item' href='../admin/sesiones-completas.php?id=$tratamiento[id_tratamientos]'>
+                                                    $tratamiento[nombre]
+                                                    </a>
+                                                    <small class='me-4'>($c[0])</small>
+                                                    </li>";
+                                                }
+                                            }
+                                        ?>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
                         <a class="nav-link" href=<?php echo $rutaCerrarSesion?>>Cerrar Sesion</a>
                     </div>
                 </div>

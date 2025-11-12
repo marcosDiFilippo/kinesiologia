@@ -34,12 +34,17 @@
             $estadoSesion;
             $tratamientosSesion = "<span>Tratamientos:</span> ";
             $montoSesion;
-            $detallesSesion;
+            $detallesSesion = "<span>Detalles:</span>";
 
             if ($sesion = mysqli_fetch_array($sesiones)) {
                 $rutaImagen = "../imagenes-subidas/$sesion[imagen]";
                 
-                $detallesSesion = "<span>Detalles:</span> $sesion[detalles]";
+                if (!empty($sesion["detalles"]) or !$sesion["detalles"] == NULL) {
+                    $detallesSesion .= " $sesion[detalles]";
+                }
+                else {{
+                    $detallesSesion .= " Ninguno";
+                }}
 
                 $lecturaUsuarios .= "WHERE `id_personas`='$sesion[fk_personas]'";
                 $usuarios = mysqli_query($conexion,$lecturaUsuarios);
@@ -92,7 +97,8 @@
                     <p class="card-text"><?php echo $tratamientosSesion ?></p>
                     <p class="card-text"><small class="text-body-secondary"><?php echo $montoSesion ?></small></p>
                     <span class="subrayado"></span>
-                    <p class="card-text"><?php echo $detallesSesion?></p>
+                    <p class="card-text"><?php echo $detallesSesion ?>
+                    </p>
                 </div>
                 <hr>
                 <div class="acciones-sesion">

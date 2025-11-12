@@ -31,5 +31,6 @@
         </article>
     </section>
 </main>
-</body>
-</html>
+<?php 
+    include_once("../librerias/bootstrap-js.php");
+?>

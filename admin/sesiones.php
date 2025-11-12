@@ -109,7 +109,7 @@
         </section>
         <section>
             <article>
-                <table>
+                <table id="tabla-sesion">
                     <thead>
                         <th class="text-center">
                             Paciente
@@ -169,15 +169,10 @@
                                 $lecturaSesionesTratamientos .= " WHERE `fk_sesiones`='$sesion[id_sesiones]'";
                                 $sesionesTratamientos = mysqli_query($conexion,$lecturaSesionesTratamientos);
                                 
-                                $verDetalles = $sesion["detalles"];
-                                if (empty($verDetalles) || $verDetalles == null) {
-                                    $verDetalles = "Ninguno";
-                                }
-                                else {
-                                    $verDetalles = "<a href='informacion-sesion.php?id=$sesion[id_sesiones]'>Ver Detalles</a>";
-                                }
+                                $verDetalles = "<a href='informacion-sesion.php?id=$sesion[id_sesiones]'>Ver Detalles</a>";
+
                                 if ($estadoActual != "completada") {
-                                    $marcarCompletada = "<a class='marcar-completada' href='./abml/procesar-modificacion.php?idC=$sesion[id_sesiones]'>
+                                    $marcarCompletada = "<a class='marcar-completada' href='./abml/procesar-modificacion.php#tabla-sesion?idC=$sesion[id_sesiones]'>
                                     <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='icon icon-tabler icons-tabler-outline icon-tabler-check'><path stroke='none' d='M0 0h24v24H0z' fill='none'/><path d='M5 12l5 5l10 -10' /></svg>
                                     <span>Marcar como completada</span>
                                     </a>";
@@ -197,7 +192,6 @@
             </article>
         </section>
     </main>
-<script src="../js-admin/script.js"></script>
 <?php
     include_once("../componentes-admin/footer.php");
 ?>

@@ -6,21 +6,33 @@
     <title>Login</title>
 
     <link rel="stylesheet" href="../css-log/log.css">
+
+    <?php
+        include_once("../librerias/bootstrap-css.php");
+    ?>  
 </head>
 <body>
-    <main>
+    <main class="mt-5">
         <?php
             if (isset($_GET["ambos"])) {
-                echo "-Ambos campos son obligatorios";
+                echo "<div class='alert alert-danger' role='alert'>
+                        Ambos campos son obligatorios 
+                    </div>";
             }
             if (isset($_GET["arroba"])) {
-                echo "-El email debe contener @";
+                echo "<div class='alert alert-danger' role='alert'>
+                        El email debe contener @
+                    </div>";
             }
             if (isset($_GET["contrasenia"])) {
-                echo "-La contrasenia ingresada es incorrecta";
+                echo "<div class='alert alert-danger' role='alert'>
+                        La contrasenia ingresada es incorrecta 
+                    </div>";
             }
             if (isset($_GET["email"])) {
-                echo "-El email ingresado no existe";
+                echo "<div class='alert alert-danger' role='alert'>
+                        El email ingresado no existe
+                    </div>";
             }
         ?>
         <form action="../log/log.php" class="form" method="post">

@@ -11,7 +11,5 @@
         </section>
     </main>
 <?php
-    include_once("../librerias/bootstrap-js.php");
+    include_once("../componentes-admin/footer.php");
 ?>
-</body>
-</html>

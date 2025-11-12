@@ -54,4 +54,14 @@
         }
         return false;
     }
+    function validarHorarios ($lecturaHorarios, $fecha, $hora, $conexion) : int {
+        $lecturaHorarios .= " WHERE `fecha`='$fecha' and `hora`='$hora'";
+        $resultadoHorarios = mysqli_query($conexion, $lecturaHorarios);
+
+        if ($horario = mysqli_fetch_array($resultadoHorarios)) {
+            $fk_fechas_horas = $horario["id_fechas_horas"];
+            return $fk_fechas_horas;
+        }
+        return -1;
+    }
 ?>

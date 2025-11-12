@@ -2,5 +2,5 @@
     session_start();
     session_destroy();
 
-    header("Location: ../paginas/login.php");
+    header("Location: ../paginas/index.php");
 ?>

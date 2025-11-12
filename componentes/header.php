@@ -29,12 +29,18 @@
                                 <?php
                                     $tratamientos = mysqli_query($conexion, $lecturaTratamientos);
                                     while ($tratamiento = mysqli_fetch_array($tratamientos)) {
-                                        echo 
-                                        "<li>
+                                        $conteoTratamientos = mysqli_query($conexion,"SELECT COUNT(`fk_tratamientos`) FROM `sesiones_tratamientos` WHERE `fk_tratamientos`='$tratamiento[id_tratamientos]'");
+                        
+                                        
+                                        while ($c = mysqli_fetch_array($conteoTratamientos))
+                                        {
+                                            echo "<li class='d-flex align-items-center'>
                                             <a class='dropdown-item' href='../paginas/tratamiento.php?id=$tratamiento[id_tratamientos]'>
-                                                $tratamiento[nombre]
+                                            $tratamiento[nombre]
                                             </a>
-                                        </li>";
+                                            <small class='me-4'>($c[0])</small>
+                                            </li>";
+                                        }
                                     }
                                 ?>
                             </ul>

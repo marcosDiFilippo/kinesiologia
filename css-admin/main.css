@@ -7,6 +7,10 @@ a {
     text-decoration: none;
 }
 
+.logo {
+    width: 120px;
+}
+
 .input-paciente {
     padding: 0.6rem 1rem !important;
     background-color: #d6eaf4;
