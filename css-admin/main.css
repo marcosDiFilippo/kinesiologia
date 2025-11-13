@@ -11,16 +11,20 @@ a {
     width: 120px;
 }
 
-.section-categorias article:first-of-type {
-    margin-bottom: 4rem;
-}
-
-.section-categorias article:last-of-type {
-    margin-top: 4rem;
+.section-categorias article {
+    padding: 4rem;
 }
 
 .links-categorias:nth-child(1) {
     background-color: #abc8e2;
+}
+
+.links-categorias:nth-child(2) {
+    background-color: #bdd4e9;
+}
+
+.links-categorias:nth-child(3) {
+    background-color: #bdd4e9;
 }
 
 .span-index {
