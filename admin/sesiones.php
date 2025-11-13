@@ -7,9 +7,14 @@
         <section id="section-form">
             <article id="article-form">
                 <?php 
+                    if (isset($_GET["alta"])) {
+                        echo "<div class='alert alert-success' role='alert'>
+                                Sesion cargada existosamente ✅
+                            </div>";
+                    }
                     if (isset($_GET["camposVacios"])) {
                         echo "<div class='alert alert-danger' role='alert'>
-                                Todos los campos son obligatorios  
+                                Todos los campos son obligatorios
                             </div>";
                     }
                     if (isset($_GET["camposNoNumericos"])) {
@@ -157,7 +162,7 @@
                                 $lecturaEstados .= " WHERE `id_estado`='$sesion[fk_estado_sesion]'";
                                 $estados = mysqli_query($conexion,$lecturaEstados);
 
-                                echo "<td><p>$sesion[monto]</p></td>";
+                                echo "<td><p>$ $sesion[monto]</p></td>";
                                 $estadoActual;
                                 if ($estado = mysqli_fetch_array($estados)) {
                                     echo "<td>";

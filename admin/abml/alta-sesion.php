@@ -6,16 +6,6 @@
     include_once("../../componentes/config/config.php");
     include_once("./lectura.php");
     include_once("../validaciones.php");
-    function validarHorarios ($lecturaHorarios, $fecha, $hora, $conexion) : int {
-        $lecturaHorarios .= " WHERE `fecha`='$fecha' and `hora`='$hora'";
-        $resultadoHorarios = mysqli_query($conexion, $lecturaHorarios);
-
-        if ($horario = mysqli_fetch_array($resultadoHorarios)) {
-            $fk_fechas_horas = $horario["id_fechas_horas"];
-            return $fk_fechas_horas;
-        }
-        return -1;
-    }
     function realizarAltaPago ($metodoPago, $fk_sesion, $conexion) {
         for ($i=0; $i < count($metodoPago); $i++) { 
             mysqli_query($conexion, "INSERT INTO `pago_sesiones`(`fk_metodos_pago`, `fk_sesiones`) VALUES ('$metodoPago[$i]','$fk_sesion')");

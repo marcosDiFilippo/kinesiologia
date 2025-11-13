@@ -9,16 +9,17 @@
             if (isset($_GET["id"])) {
                 $id = $_GET["id"];
             }
-            $fkSesion;
-            $fkUsuario;
-            $estadoSesion;
-            $fkFechaHora;
-            $imagen;
-            $monto;
-            $nombreUsuario;
-            $fecha;
-            $hora;
+            $fkSesion = 0;
+            $fkUsuario = 0;
+            $estadoSesion = "";
+            $fkFechaHora = 0;
+            $imagen = "";
+            $monto = 0;
+            $nombreUsuario = "";
+            $fecha = "";
+            $hora = "";
             $tratamientosSesion = "";
+            $detalles = "";
 
             $lecturaSesionesTratamientos .= " WHERE `fk_tratamientos`='$id'";
 

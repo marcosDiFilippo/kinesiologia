@@ -11,6 +11,23 @@ a {
     width: 120px;
 }
 
+.section-categorias article:first-of-type {
+    margin-bottom: 4rem;
+}
+
+.section-categorias article:last-of-type {
+    margin-top: 4rem;
+}
+
+.links-categorias:nth-child(1) {
+    background-color: #abc8e2;
+}
+
+.span-index {
+    font-size: 1.5rem;
+    color: black;
+}
+
 .input-paciente {
     padding: 0.6rem 1rem !important;
     background-color: #d6eaf4;
