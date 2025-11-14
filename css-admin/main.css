@@ -11,20 +11,16 @@ a {
     width: 120px;
 }
 
-.section-categorias article {
-    padding: 4rem;
+.row a {
+    padding: 6rem;
 }
 
-.links-categorias:nth-child(1) {
-    background-color: #abc8e2;
+.article-links-1 a:nth-child(1), .article-links-2 a:nth-child(2) {
+    background-color: #EAF1E8;
 }
 
-.links-categorias:nth-child(2) {
-    background-color: #bdd4e9;
-}
-
-.links-categorias:nth-child(3) {
-    background-color: #bdd4e9;
+.article-links-1 a:nth-child(2), .article-links-2 a:nth-child(1) {
+    background-color: #BBC0BB;
 }
 
 .span-index {
@@ -34,8 +30,8 @@ a {
 
 .input-paciente {
     padding: 0.6rem 1rem !important;
-    background-color: #d6eaf4;
-    border: 1px solid #bdd4e9;
+    background-color: #EAF1E8;
+    border: 1px solid #9a9e9a;
     border-radius: 6px;
 }
 
@@ -131,14 +127,15 @@ textarea {
 
 .submit-paciente {
     width: 45% !important;
-    color: black;
-    background-color: #bdd4e9;
-    border: 1px solid #d6eaf4;
+    color: #EAF1E8;
+    font-weight: bolder;
+    background-color: #9a9e9a;
+    border: none;
     border-radius: 4px;
     padding: 0.5rem;
     transition: background-color 0.3s ease;
 }
 
 .submit-paciente:hover {
-    background-color: #abc8e2;
+    background-color: #aaafaa;
 }
