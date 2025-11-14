@@ -27,21 +27,39 @@
                                 El monto no puede ser negativo, por favor vuelva ingresar   
                             </div>";
                     }
+                    if (isset($_GET["noEncontrado"])) {
+                        echo "<div class='alert alert-danger' role='alert'>
+                                El usuario no ha sido encontrado 
+                            </div>";
+                    }
+                    $idBuscado;
+                    if (isset($_GET["idU"])) {
+                        $idBuscado = htmlspecialchars($_GET["idU"]);
+                        $lecturaUsuarios .= " WHERE `id_personas`='$idBuscado'";
+
+                        if ($usuario = mysqli_fetch_array(mysqli_query($conexion,$lecturaUsuarios))) {
+                            echo "<p>Paciente: $usuario[nombre]  $usuario[apellido]</p>";
+                            echo "<p>Dni: $usuario[dni]</p>";
+                            echo "<p>Email: $usuario[email]</p>";
+                        }
+                    }
+                    else {
+                        echo "<form action='busqueda-paciente.php' method='post'>
+                                <input type='number' name='dni-buscado' placeholder='Buscar por dni'>
+                                <input type='submit' value='Buscar Paciente'>
+                            </form>";
+                    }
                 ?>
                 <form class="container-fluid" action="./abml/alta-sesion.php" enctype="multipart/form-data" method="post">
-                    <p>
-                        Elija el usuario con el que quiere realizar la sesion
-                    </p>
-                    <?php
-                        $lecturaUsuarios .= " WHERE `fk_rol`=3";
-
-                        $usuarios = mysqli_query($conexion,$lecturaUsuarios);
-                        echo "<select name='id-usuario' id='selectUsuarios'>";
-                        while ($usuario = mysqli_fetch_array($usuarios)) {
-                                echo "<option value='$usuario[id_personas]'>$usuario[nombre] $usuario[apellido] - $usuario[email]</option>";
-                            }
-                        echo "</select>";
+                    <?php 
+                        $idPaciente = 0;
+                        if (isset($_GET["idP"])) {
+                            $idPaciente = $_GET["idP"];
+                        }
                     ?>
+                    <div>
+                        <input type="hidden" name="id-usuario" value="<?php echo $idBuscado?>">
+                    </div>
                     <div class="row"> 
                         <div class="col-6 d-flex flex-column">
                             <label for="fecha">Fecha Consulta</label>
