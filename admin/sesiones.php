@@ -32,22 +32,34 @@
                                 El usuario no ha sido encontrado 
                             </div>";
                     }
-                    $idBuscado;
+                    if (isset($_GET["usuarioNoIngresado"])) {
+                        echo "<div class='alert alert-danger' role='alert'>
+                                No se ha ingresado ningun usuario 
+                            </div>";
+                    }
+                    $idBuscado = -1;
                     if (isset($_GET["idU"])) {
                         $idBuscado = htmlspecialchars($_GET["idU"]);
                         $lecturaUsuarios .= " WHERE `id_personas`='$idBuscado'";
 
                         if ($usuario = mysqli_fetch_array(mysqli_query($conexion,$lecturaUsuarios))) {
-                            echo "<p>Paciente: $usuario[nombre]  $usuario[apellido]</p>";
-                            echo "<p>Dni: $usuario[dni]</p>";
-                            echo "<p>Email: $usuario[email]</p>";
+                            echo "<div><a class='cancelar-usuario' href='$_SERVER[PHP_SELF]'>Cancelar Usuario</a></div>";
+                            echo "<div>";
+                            echo "<p><span class='datos-paciente'>Paciente:</span> $usuario[nombre]  $usuario[apellido]</p>";
+                            echo "<p><span class='datos-paciente'>Dni:</span> $usuario[dni]</p>";
+                            echo "<p><span class='datos-paciente'>Telefono:</span> $usuario[telefono]</p>";
+                            echo "<p><span class='datos-paciente'>Email:</span> $usuario[email]</p>";
+                            echo "<p><span class='datos-paciente'>Fecha Nacimiento:</span> $usuario[fecha_nacimiento]</p>";
+                            echo "</div>";
                         }
                     }
                     else {
-                        echo "<form action='busqueda-paciente.php' method='post'>
-                                <input type='number' name='dni-buscado' placeholder='Buscar por dni'>
-                                <input type='submit' value='Buscar Paciente'>
-                            </form>";
+                        echo "<div class='div-busqueda'>";
+                            echo "<form action='busqueda-paciente.php' method='post'>
+                                    <input type='number' name='dni-buscado' placeholder='Ingrese el dni del paciente'>
+                                    <input type='submit' value='Buscar Paciente'>
+                                </form>";
+                        echo "</div>";
                     }
                 ?>
                 <form class="container-fluid" action="./abml/alta-sesion.php" enctype="multipart/form-data" method="post">
@@ -195,7 +207,7 @@
                                 $verDetalles = "<a href='informacion-sesion.php?id=$sesion[id_sesiones]'>Ver Detalles</a>";
 
                                 if ($estadoActual != "completada") {
-                                    $marcarCompletada = "<a class='marcar-completada' href='./abml/procesar-modificacion.php#tabla-sesion?idC=$sesion[id_sesiones]'>
+                                    $marcarCompletada = "<a class='marcar-completada' href='./abml/procesar-modificacion.php?idC=$sesion[id_sesiones]'>
                                     <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='icon icon-tabler icons-tabler-outline icon-tabler-check'><path stroke='none' d='M0 0h24v24H0z' fill='none'/><path d='M5 12l5 5l10 -10' /></svg>
                                     <span>Marcar como completada</span>
                                     </a>";

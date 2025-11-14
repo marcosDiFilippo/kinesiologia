@@ -20,8 +20,11 @@ td p {
 }
 
 .td-detalles {
-    max-width: 200px;
+    display: flex;
+    max-width: fit-content;
     word-break: break-all;
+    margin-top: 1rem;
+    column-gap: 1rem;
 }
 
 .td-detalles > * {
@@ -61,8 +64,11 @@ td p {
 .marcar-completada {
     background-color: #29b3a3;
     color: #fafafa;
-    padding: 0.4rem;
     border-radius: 5px;
+    padding: 0 0.4rem;
+    display: flex;
+    align-items: center;
+    height: 2rem;
 }
 
 #section-form {
@@ -78,6 +84,9 @@ td p {
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     width: 100%;
     max-width: 1400px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 3rem;
 }
 
 form p {
@@ -153,4 +162,40 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: #21867a;
+}
+
+.div-busqueda form {
+    display: flex;
+    align-items: end;
+    column-gap: 1rem;
+}
+
+.div-busqueda form input {
+    height: 50px;
+}
+
+.div-busqueda input:nth-child(1) {
+    width: 70%;
+}
+
+.div-busqueda input:nth-child(2) {
+    width: 30%;
+}
+
+.datos-paciente {
+    color: black;
+    font-weight: bold;
+}
+
+.cancelar-usuario {
+    background-color: rgba(255, 0, 0, 0.637);
+    padding: 0.6rem;
+    border-radius: 5px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #fafafa;
+}
+
+.cancelar-usuario:hover {
+    background-color: rgba(255, 0, 0, 0.877);
 }

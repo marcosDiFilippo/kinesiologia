@@ -45,6 +45,10 @@
             isset($_FILES["imagen"])
         ) {
             $idUsuario = htmlspecialchars($_POST["id-usuario"]);
+            if ($idUsuario == -1) {
+                header("Location: ../sesiones.php?usuarioNoIngresado=ok");
+                exit();
+            }
 
             $fecha = htmlspecialchars($_POST["fecha"]);
 
