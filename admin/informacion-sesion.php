@@ -62,18 +62,19 @@
                 $lecturaEstados .= " WHERE `id_estado`='$sesion[fk_estado_sesion]'";
                 $estados = mysqli_query($conexion,$lecturaEstados);
 
-                $montoSesion = "$ $sesion[monto]";
+                $montoSesion = "<span>Monto: </span>$ $sesion[monto]";
                 if ($estado = mysqli_fetch_array($estados)) {
                     $estadoSesion = "<span>Estado:</span> $estado[nombre]";
                 }
                 $lecturaSesionesTratamientos .= " WHERE `fk_sesiones`='$sesion[id_sesiones]'";
                 $sesionesTratamientos = mysqli_query($conexion,$lecturaSesionesTratamientos);
+
                 while ($sesionTratamiento = mysqli_fetch_array($sesionesTratamientos)) {
                     $lecturaTratamientos = "SELECT * FROM `tratamientos`";
                     $lecturaTratamientos .= " WHERE `id_tratamientos`='$sesionTratamiento[fk_tratamientos]'";
                     $tratamientos = mysqli_query($conexion,$lecturaTratamientos);
                     if ($tratamiento = mysqli_fetch_array($tratamientos)) {
-                        $tratamientosSesion .= "  $tratamiento[nombre]  ";
+                        $tratamientosSesion .= "<li>- $tratamiento[nombre]</li>";
                     }
                 }
             }
@@ -94,10 +95,14 @@
                     <p class="card-text"><?php echo $estadoSesion ?></p>
                     <p class="card-text"><?php echo $fecha ?></p>
                     <p class="card-text"><?php echo $hora ?></p>
-                    <p class="card-text"><?php echo $tratamientosSesion ?></p>
-                    <p class="card-text"><small class="text-body-secondary"><?php echo $montoSesion ?></small></p>
-                    <span class="subrayado"></span>
+                    <ul class="lista-tratamientos">
+                        <?php 
+                            echo $tratamientosSesion;
+                        ?>  
+                    </ul>
                     <p class="card-text"><?php echo $detallesSesion ?>
+                    <span class="subrayado"></span>
+                    <p class="card-text"><small class="text-body-secondary"><?php echo $montoSesion ?></small></p>
                     </p>
                 </div>
                 <hr>

@@ -54,4 +54,20 @@
         header("Location: ../sesiones.php?bajaS=ok");
         exit();
     }
+    if (isset($_GET["idT"])) {
+        $idTratamiento = $_GET["idT"];
+        $lecturaTratamientos .= " WHERE `id_tratamientos`='$idTratamiento'";
+
+        $nombreTratamiento = "";
+        if ($tratamiento = mysqli_fetch_array(mysqli_query($conexion, $lecturaTratamientos))) {
+            $nombreTratamiento = $tratamiento["nombre"];
+        }
+
+        mysqli_query($conexion,"DELETE FROM `tratamientos` WHERE `id_tratamientos`='$idTratamiento'");
+
+        mysqli_query($conexion,"DELETE FROM `sesiones_tratamientos` WHERE `fk_tratamientos`='$idTratamiento'");
+
+        header("Location: ../tratamientos.php?baja=$nombreTratamiento");
+        exit();
+    }
 ?>

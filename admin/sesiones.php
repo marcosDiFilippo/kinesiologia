@@ -37,6 +37,11 @@
                                 No se ha ingresado ningun usuario 
                             </div>";
                     }
+                    if (isset($_GET["bajaS"])) {
+                        echo "<div class='alert alert-danger' role='alert'>
+                                Se ha dado de baja la sesion
+                            </div>";
+                    }
                     $idBuscado = -1;
                     if (isset($_GET["idU"])) {
                         $idBuscado = htmlspecialchars($_GET["idU"]);

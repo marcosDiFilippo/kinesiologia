@@ -115,17 +115,14 @@ span {
     color: rgb(0, 0, 0);
 }
 
-.subrayado {
-    background-color: black;
-    height: 0.2px;
-    width: 100%;
-    border-radius: 1rem;
-}
-
 .card-text {
     display: block !important;
     white-space: normal !important;
     overflow-wrap: anywhere !important;
     word-break: break-word !important;
     box-sizing: border-box !important;
+}
+
+.lista-tratamientos {
+    list-style-type: none;
 }
