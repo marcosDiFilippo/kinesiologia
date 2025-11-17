@@ -116,7 +116,7 @@ textarea {
     display: flex;
     align-items: center;
     height: 100%;
-    background-color: #bdd4e9;
+    background-color: #ccd1cb;
     transition: font-size 0.3s ease;
 }
 
@@ -134,7 +134,7 @@ textarea {
 .main-mod-paciente section {
     display: flex;
     margin-top: 5rem;
-    background-color: #d6eaf4;
+    background-color: #EAF1E8;
     border-radius: 0 8px 8px 0;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }

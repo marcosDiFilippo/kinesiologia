@@ -13,7 +13,7 @@
     }   
     function realizarAltaSesion ($detalles, $imagen, $fk_persona, $fk_horario, $fk_estado, $monto, $conexion, $lecturaSesiones) : int {
         $temp = $imagen["tmp_name"];
-        $nombreImagen = time() . ".jpg";
+        $nombreImagen = time() . ".webp";
 
         move_uploaded_file($temp, "../../imagenes-subidas/$nombreImagen");
 
@@ -128,6 +128,7 @@
 
             $fk_persona = $idUsuario;
 
+            $tempImagen = time() . ".jpg";
             $fk_sesion = realizarAltaSesion(
                 $detalles, 
                 $imagen, 

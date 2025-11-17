@@ -61,7 +61,7 @@
                         Fecha Nacimiento: <?php echo $fechaNacimiento ?>
                     </p>
                     <p>
-                        Email <?php echo $email?>
+                        Email: <?php echo $email?>
                     </p>
                     <p>
                         Telefono: <?php echo $telefono?>

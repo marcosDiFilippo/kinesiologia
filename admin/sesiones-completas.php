@@ -1,4 +1,5 @@
 <?php
+    $seccion = "Sesiones Por Tratamiento";
     include_once("../componentes-admin/header.php");
     $id;
     if (isset($_GET["id"])) {

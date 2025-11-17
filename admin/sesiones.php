@@ -1,4 +1,5 @@
 <?php
+    $seccion = "Sesiones";
     include_once("../componentes-admin/header.php");
     include_once("../componentes/config/config.php");
     include_once("./abml/lectura.php");
@@ -9,7 +10,7 @@
                 <?php 
                     if (isset($_GET["alta"])) {
                         echo "<div class='alert alert-success' role='alert'>
-                                Sesion cargada existosamente ✅
+                                Sesion cargada exitosamente ✅
                             </div>";
                     }
                     if (isset($_GET["camposVacios"])) {

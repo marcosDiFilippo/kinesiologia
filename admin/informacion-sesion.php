@@ -1,4 +1,5 @@
 <?php
+    $seccion = "Informacion Sesion";
     session_start();
     if ($_SESSION == NULL) {
         header("Location: ../index.php");
@@ -37,6 +38,7 @@
             $emailUsuario;
             $telefono;
             $dni;
+            $metodosPagoString = "<span>Metodos de pago:</span> ";
 
             if ($sesion = mysqli_fetch_array($sesiones)) {
                 $rutaImagen = "../imagenes-subidas/$sesion[imagen]";
@@ -82,11 +84,28 @@
                         $tratamientosSesion .= "<li>- $tratamiento[nombre]</li>";
                     }
                 }
+
+                $resultadoPagoSesiones = mysqli_query($conexion,$lecturaPagoSesiones .= " WHERE `fk_sesiones`='$sesion[id_sesiones]'");
+                
+                while ($pagoSesion = mysqli_fetch_array($resultadoPagoSesiones)) {
+                    $lecturaMetodosPago = "SELECT * FROM `metodos_pago`";
+
+                    if ($metodoPago = mysqli_fetch_array(mysqli_query($conexion,$lecturaMetodosPago .= " WHERE `id_metodos_pago`='$pagoSesion[fk_metodos_pago]'"))) {
+                        $metodosPagoString .= "<li>- $metodoPago[nombre]</li>";
+                    }
+                }
             }
         }
         include_once("../librerias/bootstrap-js.php");
     ?>
     <main id="main-info">
+        <?php
+            if (isset($_GET["modS"])) {
+                echo "<div class='alert alert-success d-flex align-items-center justify-content-center p-3 mt-3' style='width: 40%;' role='alert'>
+                        Sesion modificada exitosamente!
+                    </div>";
+            }
+        ?>
         <section class="section-sesion">
             <article>
                 <a class="volver-atras" href="sesiones.php">Volver atras</a>
@@ -110,9 +129,13 @@
                         ?>  
                     </ul>
                     <span class="subrayado"></span>
-                    <p class="card-text"><?php echo $detallesSesion ?>
+                    <p class="card-text"><?php echo $detallesSesion ?></p>
                     <p class="card-text"><small class="text-body-secondary"><?php echo $montoSesion ?></small></p>
-                    </p>
+                    <ul class="lista-tratamientos">
+                        <?php
+                            echo $metodosPagoString;
+                        ?>
+                    </ul>
                 </div>
                 <div class="acciones-sesion">
                     <a href="./abml/baja.php?idS=<?php echo$id?>">Dar de baja</a>

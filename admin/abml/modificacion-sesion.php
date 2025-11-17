@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
     session_start();
     if ($_SESSION == NULL) {
         header("Location: ../../index.php");
@@ -21,6 +24,56 @@
         $idSesion;
         if (isset($_GET["idS"])) {
             $idSesion = $_GET["idS"];
+            $lecturaSesiones .= " WHERE `id_sesiones`='$idSesion'";
+            $sesiones = mysqli_query($conexion,$lecturaSesiones);
+
+            $usuarioSesion;
+            $emailUsuario;
+            $telefono;
+            $dni;
+            $valueFecha;
+            $valueHorario;
+            $valueMonto;
+            $valuesMetodosPago = [];
+            $valuesTratamientos = [];
+            $valueDescripcion;
+            $valueImagen;
+
+            if ($sesion = mysqli_fetch_array($sesiones)) {
+                if (!empty($sesion["detalles"]) or $sesion["detalles"] != NULL) {
+                    $valueDescripcion = "$sesion[detalles]";
+                }
+                $valueMonto = $sesion["monto"];
+
+                $lecturaUsuarios .= "WHERE `id_personas`='$sesion[fk_personas]'";
+                $usuarios = mysqli_query($conexion,$lecturaUsuarios);
+
+                if ($usuario = mysqli_fetch_array($usuarios)) {
+                    $usuarioSesion = "<span>Paciente:</span> $usuario[nombre] $usuario[apellido]";
+                    $emailUsuario = "<span>Email:</span> $usuario[email]";
+                    $telefono = "<span>Telefono:</span> $usuario[telefono]";
+                    $dni = "<span>Dni:</span> $usuario[dni]";
+                }
+                $lecturaHorarios .= "WHERE `id_fechas_horas`='$sesion[fk_fechas_horas]'";
+                $horarios = mysqli_query($conexion,$lecturaHorarios);
+
+                if ($horario = mysqli_fetch_array($horarios)) {
+                    $valueFecha = $horario["fecha"];
+                    $valueHorario = $horario["hora"];
+                }
+
+                $lecturaSesionesTratamientos .= " WHERE `fk_sesiones`='$sesion[id_sesiones]'";
+                $sesionesTratamientos = mysqli_query($conexion,$lecturaSesionesTratamientos);
+
+                while ($sesionTratamiento = mysqli_fetch_array($sesionesTratamientos)) {
+                    $lecturaTratamientos = "SELECT * FROM `tratamientos`";
+                    $lecturaTratamientos .= " WHERE `id_tratamientos`='$sesionTratamiento[fk_tratamientos]'";
+                    $tratamientos = mysqli_query($conexion,$lecturaTratamientos);
+                    if ($tratamiento = mysqli_fetch_array($tratamientos)) {
+                        array_push($valuesTratamientos, (int) $tratamiento["id_tratamientos"]);
+                    }
+                }
+            }
         }
     ?>
 </head>
@@ -49,17 +102,25 @@
                                 </div>";
                         }
                     ?>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title mb-4"><?php echo $usuarioSesion;?></h5>
+                            <h6 class="card-subtitle mb-4 text-body-secondary"><?php echo $emailUsuario;?></h6>
+                            <h6 class="card-subtitle mb-4 text-body-secondary"><?php echo $telefono;?></h6>
+                            <h6 class="card-subtitle mb-4 text-body-secondary"><?php echo $dni;?></h6>
+                        </div>
+                    </div>
                     <div>
                         <input type="hidden" name="id_sesion" value="<?php echo $idSesion?>">
                     </div>
                     <div class="row">  
                         <div class="col-6 d-flex flex-column">
                             <label for="fecha">Fecha Consulta</label>
-                            <input type="date" name="fecha" id="fecha" placeholder="Ingrese fecha de la consulta">
+                            <input type="date" name="fecha" id="fecha" placeholder="Ingrese fecha de la consulta" value="<?php echo $valueFecha?>">
                         </div>
                         <div class="col-6 d-flex flex-column">
                             <label for="hora">Horario</label>
-                            <input type="time" name="hora" id="hora" placeholder="Ingrese horario de la consulta">
+                            <input type="time" name="hora" id="hora" placeholder="Ingrese horario de la consulta" value="<?php echo $valueHorario?>">
                         </div>
                     </div>
                     <hr>
@@ -67,15 +128,15 @@
                         <div>
                             <div class="row d-flex align-items-center">
                                 <label class="col-2" for="monto">Pago</label>
-                                <input class="col-4" type="number" name="monto" id="monto" placeholder="Ingrese el monto de la sesion">
+                                <input class="col-4" type="number" name="monto" id="monto" placeholder="Ingrese el monto de la sesion" value="<?php echo $valueMonto?>">
                             </div>
                             <?php
-                                $metodosPago = mysqli_query($conexion,$lecturaMetodosPago);
-                                
-                                while($metodoPago = mysqli_fetch_array($metodosPago)) {
+                                $resultadoMetodoPago = mysqli_query($conexion,$lecturaMetodosPago);
+
+                                while($metodoPago = mysqli_fetch_array($resultadoMetodoPago)) {
                                     echo "<input type='checkbox' name='metodos-pago[]' id='$metodoPago[nombre]' value='$metodoPago[id_metodos_pago]'>";
                                     echo "<label class='label-checkbox col-2' for='$metodoPago[nombre]'>$metodoPago[nombre]</label>";
-                                }
+                                }  
                             ?>
                         </div>
                     </div>
@@ -99,6 +160,8 @@
                         <p class="motivo-consulta">Motivo Consulta</p>
                         <div class="row">
                         <?php
+                            $lecturaTratamientos = "SELECT * FROM `tratamientos`";
+
                             $tratamientos = mysqli_query($conexion,$lecturaTratamientos);
                             
                             while($tratamiento = mysqli_fetch_array($tratamientos)) {
@@ -112,7 +175,7 @@
                     </div>
                     <hr>
                     <div class="row">
-                        <textarea class="col-12" name="detalles" id="detalles" rows="10" placeholder="Ingrese los detalles sobre la consulta (Opcional)"></textarea>
+                        <textarea class="col-12" name="detalles" id="detalles" rows="10" placeholder="Ingrese los detalles sobre la consulta (Opcional)"><?php echo $valueDescripcion?></textarea>
                     </div>
                     <div>
                         <label for="imagen">Ingrese la imagen relacionada a la sesion</label>
