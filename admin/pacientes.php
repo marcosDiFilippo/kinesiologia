@@ -88,7 +88,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th>
+                        <th class="columna-nombre">
                             Nombre Completo
                         </th>
                         <th>
@@ -120,7 +120,7 @@
                             $idUsuario = $usuario["id_personas"];
                             
                             echo "<tr>";
-                            echo "<td>$usuario[nombre] $usuario[apellido]</td>
+                            echo "<td class='columna-nombre'>$usuario[nombre] $usuario[apellido]</td>
                             <td>$usuario[dni]</td>
                             <td>$usuario[fecha_nacimiento]</td>
                             <td>$usuario[telefono]</td>

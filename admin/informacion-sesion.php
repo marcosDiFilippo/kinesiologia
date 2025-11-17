@@ -6,7 +6,6 @@
     include_once("../componentes/config/config.php");
     include_once("./abml/lectura.php");
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,6 +34,9 @@
             $tratamientosSesion = "<span>Tratamientos:</span> ";
             $montoSesion;
             $detallesSesion = "<span>Detalles:</span>";
+            $emailUsuario;
+            $telefono;
+            $dni;
 
             if ($sesion = mysqli_fetch_array($sesiones)) {
                 $rutaImagen = "../imagenes-subidas/$sesion[imagen]";
@@ -51,6 +53,9 @@
 
                 if ($usuario = mysqli_fetch_array($usuarios)) {
                     $usuarioSesion = "<span>Paciente:</span> $usuario[nombre] $usuario[apellido]";
+                    $emailUsuario = "<span>Email:</span> $usuario[email]";
+                    $telefono = "<span>Telefono:</span> $usuario[telefono]";
+                    $dni = "<span>Dni:</span> $usuario[dni]";
                 }
                 $lecturaHorarios .= "WHERE `id_fechas_horas`='$sesion[fk_fechas_horas]'";
                 $horarios = mysqli_query($conexion,$lecturaHorarios);
@@ -92,6 +97,10 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title"><?php echo $usuarioSesion ?></h5>
+                    <p class="card-text"><?php echo $emailUsuario ?></p>
+                    <p class="card-text"><?php echo $telefono ?></p>
+                    <p class="card-text"><?php echo $dni ?></p>
+                    <span class="subrayado"></span>
                     <p class="card-text"><?php echo $estadoSesion ?></p>
                     <p class="card-text"><?php echo $fecha ?></p>
                     <p class="card-text"><?php echo $hora ?></p>
@@ -100,12 +109,11 @@
                             echo $tratamientosSesion;
                         ?>  
                     </ul>
-                    <p class="card-text"><?php echo $detallesSesion ?>
                     <span class="subrayado"></span>
+                    <p class="card-text"><?php echo $detallesSesion ?>
                     <p class="card-text"><small class="text-body-secondary"><?php echo $montoSesion ?></small></p>
                     </p>
                 </div>
-                <hr>
                 <div class="acciones-sesion">
                     <a href="./abml/baja.php?idS=<?php echo$id?>">Dar de baja</a>
                     <a href="./abml/modificacion-sesion.php?idS=<?php echo$id?>">Editar</a>

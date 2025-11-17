@@ -72,10 +72,10 @@
                         <a href="<?php echo $rutaIndex?>">
                             <img class="logo" src="../imagenes/logo-kine.webp" alt="Inicio">
                         </a>
-                        <a class="nav-link active" aria-current="page" href=<?php echo $rutaTratamientos?>>Tratamientos</a>
-                        <a class="nav-link" href=<?php echo $rutaPacientes?>>Pacientes</a>
-                        <a class="nav-link" href=<?php echo $rutaSesiones?>>Sesiones</a>
-                        <a class="nav-link" href=<?php echo $rutaAdministradores?>>Administradores</a>
+                        <a class="nav-link active" aria-current="page" href=<?php echo $rutaTratamientos?> >Tratamientos</a>
+                        <a class="nav-link" href=<?php echo $rutaPacientes?> >Pacientes</a>
+                        <a class="nav-link" href=<?php echo $rutaSesiones?> >Sesiones</a>
+                        <a class="nav-link" href=<?php echo $rutaAdministradores?> >Administradores</a>
                         <div class="collapse navbar-collapse" id="navbarNavDropdown">
                             <ul class="navbar-nav">
                                 <li class="nav-item dropdown">
@@ -85,6 +85,7 @@
                                     <ul class="dropdown-menu">
                                         <?php
                                             $tratamientos = mysqli_query($conexion, $lecturaTratamientos);
+                                            
                                             while ($tratamiento = mysqli_fetch_array($tratamientos)) {
                                                 $conteoTratamientos = mysqli_query($conexion,"SELECT COUNT(`fk_tratamientos`) FROM `sesiones_tratamientos` WHERE `fk_tratamientos`='$tratamiento[id_tratamientos]'");
                                 
@@ -104,7 +105,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <a class="nav-link" href=<?php echo $rutaCerrarSesion?>>Cerrar Sesion</a>
+                        <a class="nav-link" href=<?php echo $rutaCerrarSesion?> >Cerrar Sesion</a>
                     </div>
                 </div>
             </div>

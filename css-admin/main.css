@@ -157,3 +157,36 @@ textarea {
 .submit-paciente:hover {
     background-color: #aaafaa;
 }
+
+.article-alta-tratamiento {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.article-alta-tratamiento form {
+    display: flex;
+    column-gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.article-alta-tratamiento form > * {
+    border: #9a9e9a solid 1px;
+    border-radius: 5px;
+    width: 33%;
+}
+
+.article-alta-tratamiento form input[type=submit] {
+    background-color: #EAF1E8;
+    color: black;
+}
+
+.article-alta-tratamiento form input[type=submit]:hover {
+    background-color: rgba(234, 241, 232, 0.836)
+}
+
+.columna-nombre {
+    padding-left: 1rem;
+}

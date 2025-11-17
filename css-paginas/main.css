@@ -39,7 +39,6 @@
 
 .article-bienvenida h1 {
     text-align: center;
-    font-size: 4rem;
 }
 
 .article-bienvenida p {
@@ -53,7 +52,7 @@
 }
 
 #main-index {
-    background-color: #EAF1E8;
+    background-color: #e3f0df;
 }
 
 .navbar {

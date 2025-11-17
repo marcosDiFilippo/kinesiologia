@@ -8,7 +8,7 @@
         <article class="article-table">
             <table>
                 <thead>
-                    <th>
+                    <th class="columna-nombre">
                         Nombre Completo
                     </th>
                     <th>
@@ -32,7 +32,7 @@
                             
                         while ($persona = mysqli_fetch_array($personas)) {
                                 echo "<tr>";
-                                echo "<td>$persona[nombre] $persona[apellido]</td>
+                                echo "<td class='columna-nombre'>$persona[nombre] $persona[apellido]</td>
                                 <td>$persona[email]</td>
                                 <td>$persona[telefono]</td>
                                 <td>$persona[dni]</td>

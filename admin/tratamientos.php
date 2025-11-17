@@ -29,7 +29,7 @@
                     </div>";
             }
         ?>
-        <article>
+        <article class="article-alta-tratamiento">
             <form action="./abml/alta-tratamientos.php" method="post">
                 <input type="text" name="tratamiento" placeholder="Ingrese el nombre del tratamiento">
                 <input type="submit" value="Cargar Tratamiento">

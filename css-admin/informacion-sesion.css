@@ -126,3 +126,9 @@ span {
 .lista-tratamientos {
     list-style-type: none;
 }
+
+.subrayado {
+    background-color: black;
+    height: 1px;
+    width: 100%;
+}

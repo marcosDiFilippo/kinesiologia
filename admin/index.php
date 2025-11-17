@@ -2,13 +2,6 @@
     include_once("../componentes-admin/header.php");
 ?>
     <main>
-        <section>
-            <article>
-                <h1 class="text-center">
-                    Bienvenido al panel del consultorio
-                </h1>
-            </article>
-        </section>
         <section class="section-categorias container-fluid d-flex flex-column">
             <article class="row article-links-1">
                 <a href="administradores.php" class="col-6 d-flex flex-column justify-content-center align-items-center">

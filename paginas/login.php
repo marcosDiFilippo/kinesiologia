@@ -48,11 +48,6 @@
             <button type="submit" class="submit">
                 Iniciar Sesion
             </button>
-
-            <p class="signup-link">
-            No tienes una cuenta?
-            <a href="./registro.php">Registrarse</a>
-            </p>
         </form>
     </main>
 </body>

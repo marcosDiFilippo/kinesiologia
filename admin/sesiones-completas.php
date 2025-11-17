@@ -1,14 +1,21 @@
 <?php
     include_once("../componentes-admin/header.php");
+    $id;
+    if (isset($_GET["id"])) {
+        $id = $_GET["id"];
+    }
 ?>
 <main>
     <link rel="stylesheet" href="../css-admin/sesiones-completas.css">
     <section>
         <?php
-            $id;
-            if (isset($_GET["id"])) {
-                $id = $_GET["id"];
+            $tituloTratamiento = "";
+            if ($t = mysqli_fetch_array(mysqli_query($conexion, $lecturaTratamientos .= " WHERE `id_tratamientos`=$id"))) {
+                $tituloTratamiento = $t["nombre"];
             }
+        ?>
+        <h1 class="text-center">Sesiones - <?php echo $tituloTratamiento ?></h1>
+        <?php
             $fkSesion = 0;
             $fkUsuario = 0;
             $estadoSesion = "";
@@ -64,8 +71,18 @@
                 $lecturaUsuarios .= " WHERE `id_personas`='$fkUsuario'";
                 
                 $resultadoUsuario = mysqli_query($conexion,$lecturaUsuarios);
+                
+                $emailUsuario = "";
+                $telefono = 0;
+                $dni = 0;
+                $fechaNacimiento = "";
+
                 if ($usuario = mysqli_fetch_array($resultadoUsuario)) {
                     $nombreUsuario = $usuario["nombre"] . " " . $usuario["apellido"];
+                    $emailUsuario = "<span>Email:</span> $usuario[email]";
+                    $telefono = "<span>Telefono:</span> $usuario[telefono]";
+                    $dni = "<span>Dni:</span> $usuario[dni]";
+                    $fechaNacimiento = "<span>Fecha Nacimiento:</span> $usuario[fecha_nacimiento]";
                 }
 
                 $lecturaHorarios .= " WHERE `id_fechas_horas`='$fkFechaHora'";
@@ -83,9 +100,15 @@
                         </div>
                         <div class='card-body'>
                             <h5 class='card-title'>Paciente: $nombreUsuario </h5>
+                            <p class='card-text'><?php echo $emailUsuario</p>
+                            <p class='card-text'><?php echo $telefono</p>
+                            <p class='card-text'><?php echo $dni</p>
+                            <p class='card-text'><?php echo $fechaNacimiento</p>
+                            <hr>
                             <p class='card-text'>Estado: $estadoSesion</p>
                             <p class='card-text'>Fecha: $fecha</p>
                             <p class='card-text'>Hora: $hora</p>
+                            <hr>
                             <p class='card-text'><small class='text-body-secondary'>$ $monto</small></p>
                             <p class='card-text'>Detalles: $detalles
                             </p>
