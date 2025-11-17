@@ -42,9 +42,9 @@
                 if (!empty($sesion["detalles"]) or !$sesion["detalles"] == NULL) {
                     $detallesSesion .= " $sesion[detalles]";
                 }
-                else {{
+                else {
                     $detallesSesion .= " Ninguno";
-                }}
+                }
 
                 $lecturaUsuarios .= "WHERE `id_personas`='$sesion[fk_personas]'";
                 $usuarios = mysqli_query($conexion,$lecturaUsuarios);

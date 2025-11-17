@@ -8,17 +8,56 @@
     height: auto;
 }
 
-header {
-    background-color: rgba(172, 255, 47, 0.534);
-}
-
 .div-sesion {
-    width: 100px;
+    width: 200px;
     margin-right: 2.5rem;
 }
 
 .iniciar-sesion {
     text-decoration: none;
+    font-size: 1.4rem;
     width: 100%;
     color: black;
+    transition: font-size 0.2s ease;
+}
+
+.iniciar-sesion:hover {
+    font-size: 1.7rem;
+}
+
+.section-index {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.article-bienvenida {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+}
+
+.article-bienvenida h1 {
+    text-align: center;
+    font-size: 4rem;
+}
+
+.article-bienvenida p {
+    font-size: 1.4rem;
+    margin: 0 5rem 0 3rem;
+    text-align: justify;
+}
+
+.imagen-index {
+    width: 700px;
+}
+
+#main-index {
+    background-color: #EAF1E8;
+}
+
+.navbar {
+    position: fixed;
+    width: 100%;
+    background-color: transparent !important;
 }

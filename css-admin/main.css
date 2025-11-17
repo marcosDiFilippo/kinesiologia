@@ -20,7 +20,25 @@ a {
 }
 
 .article-links-1 a:nth-child(2), .article-links-2 a:nth-child(1) {
-    background-color: #BBC0BB;
+    background-color: #ccd1cb;
+}
+
+svg {
+    transition: color 0.3s ease;
+}
+
+.article-links-1 a:hover, .article-links-2 a:hover { 
+    svg {
+        color: black;
+    }   
+}
+
+.svg-1 {
+    color: #ccd1cb;
+}
+
+.svg-2 {
+    color: #EAF1E8;
 }
 
 .span-index {
