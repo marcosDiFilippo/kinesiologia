@@ -110,7 +110,7 @@
                             <p class='card-text'>Fecha: $fecha</p>
                             <p class='card-text'>Hora: $hora</p>
                             <hr>
-                            <p class='card-text'><small class='text-body-secondary'>$ $monto</small></p>
+                            <p class='card-text'><small class='text-body-secondary'>Monto: $ $monto</small></p>
                             <p class='card-text'>Detalles: $detalles
                             </p>
                         </div>
