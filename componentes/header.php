@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
 
+    <link rel="icon" type="image/x-icon" href="../imagenes/logo-kine.ico">   
     <?php
         include_once("../librerias/bootstrap-css.php");
         include_once("../admin/abml/lectura.php");

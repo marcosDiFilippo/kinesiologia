@@ -14,6 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $seccion ?></title>
 
+    <link rel="icon" type="image/x-icon" href="../imagenes/logo-kine.ico">   
     <?php 
         $cssPaginas = "";
         if ($seccion == "Sesiones") {
