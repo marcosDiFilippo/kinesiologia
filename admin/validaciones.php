@@ -1,9 +1,4 @@
 <?php
-    session_start();
-    if ($_SESSION == NULL) {
-        header("Location: ../index.php");
-        exit();
-    }
     function validarCamposVacios (array $array) : bool {
         foreach ($array as $element) {
             if (empty($element)) {
@@ -69,5 +64,4 @@
         }
         return -1;
     }
-    header("Location: index.php");
 ?>
