@@ -17,7 +17,7 @@
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="../paginas/index.php">
-                    <img id="logo" src="../imagenes/logo-kine.webp" alt="logo">
+                    <img class="logo" src="../imagenes/logo-kine.webp" alt="logo">
                 </a>
             </div>
             <div class="div-sesion">

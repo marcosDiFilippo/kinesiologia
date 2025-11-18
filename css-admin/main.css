@@ -190,3 +190,11 @@ textarea {
 .columna-nombre {
     padding-left: 1rem;
 }
+
+footer {
+    background-color: #EAF1E8;
+}
+
+footer p:last-of-type {
+    margin-right: 2rem;
+}
