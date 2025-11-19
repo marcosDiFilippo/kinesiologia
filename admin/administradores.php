@@ -28,20 +28,17 @@
                 </thead>
                 <tbody>
                     <?php
-                    $admins = mysqli_query($conexion, $lecturaAdmins);
-                    while ($admin = mysqli_fetch_array($admins)) {
-                            $personas = mysqli_query($conexion, $lecturaUsuarios . " WHERE `id_personas`='$admin[fk_personas]'");
-                            
-                        while ($persona = mysqli_fetch_array($personas)) {
+                    $lecturaUsuarios .= " WHERE `fk_rol`!=3";
+                    $admins = mysqli_query($conexion, $lecturaUsuarios);
+                        while ($admin = mysqli_fetch_array($admins)) {
                                 echo "<tr>";
-                                echo "<td class='columna-nombre'>$persona[nombre] $persona[apellido]</td>
-                                <td>$persona[email]</td>
-                                <td>$persona[telefono]</td>
-                                <td>$persona[dni]</td>
-                                <td>$persona[fecha_nacimiento]</td>";
+                                echo "<td class='columna-nombre'>$admin[nombre] $admin[apellido]</td>
+                                <td>$admin[email]</td>
+                                <td>$admin[telefono]</td>
+                                <td>$admin[dni]</td>
+                                <td>$admin[fecha_nacimiento]</td>";
                                 echo "</tr>";
                             }
-                        }
                     ?>
                 </tbody>
             </table>

@@ -3,6 +3,11 @@
     session_start();
     if ($_SESSION == NULL) {
         header("Location: ../index.php");
+        exit();
+    }
+    if ($_SESSION["fk_rol"] == 3) {
+        header("Location: ../index.php");
+        exit();
     }
     include_once("../componentes/config/config.php");
     include_once("./abml/lectura.php");

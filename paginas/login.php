@@ -24,14 +24,16 @@
                         El email debe contener @
                     </div>";
             }
-            if (isset($_GET["contrasenia"])) {
+            if (isset($_GET["usuarioNoEncontrado"])) {
                 echo "<div class='alert alert-danger' role='alert'>
-                        La contrasenia ingresada es incorrecta 
+                        Ocurrio un problema al iniciar de sesion
+                        <br>
+                        Por favor, vuelva ingresar
                     </div>";
             }
-            if (isset($_GET["email"])) {
-                echo "<div class='alert alert-danger' role='alert'>
-                        El email ingresado no existe
+            if (isset($_GET["registro"])) {
+                echo "<div class='alert alert-success' role='alert'>
+                        Te has registrado exitosamente ✅, ya puedes iniciar sesion
                     </div>";
             }
         ?>
@@ -48,6 +50,7 @@
             <button type="submit" class="submit">
                 Iniciar Sesion
             </button>
+            <p>No te has registrado todavia?<a href="register.php">Registrarse</a></p>
         </form>
     </main>
 </body>

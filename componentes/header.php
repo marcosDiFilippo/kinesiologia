@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,8 +25,16 @@
                     <img class="logo" src="../imagenes/logo-kine.webp" alt="logo">
                 </a>
             </div>
-            <div class="div-sesion">
-                <a class="iniciar-sesion" href="login.php">Iniciar Sesion</a>
+            <div class="div-log d-flex justift-content-center align-items-center">
+                <?php
+                    if ($_SESSION == NULL) {
+                        echo "<a href='../paginas/register.php'>Registrarse</a>";
+                        echo "<a href='login.php'>Iniciar Sesion</a>";
+                    }
+                    else {
+                        echo "<a class='ms-5' href='../log/cerrarSesion.php'>Cerrar Sesion</a>";
+                    }
+                ?>
             </div>
         </nav>
     </header>

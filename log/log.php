@@ -3,7 +3,7 @@
     include_once("../componentes/config/config.php");  
     include_once("../admin/abml/lectura.php");
 
-    function validarCampos($conexion, $email, $contrasenia, $lecturaUsuarios, $lecturaAdmins) {
+    function validarCampos($conexion, $email, $contrasenia, $lecturaUsuarios) {
         if (empty($email) or empty($contrasenia)) {
             header("Location: ../paginas/login.php?ambos=a");
             return;
@@ -12,38 +12,28 @@
             header("Location: ../paginas/login.php?arroba=no");
             return;
         }
+        $lecturaUsuarios .= " WHERE `email`='$email' and `contrasenia`=MD5('$contrasenia')";
 
-        $lecturaAdmins .= " WHERE `contrasenia`=MD5('$contrasenia')";
+        $resultadoUsuario = mysqli_query($conexion, $lecturaUsuarios);
         
-        $admins = mysqli_query($conexion,$lecturaAdmins);
-        
-        if ($admin = mysqli_fetch_array($admins)) {
-            $idAdmin = $admin["id_admins"];
-
-            $lecturaUsuarios .= " WHERE `id_personas`='$idAdmin'";
-    
-            $usuarios = mysqli_query($conexion, $lecturaUsuarios);
-
-            if ($usuario = mysqli_fetch_array($usuarios)) {
-                if ($usuario["email"] === $email) {
-                    $_SESSION = $usuario;
-                    header("Location: ../admin/index.php");
-                }
-                else {
-                    header("Location: ../paginas/login.php?email=no");
-                }
+        if ($usuario = mysqli_fetch_array($resultadoUsuario)) {
+            $_SESSION = $usuario;
+            if ($usuario["fk_rol"] != 3) {
+                header("Location: ../admin/index.php");
+                return;
             }
+            header("Location: ../paginas/index.php");
+            return;
         }
-        else {
-            header("Location: ../paginas/login.php?contrasenia=no");
-        }
+        header("Location: ../paginas/login.php?usuarioNoEncontrado=ok");
+        return;
     }
     
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST["email"]) and isset($_POST["contrasenia"])) {
             $email = htmlspecialchars($_POST["email"]);
             $contrasenia = htmlspecialchars($_POST["contrasenia"]);
-            validarCampos($conexion,$email, $contrasenia, $lecturaUsuarios, $lecturaAdmins);
+            validarCampos($conexion,$email, $contrasenia, $lecturaUsuarios);
         }
     }
 ?>

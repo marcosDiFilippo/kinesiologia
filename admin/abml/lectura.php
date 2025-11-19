@@ -1,6 +1,5 @@
 <?php
     $lecturaUsuarios = "SELECT * FROM `personas`";
-    $lecturaAdmins = "SELECT * FROM `admins`";
     $lecturaMetodosPago = "SELECT * FROM `metodos_pago`";
     $lecturaEstados = "SELECT * FROM `estados_sesiones`";
     $lecturaTratamientos = "SELECT * FROM `tratamientos`";

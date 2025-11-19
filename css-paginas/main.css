@@ -8,12 +8,12 @@
     height: auto;
 }
 
-.div-sesion {
-    width: 200px;
+.div-log {
+    width: 400px;
     margin-right: 2.5rem;
 }
 
-.iniciar-sesion {
+.div-log > a {
     text-decoration: none;
     font-size: 1.4rem;
     width: 100%;
@@ -21,7 +21,7 @@
     transition: font-size 0.2s ease;
 }
 
-.iniciar-sesion:hover {
+.div-log > a:hover {
     font-size: 1.7rem;
 }
 

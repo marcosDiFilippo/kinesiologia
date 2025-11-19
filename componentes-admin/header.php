@@ -1,7 +1,11 @@
 <?php 
     session_start();
     if ($_SESSION == NULL) {
-        header("Location: ../paginas/index.php");
+        header("Location: ../index.php");
+        exit();
+    }
+    if ($_SESSION["fk_rol"] == 3) {
+        header("Location: ../index.php");
         exit();
     }
     include_once("../admin/abml/lectura.php");

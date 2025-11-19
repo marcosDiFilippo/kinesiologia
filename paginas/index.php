@@ -21,7 +21,7 @@
                 También brindamos asesoramiento sobre hábitos saludables, ergonomía y estrategias para mantener una buena funcionalidad en la vida diaria. Nuestro objetivo es que cada paciente logre un equilibrio físico duradero y una mejor calidad de vida.
             </p>
             <p>
-                <strong>Servicios que brindamos: </strong> <?php 
+                <strong>Servicios que brindamos: </strong> <?php
                     $indice = 0;
 
                     $resultadoTratamientos = mysqli_query($conexion, $lecturaTratamientos);
