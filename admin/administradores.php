@@ -1,4 +1,7 @@
 <?php
+    if ($_SESSION["fk_rol"] != 1) {
+        header("Location: index.php");
+    }
     $seccion = "Administradores";
 
     include_once("../componentes/config/config.php");

@@ -41,6 +41,8 @@ svg {
     color: #EAF1E8;
 }
 
+
+
 .span-index {
     font-size: 1.5rem;
     color: black;
@@ -197,4 +199,19 @@ footer {
 
 footer p:last-of-type {
     margin-right: 2rem;
+}
+
+.article-stats {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+}
+
+.article-stats h2 {
+    height: 100px;
+    color: #5e635e;
+}
+.article-stats h2 > span {
+    color: #8a8d8a;
+    font-weight: 600;
 }

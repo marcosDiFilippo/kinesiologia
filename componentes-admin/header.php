@@ -8,6 +8,10 @@
         header("Location: ../index.php");
         exit();
     }
+    $esAdmin = false;
+    if ($_SESSION["fk_rol"] == 1) {
+        $esAdmin = true;
+    }
     include_once("../admin/abml/lectura.php");
     include_once("../componentes/config/config.php");
 ?>
@@ -38,6 +42,7 @@
         $rutaAdministradores;
         $rutaCerrarSesion;
         $rutaSesiones;
+        $rutaGeneral;
 
         if (str_contains($_SERVER["PHP_SELF"], "abml")) {
             include_once("../../librerias/bootstrap-css.php");
@@ -48,6 +53,7 @@
             $rutaAdministradores = "../administradores.php";
             $rutaCerrarSesion = "../../log/cerrarSesion.php";
             $rutaSesiones = "../sesiones.php";
+            $rutaGeneral = "../informacion-general.php";
 
             $rutaAbml = true;
             $linkCss = "<link rel='stylesheet' href='../../css-admin/main.css'>";
@@ -61,6 +67,7 @@
             $rutaAdministradores = "../admin/administradores.php";
             $rutaCerrarSesion = "../log/cerrarSesion.php";
             $rutaSesiones = "../admin/sesiones.php";
+            $rutaGeneral = "../admin/informacion-general.php";
         }
         echo $linkCss;
     ?>
@@ -80,7 +87,8 @@
                         <a class="nav-link active" aria-current="page" href=<?php echo $rutaTratamientos?> >Tratamientos</a>
                         <a class="nav-link" href=<?php echo $rutaPacientes?> >Pacientes</a>
                         <a class="nav-link" href=<?php echo $rutaSesiones?> >Sesiones</a>
-                        <a class="nav-link" href=<?php echo $rutaAdministradores?> >Administradores</a>
+                        <?php echo $esAdmin == true ? "<a class='nav-link' href=<?php echo $rutaAdministradores?> >Administradores</a> " : ""?>
+                        <a class="nav-link" href=<?php echo $rutaGeneral?> >General</a>
                         <div class="collapse navbar-collapse" id="navbarNavDropdown">
                             <ul class="navbar-nav">
                                 <li class="nav-item dropdown">
