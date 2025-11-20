@@ -56,9 +56,12 @@
 }
 
 .navbar {
-    position: fixed;
     width: 100%;
-    background-color: transparent !important;
+    background-color: #e3f0df !important;
+}
+
+.navbar, footer {
+    border: #c8d3c5 solid 1px;
 }
 
 footer {

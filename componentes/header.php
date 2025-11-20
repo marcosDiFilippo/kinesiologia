@@ -24,6 +24,39 @@
                 <a class="navbar-brand" href="../paginas/index.php">
                     <img class="logo" src="../imagenes/logo-kine.webp" alt="logo">
                 </a>
+                <?php
+                    $listaEntera = "";
+
+                    if ($_SESSION != NULL) {
+                        $tratamientos = mysqli_query($conexion, $lecturaTratamientos);
+                        
+                        while ($tratamiento = mysqli_fetch_array($tratamientos)) {
+                            $conteoTratamientos = mysqli_query($conexion,"SELECT COUNT(`fk_tratamientos`) FROM `sesiones_tratamientos` WHERE `fk_tratamientos`='$tratamiento[id_tratamientos]'");
+                            
+                            while ($c = mysqli_fetch_array($conteoTratamientos))
+                            {
+                                $listaEntera .= "<li class='d-flex align-items-center'>
+                                <a class='dropdown-item' href='../paginas/sesiones-completas.php?id=$tratamiento[id_tratamientos]'>
+                                $tratamiento[nombre]
+                                </a>
+                                <small class='me-4'>($c[0])</small>
+                                </li>";
+                            }
+                        }
+                        echo "<div class='collapse navbar-collapse' id='navbarNavDropdown'>
+                                <ul class='navbar-nav'>
+                                    <li class='nav-item dropdown'>
+                                        <button class='nav-link dropdown-toggle' role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                                            Tratamientos
+                                        </button>
+                                        <ul class='dropdown-menu'>
+                                            $listaEntera
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>";
+                    }
+                ?>
             </div>
             <div class="div-log d-flex justift-content-center align-items-center">
                 <?php
