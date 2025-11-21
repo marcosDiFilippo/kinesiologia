@@ -4,7 +4,7 @@
     include_once("../admin/abml/lectura.php");
 
     function validarCampos($conexion, $email, $contrasenia, $lecturaUsuarios) {
-        if (empty($email) or empty($contrasenia)) {
+        if (empty($email)) {
             header("Location: ../paginas/login.php?ambos=a");
             return;
         }
@@ -12,21 +12,33 @@
             header("Location: ../paginas/login.php?arroba=no");
             return;
         }
-        $lecturaUsuarios .= " WHERE `email`='$email' and `contrasenia`=MD5('$contrasenia')";
+        $redireccion = "";
+
+        $lecturaUsuarios .= " WHERE `email`='$email'";
 
         $resultadoUsuario = mysqli_query($conexion, $lecturaUsuarios);
-        
+
         if ($usuario = mysqli_fetch_array($resultadoUsuario)) {
-            $_SESSION = $usuario;
             if ($usuario["fk_rol"] != 3) {
-                header("Location: ../admin/index.php");
+                $redireccion = "Location: ../admin/index.php";
+            }
+            else {
+                $redireccion = "Location: ../index.php";
+            }
+            if ($usuario["contrasenia"] == NULL and empty($contrasenia)) {
+                header($redireccion);
+                $_SESSION = $usuario;
                 return;
             }
-            header("Location: ../paginas/index.php");
+            if (md5($contrasenia) == $usuario["contrasenia"]) {
+                header($redireccion);
+                $_SESSION = $usuario;
+                return;
+            }
+            header("Location: ../paginas/login.php?usuarioNoEncontrado=ok");
             return;
         }
         header("Location: ../paginas/login.php?usuarioNoEncontrado=ok");
-        return;
     }
     
     if ($_SERVER["REQUEST_METHOD"] == "POST") {

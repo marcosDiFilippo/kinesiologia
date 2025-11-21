@@ -97,7 +97,7 @@
     <link rel="stylesheet" href="../css-admin/sesiones-completas.css">
     <section>
         <article class="d-flex flex-column justifi-content-center align-items-center">
-            <p class="mt-4">Promedio de las sesiones con <?php echo $tituloTratamiento . ": " . $promedio ?></p>
+            <p class="mt-4">Promedio de las sesiones con <?php echo $tituloTratamiento . ": $ " . $promedio ?></p>
             <p>Cantidad de sesiones con <?php echo $tituloTratamiento . ": $numeroFilas"?></p>
         </article>
     </section>

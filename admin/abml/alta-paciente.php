@@ -14,6 +14,8 @@
     function realizarAltaPaciente ($nombre, $apellido, $dni, $fechaNacimiento, $email, $telefono, $conexion) {
         mysqli_query($conexion,"INSERT INTO `personas`(`nombre`, `apellido`, `dni`, `fecha_nacimiento`, `telefono`, `email`, `fk_rol`) VALUES ('$nombre','$apellido','$dni','$fechaNacimiento','$telefono','$email',3)");
 
+        mysqli_query($conexion,"INSERT INTO `historial_acciones`(`fecha`,`hora`,`descripcion`) VALUES (CURDATE(),CURTIME(),'Se agregado a $nombre  $apellido a la lista de pacientes')");
+
         $mensaje = "$nombre " . " $apellido";
         header("Location: ../pacientes.php?alta=$mensaje");
     }

@@ -1,4 +1,7 @@
 <?php
+    error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
     session_start();
     if ($_SESSION == NULL) {
         header("Location: ../../index.php");
@@ -49,7 +52,7 @@
             isset($_POST["tratamientos"]) &&
             isset($_FILES["imagen"])
         ) {
-            $idUsuario = htmlspecialchars($_POST["id-usuario"]);
+            $idUsuario = (int) htmlspecialchars($_POST["id-usuario"]);
             if ($idUsuario == -1) {
                 header("Location: ../sesiones.php?usuarioNoIngresado=ok");
                 exit();
@@ -147,8 +150,13 @@
             realizarAltaPago($metodoPago, $fk_sesion, $conexion);
 
             realizarAltaTratamientos($fk_sesion, $tratamientoss, $conexion);
-
-            $mensaje = $nombre . " " . $apellido;
+            
+            $usuarioIngresado = [];
+            if ($user = mysqli_fetch_array(mysqli_query($conexion, $lecturaUsuarios .= " WHERE `id_personas`='$idUsuario'"))) {
+                $usuarioIngresado = $user;
+            }
+            var_dump($usuarioIngresado);
+            mysqli_query($conexion,"INSERT INTO `historial_acciones`(`fecha`,`hora`,`descripcion`) VALUES (CURDATE(),CURTIME(),'Se agrego una nueva sesion del paciente $usuarioIngresado[nombre]  $usuarioIngresado[apellido] a la lista')");
             header("Location: ../sesiones.php?alta=ok");
         }
         else {

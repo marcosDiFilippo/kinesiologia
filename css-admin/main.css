@@ -7,6 +7,10 @@ a {
     text-decoration: none;
 }
 
+.nav-principal {
+    width: 100%;
+}
+
 .logo {
     width: 120px;
 }

@@ -12,6 +12,9 @@
     if ($_SESSION["fk_rol"] == 1) {
         $esAdmin = true;
     }
+    else {
+        $esAdmin = false;
+    }
     include_once("../admin/abml/lectura.php");
     include_once("../componentes/config/config.php");
 ?>
@@ -69,6 +72,9 @@
             $rutaSesiones = "../admin/sesiones.php";
             $rutaGeneral = "../admin/informacion-general.php";
         }
+        if ($seccion == "Administradores" and ($_SESSION["fk_rol"] == 2)) {
+            header("Location: $rutaIndex");
+        }
         echo $linkCss;
     ?>
 </head>
@@ -80,44 +86,48 @@
                 <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav d-flex align-items-center">
-                        <a href="<?php echo $rutaIndex?>">
-                            <img class="logo" src="../imagenes/logo-kine.webp" alt="Inicio">
-                        </a>
-                        <a class="nav-link active" aria-current="page" href=<?php echo $rutaTratamientos?> >Tratamientos</a>
-                        <a class="nav-link" href=<?php echo $rutaPacientes?> >Pacientes</a>
-                        <a class="nav-link" href=<?php echo $rutaSesiones?> >Sesiones</a>
-                        <?php echo $esAdmin == true ? "<a class='nav-link' href=<?php echo $rutaAdministradores?> >Administradores</a> " : ""?>
-                        <a class="nav-link" href=<?php echo $rutaGeneral?> >General</a>
-                        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                            <ul class="navbar-nav">
-                                <li class="nav-item dropdown">
-                                    <button class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Sesiones por tratamiento
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <?php
+                    <div class="nav-principal navbar-nav d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <a href="<?php echo $rutaIndex?>">
+                                <img class="logo" src="../imagenes/logo-kine.webp" alt="Inicio">
+                            </a>
+                            <a class="nav-link active" aria-current="page" href=<?php echo $rutaTratamientos?> >Tratamientos</a>
+                            <a class="nav-link" href=<?php echo $rutaPacientes?> >Pacientes</a>
+                            <a class="nav-link" href=<?php echo $rutaSesiones?> >Sesiones</a>
+                            <?php echo $esAdmin == true ? "<a class='nav-link' href='$rutaAdministradores'>Administradores</a> " : ""?>
+                            <a class="nav-link" href=<?php echo $rutaGeneral?> >General</a>
+                            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item dropdown">
+                                        <button class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Sesiones por tratamiento
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <?php
                                             $tratamientos = mysqli_query($conexion, $lecturaTratamientos);
                                             
                                             while ($tratamiento = mysqli_fetch_array($tratamientos)) {
                                                 $conteoTratamientos = mysqli_query($conexion,"SELECT COUNT(`fk_tratamientos`) FROM `sesiones_tratamientos` WHERE `fk_tratamientos`='$tratamiento[id_tratamientos]'");
                                                 
                                                 while ($c = mysqli_fetch_array($conteoTratamientos))
-                                                {
-                                                    echo "<li class='d-flex align-items-center'>
-                                                    <a class='dropdown-item' href='../admin/sesiones-completas.php?id=$tratamiento[id_tratamientos]'>
-                                                    $tratamiento[nombre]
-                                                    </a>
-                                                    <small class='me-4'>($c[0])</small>
-                                                    </li>";
+                                                    {
+                                                        echo "<li class='d-flex align-items-center'>
+                                                        <a class='dropdown-item' href='../admin/sesiones-completas.php?id=$tratamiento[id_tratamientos]'>
+                                                        $tratamiento[nombre]
+                                                        </a>
+                                                        <small class='me-4'>($c[0])</small>
+                                                        </li>";
+                                                    }
                                                 }
-                                            }
-                                        ?>
-                                    </ul>
-                                </li>
-                            </ul>
+                                                ?>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                        <a class="nav-link" href=<?php echo $rutaCerrarSesion?> >Cerrar Sesion</a>
+                        <div>
+                            <a class="nav-link" href=<?php echo $rutaCerrarSesion?> >Cerrar Sesion</a>
+                        </div>
                     </div>
                 </div>
             </div>
