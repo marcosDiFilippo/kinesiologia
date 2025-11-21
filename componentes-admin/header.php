@@ -46,6 +46,7 @@
         $rutaCerrarSesion;
         $rutaSesiones;
         $rutaGeneral;
+        $rutaHistorial;
 
         if (str_contains($_SERVER["PHP_SELF"], "abml")) {
             include_once("../../librerias/bootstrap-css.php");
@@ -57,6 +58,7 @@
             $rutaCerrarSesion = "../../log/cerrarSesion.php";
             $rutaSesiones = "../sesiones.php";
             $rutaGeneral = "../informacion-general.php";
+            $rutaHistorial = "../historial_acciones.php";
 
             $rutaAbml = true;
             $linkCss = "<link rel='stylesheet' href='../../css-admin/main.css'>";
@@ -71,6 +73,7 @@
             $rutaCerrarSesion = "../log/cerrarSesion.php";
             $rutaSesiones = "../admin/sesiones.php";
             $rutaGeneral = "../admin/informacion-general.php";
+            $rutaHistorial = "../admin/historial_acciones.php";
         }
         if ($seccion == "Administradores" and ($_SESSION["fk_rol"] == 2)) {
             header("Location: $rutaIndex");
@@ -96,6 +99,7 @@
                             <a class="nav-link" href=<?php echo $rutaSesiones?> >Sesiones</a>
                             <?php echo $esAdmin == true ? "<a class='nav-link' href='$rutaAdministradores'>Administradores</a> " : ""?>
                             <a class="nav-link" href=<?php echo $rutaGeneral?> >General</a>
+                            <a class="nav-link" href=<?php echo $rutaHistorial?> >Historial de registros</a>
                             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                                 <ul class="navbar-nav">
                                     <li class="nav-item dropdown">

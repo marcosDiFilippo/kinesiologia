@@ -22,7 +22,6 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //modificacion usuario
         if (isset($_POST["nombre"]) and isset($_POST["apellido"]) and isset($_POST["dni"]) and isset($_POST["fecha-nacimiento"]) and isset($_POST["email"]) and isset($_POST["telefono"]) and isset($_POST["id_paciente"])) {
-
             $idPaciente = $_POST["id_paciente"];
 
             $emailAnterior;
@@ -102,6 +101,8 @@
             $modificacionUsuario = mysqli_query($conexion, $consultaMod);
             
             header("Location: ../pacientes.php?mod=ok");
+
+            mysqli_query($conexion,"INSERT INTO `historial_acciones`(`fecha`,`hora`,`descripcion`) VALUES (CURDATE(),CURTIME(),'Se modifico el paciente $nombre $apellido')");
             exit();
         }
 
@@ -217,6 +218,9 @@
             header("Location: ../informacion-sesion.php?modS=ok&id=$idSesion");
 
             mysqli_query($conexion,"UPDATE `sesiones` SET `detalles`='$detalles',`imagen`='$nombreImagen', `fk_fechas_horas`='$fk_horario',`fk_estado_sesion`='$estado',`monto`='$monto' WHERE `id_sesiones`='$idSesion'");
+
+            mysqli_query($conexion,"INSERT INTO `historial_acciones`(`fecha`,`hora`,`descripcion`) VALUES (CURDATE(),CURTIME(),'Se modifico la sesion numero $idSesion')");
+
         }
         else {
             $idSesion = $_POST["id_sesion"];

@@ -6,7 +6,7 @@
         <article>
             <table>
                 <thead>
-                    <th>
+                    <th class="ps-3">
                         Fecha
                     </th>
                     <th>
@@ -18,9 +18,11 @@
                 </thead>
                 <tbody>
                     <?php
-                        while ($accion = mysqli_fetch_array(mysqli_query($conexion, $lecturaHistorialAcciones))) {
+                        $resultadoHistorial = mysqli_query($conexion, $lecturaHistorialAcciones);
+                        
+                        while ($accion = mysqli_fetch_array($resultadoHistorial)) {
                             echo "<tr>";
-                                echo "<td>$accion[fecha]</td>";
+                                echo "<td class='ps-3'>$accion[fecha]</td>";
                                 echo "<td>$accion[hora]</td>";
                                 echo "<td>$accion[descripcion]</td>";
                             echo "</tr>";

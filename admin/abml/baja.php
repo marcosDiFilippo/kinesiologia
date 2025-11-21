@@ -11,7 +11,7 @@
     include_once("../../componentes/config/config.php");
     include_once("lectura.php");
     
-    $nombrePaciente;
+    $nombrePaciente = "";
     $id;
     $bajaPersonas;
     $bajaPago;
@@ -25,7 +25,7 @@
             
             $resultadoUsuario = mysqli_query($conexion, $lecturaUsuarios);
             if ($paciente = mysqli_fetch_array($resultadoUsuario)) {
-                $nombrePaciente = $paciente["nombre"] . " " . $paciente["apellido"];
+                $nombrePaciente = $paciente["nombre"] . "  " . $paciente["apellido"];
             }
 
             $lecturaSesiones .= " WHERE `fk_personas`='$id'";
@@ -45,17 +45,20 @@
             $bajaPersonas = "DELETE FROM `personas` WHERE `id_personas`='$id'";
             mysqli_query($conexion, $bajaPersonas);
 
+            mysqli_query($conexion,"INSERT INTO `historial_acciones`(`fecha`,`hora`,`descripcion`) VALUES (CURDATE(),CURTIME(),'Se dio de baja al paciente $nombrePaciente y todas sus sesiones relacionadas')");
             header("Location: ../pacientes.php?baja=$nombrePaciente");
             exit();
         }
     }
     if (isset($_GET["idS"])) {
         $idSesion = (int) htmlspecialchars($_GET["idS"]);
+
         mysqli_query($conexion,"DELETE FROM `sesiones` WHERE `id_sesiones`='$idSesion'");
         mysqli_query($conexion,"DELETE FROM `sesiones_tratamientos` WHERE `fk_sesiones`='$idSesion'");
         mysqli_query($conexion,"DELETE FROM `pago_sesiones` WHERE `fk_sesiones`='$idSesion'");
 
         header("Location: ../sesiones.php?bajaS=ok");
+        mysqli_query($conexion,"INSERT INTO `historial_acciones`(`fecha`,`hora`,`descripcion`) VALUES (CURDATE(),CURTIME(),'Se dio de baja la sesion numero $idSesion')");
         exit();
     }
     if (isset($_GET["idT"])) {
@@ -72,6 +75,8 @@
         mysqli_query($conexion,"DELETE FROM `sesiones_tratamientos` WHERE `fk_tratamientos`='$idTratamiento'");
 
         header("Location: ../tratamientos.php?baja=$nombreTratamiento");
+        mysqli_query($conexion,"INSERT INTO `historial_acciones`(`fecha`,`hora`,`descripcion`) VALUES (CURDATE(),CURTIME(),'Se dio de baja el tratamiento $nombreTratamiento
+        ')");
         exit();
     }
 ?>
