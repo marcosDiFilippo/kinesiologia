@@ -25,12 +25,7 @@
             else {
                 $redireccion = "Location: ../index.php";
             }
-            if ($usuario["contrasenia"] == NULL and empty($contrasenia)) {
-                header($redireccion);
-                $_SESSION = $usuario;
-                return;
-            }
-            if (md5($contrasenia) == $usuario["contrasenia"]) {
+            if ((md5($contrasenia) == $usuario["contrasenia"]) or ($usuario["contrasenia"] == NULL and empty($contrasenia))) {
                 header($redireccion);
                 $_SESSION = $usuario;
                 return;
