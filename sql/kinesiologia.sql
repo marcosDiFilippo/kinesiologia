@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.1deb3
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 19-11-2025 a las 22:24:45
--- Versión del servidor: 9.1.0
--- Versión de PHP: 8.3.14
+-- Servidor: localhost:3306
+-- Tiempo de generación: 25-11-2025 a las 12:39:59
+-- Versión del servidor: 10.11.13-MariaDB-0ubuntu0.24.04.1
+-- Versión de PHP: 8.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,12 +27,10 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `estados_sesiones`
 --
 
-DROP TABLE IF EXISTS `estados_sesiones`;
-CREATE TABLE IF NOT EXISTS `estados_sesiones` (
-  `id_estado` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) NOT NULL,
-  PRIMARY KEY (`id_estado`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+CREATE TABLE `estados_sesiones` (
+  `id_estado` int(11) NOT NULL,
+  `nombre` varchar(45) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Volcado de datos para la tabla `estados_sesiones`
@@ -49,14 +47,11 @@ INSERT INTO `estados_sesiones` (`id_estado`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `fechas_horas`
 --
 
-DROP TABLE IF EXISTS `fechas_horas`;
-CREATE TABLE IF NOT EXISTS `fechas_horas` (
-  `id_fechas_horas` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `fechas_horas` (
+  `id_fechas_horas` int(11) NOT NULL,
   `fecha` date NOT NULL,
-  `hora` time NOT NULL,
-  PRIMARY KEY (`id_fechas_horas`),
-  UNIQUE KEY `id_fechas_horas_UNIQUE` (`id_fechas_horas`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb3;
+  `hora` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Volcado de datos para la tabla `fechas_horas`
@@ -80,7 +75,39 @@ INSERT INTO `fechas_horas` (`id_fechas_horas`, `fecha`, `hora`) VALUES
 (15, '2025-11-10', '17:50:00'),
 (16, '2025-11-17', '22:40:00'),
 (17, '2025-11-29', '20:42:00'),
-(18, '2025-11-19', '19:44:00');
+(18, '2025-11-19', '19:44:00'),
+(19, '2025-11-30', '13:45:00'),
+(20, '2025-11-30', '12:40:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `historial_acciones`
+--
+
+CREATE TABLE `historial_acciones` (
+  `id_accion` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  `descripcion` varchar(250) DEFAULT NULL,
+  `hora` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `historial_acciones`
+--
+
+INSERT INTO `historial_acciones` (`id_accion`, `fecha`, `descripcion`, `hora`) VALUES
+(1, '2025-11-21', 'Se agregado a marcos  prueba 3 a la lista de pacientes', '10:24:43'),
+(2, '2025-11-21', 'Se agregado a quimey  maier a la lista de pacientes', '16:01:36'),
+(3, '2025-11-21', 'Se dio de baja el tratamiento Nutricionista\n        ', '16:24:06'),
+(4, '2025-11-21', 'Se dio de baja la sesion numero 8', '16:41:55'),
+(5, '2025-11-21', 'Se dio de baja al paciente  y todas sus sesiones relacionadas', '16:44:08'),
+(6, '2025-11-21', 'Se dio de baja al paciente marcos prueba 3 y todas sus sesiones relacionadas', '16:44:49'),
+(7, '2025-11-21', 'Se dio de baja al paciente  y todas sus sesiones relacionadas', '16:45:08'),
+(8, '2025-11-21', 'Se dio de baja al paciente  y todas sus sesiones relacionadas', '16:45:31'),
+(9, '2025-11-21', 'Se dio de baja al paciente  y todas sus sesiones relacionadas', '16:45:41'),
+(10, '2025-11-21', 'Se dio de baja al paciente marcosprueba y todas sus sesiones relacionadas', '16:47:46'),
+(11, '2025-11-21', 'Se dio de baja al paciente benja  beltramini y todas sus sesiones relacionadas', '16:48:37');
 
 -- --------------------------------------------------------
 
@@ -88,13 +115,10 @@ INSERT INTO `fechas_horas` (`id_fechas_horas`, `fecha`, `hora`) VALUES
 -- Estructura de tabla para la tabla `metodos_pago`
 --
 
-DROP TABLE IF EXISTS `metodos_pago`;
-CREATE TABLE IF NOT EXISTS `metodos_pago` (
-  `id_metodos_pago` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) NOT NULL,
-  PRIMARY KEY (`id_metodos_pago`),
-  UNIQUE KEY `id_metodos_pago_UNIQUE` (`id_metodos_pago`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
+CREATE TABLE `metodos_pago` (
+  `id_metodos_pago` int(11) NOT NULL,
+  `nombre` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Volcado de datos para la tabla `metodos_pago`
@@ -112,27 +136,22 @@ INSERT INTO `metodos_pago` (`id_metodos_pago`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `pago_sesiones`
 --
 
-DROP TABLE IF EXISTS `pago_sesiones`;
-CREATE TABLE IF NOT EXISTS `pago_sesiones` (
-  `fk_metodos_pago` int NOT NULL,
-  `fk_sesiones` int NOT NULL,
-  PRIMARY KEY (`fk_metodos_pago`,`fk_sesiones`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+CREATE TABLE `pago_sesiones` (
+  `fk_metodos_pago` int(11) NOT NULL,
+  `fk_sesiones` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Volcado de datos para la tabla `pago_sesiones`
 --
 
 INSERT INTO `pago_sesiones` (`fk_metodos_pago`, `fk_sesiones`) VALUES
-(1, 2),
-(1, 3),
-(1, 13),
 (1, 15),
-(2, 3),
 (2, 7),
+(2, 9),
 (2, 17),
 (3, 7),
-(3, 13),
+(3, 9),
 (3, 15),
 (4, 17);
 
@@ -142,22 +161,17 @@ INSERT INTO `pago_sesiones` (`fk_metodos_pago`, `fk_sesiones`) VALUES
 -- Estructura de tabla para la tabla `personas`
 --
 
-DROP TABLE IF EXISTS `personas`;
-CREATE TABLE IF NOT EXISTS `personas` (
-  `id_personas` int NOT NULL AUTO_INCREMENT,
+CREATE TABLE `personas` (
+  `id_personas` int(11) NOT NULL,
   `nombre` varchar(45) NOT NULL,
   `apellido` varchar(45) NOT NULL,
-  `dni` int NOT NULL,
+  `dni` int(11) NOT NULL,
   `fecha_nacimiento` date NOT NULL,
-  `telefono` int NOT NULL,
+  `telefono` int(11) NOT NULL,
   `email` varchar(60) NOT NULL,
-  `fk_rol` int NOT NULL,
-  `contrasenia` varchar(45) NOT NULL,
-  PRIMARY KEY (`id_personas`),
-  UNIQUE KEY `id_personas_UNIQUE` (`id_personas`),
-  UNIQUE KEY `dni_UNIQUE` (`dni`),
-  UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb3;
+  `fk_rol` int(11) NOT NULL,
+  `contrasenia` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Volcado de datos para la tabla `personas`
@@ -167,9 +181,7 @@ INSERT INTO `personas` (`id_personas`, `nombre`, `apellido`, `dni`, `fecha_nacim
 (1, 'marcos', 'di filippo', 1111, '2007-06-26', 3525, 'admin@gmail.com', 1, '81dc9bdb52d04dc20036dbd8313ed055'),
 (2, 'juan', 'perez', 2222, '2005-06-26', 3525555, 'secretario@gmail.com', 2, '81dc9bdb52d04dc20036dbd8313ed055'),
 (3, 'benicio', 'mercante2', 14151421, '2006-02-02', 15151242, 'benicio@gmail.com', 3, '202cb962ac59075b964b07152d234b70'),
-(10, 'benja', 'beltramini', 46372623, '2007-06-26', 15162452, 'benja@gmail.com', 3, '202cb962ac59075b964b07152d234b70'),
-(13, 'galo', 'rose', 32674234, '2006-10-23', 47251331, 'galo@gmail.com', 3, '202cb962ac59075b964b07152d234b70'),
-(14, 'marcos', 'prueba', 47911625, '2006-06-26', 678942, 'marcosp@gmail.com', 3, '0cc175b9c0f1b6a831c399e269772661');
+(13, 'galo', 'rose', 32674234, '2006-10-23', 47251331, 'galo@gmail.com', 3, '202cb962ac59075b964b07152d234b70');
 
 -- --------------------------------------------------------
 
@@ -177,12 +189,10 @@ INSERT INTO `personas` (`id_personas`, `nombre`, `apellido`, `dni`, `fecha_nacim
 -- Estructura de tabla para la tabla `roles`
 --
 
-DROP TABLE IF EXISTS `roles`;
-CREATE TABLE IF NOT EXISTS `roles` (
-  `id_rol` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) NOT NULL,
-  UNIQUE KEY `id_rol` (`id_rol`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+CREATE TABLE `roles` (
+  `id_rol` int(11) NOT NULL,
+  `nombre` varchar(45) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Volcado de datos para la tabla `roles`
@@ -199,27 +209,22 @@ INSERT INTO `roles` (`id_rol`, `nombre`) VALUES
 -- Estructura de tabla para la tabla `sesiones`
 --
 
-DROP TABLE IF EXISTS `sesiones`;
-CREATE TABLE IF NOT EXISTS `sesiones` (
-  `id_sesiones` int NOT NULL AUTO_INCREMENT,
-  `detalles` tinytext,
+CREATE TABLE `sesiones` (
+  `id_sesiones` int(11) NOT NULL,
+  `detalles` tinytext DEFAULT NULL,
   `imagen` varchar(100) DEFAULT NULL,
-  `fk_personas` int NOT NULL,
-  `fk_fechas_horas` int NOT NULL,
-  `fk_estado_sesion` int NOT NULL,
-  `monto` decimal(10,0) NOT NULL,
-  PRIMARY KEY (`id_sesiones`,`fk_fechas_horas`),
-  UNIQUE KEY `id_sesiones_UNIQUE` (`id_sesiones`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
+  `fk_personas` int(11) NOT NULL,
+  `fk_fechas_horas` int(11) NOT NULL,
+  `fk_estado_sesion` int(11) NOT NULL,
+  `monto` decimal(10,0) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Volcado de datos para la tabla `sesiones`
 --
 
 INSERT INTO `sesiones` (`id_sesiones`, `detalles`, `imagen`, `fk_personas`, `fk_fechas_horas`, `fk_estado_sesion`, `monto`) VALUES
-(2, '21000 + comision que es 3000', '1763063801.jpg', 10, 10, 3, 21000),
-(3, 'a', '1763158173.jpg', 3, 11, 3, 12000),
-(7, 'holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaholaaaaaaaaaaaa', '1763404852.jpg', 13, 18, 2, 34566);
+(7, 'holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaholaaaaaaaaaaaa', '1763404852.jpg', 13, 18, 3, 34566);
 
 -- --------------------------------------------------------
 
@@ -227,22 +232,20 @@ INSERT INTO `sesiones` (`id_sesiones`, `detalles`, `imagen`, `fk_personas`, `fk_
 -- Estructura de tabla para la tabla `sesiones_tratamientos`
 --
 
-DROP TABLE IF EXISTS `sesiones_tratamientos`;
-CREATE TABLE IF NOT EXISTS `sesiones_tratamientos` (
-  `fk_sesiones` int NOT NULL,
-  `fk_tratamientos` int NOT NULL,
-  PRIMARY KEY (`fk_sesiones`,`fk_tratamientos`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+CREATE TABLE `sesiones_tratamientos` (
+  `fk_sesiones` int(11) NOT NULL,
+  `fk_tratamientos` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Volcado de datos para la tabla `sesiones_tratamientos`
 --
 
 INSERT INTO `sesiones_tratamientos` (`fk_sesiones`, `fk_tratamientos`) VALUES
-(2, 2),
-(3, 1),
 (7, 2),
-(7, 4);
+(7, 4),
+(9, 3),
+(9, 6);
 
 -- --------------------------------------------------------
 
@@ -250,13 +253,10 @@ INSERT INTO `sesiones_tratamientos` (`fk_sesiones`, `fk_tratamientos`) VALUES
 -- Estructura de tabla para la tabla `tratamientos`
 --
 
-DROP TABLE IF EXISTS `tratamientos`;
-CREATE TABLE IF NOT EXISTS `tratamientos` (
-  `id_tratamientos` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) NOT NULL,
-  PRIMARY KEY (`id_tratamientos`),
-  UNIQUE KEY `id_tratamientos_UNIQUE` (`id_tratamientos`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb3;
+CREATE TABLE `tratamientos` (
+  `id_tratamientos` int(11) NOT NULL,
+  `nombre` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Volcado de datos para la tabla `tratamientos`
@@ -270,8 +270,130 @@ INSERT INTO `tratamientos` (`id_tratamientos`, `nombre`) VALUES
 (5, 'Estiramientos'),
 (6, 'Fisioterapia'),
 (7, 'Kinesiologia deportiva'),
-(9, 'Termoterapia'),
-(14, 'Nutricionista');
+(9, 'Termoterapia');
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `estados_sesiones`
+--
+ALTER TABLE `estados_sesiones`
+  ADD PRIMARY KEY (`id_estado`);
+
+--
+-- Indices de la tabla `fechas_horas`
+--
+ALTER TABLE `fechas_horas`
+  ADD PRIMARY KEY (`id_fechas_horas`),
+  ADD UNIQUE KEY `id_fechas_horas_UNIQUE` (`id_fechas_horas`);
+
+--
+-- Indices de la tabla `historial_acciones`
+--
+ALTER TABLE `historial_acciones`
+  ADD PRIMARY KEY (`id_accion`);
+
+--
+-- Indices de la tabla `metodos_pago`
+--
+ALTER TABLE `metodos_pago`
+  ADD PRIMARY KEY (`id_metodos_pago`),
+  ADD UNIQUE KEY `id_metodos_pago_UNIQUE` (`id_metodos_pago`);
+
+--
+-- Indices de la tabla `pago_sesiones`
+--
+ALTER TABLE `pago_sesiones`
+  ADD PRIMARY KEY (`fk_metodos_pago`,`fk_sesiones`);
+
+--
+-- Indices de la tabla `personas`
+--
+ALTER TABLE `personas`
+  ADD PRIMARY KEY (`id_personas`),
+  ADD UNIQUE KEY `id_personas_UNIQUE` (`id_personas`),
+  ADD UNIQUE KEY `dni_UNIQUE` (`dni`),
+  ADD UNIQUE KEY `email_UNIQUE` (`email`);
+
+--
+-- Indices de la tabla `roles`
+--
+ALTER TABLE `roles`
+  ADD UNIQUE KEY `id_rol` (`id_rol`);
+
+--
+-- Indices de la tabla `sesiones`
+--
+ALTER TABLE `sesiones`
+  ADD PRIMARY KEY (`id_sesiones`,`fk_fechas_horas`),
+  ADD UNIQUE KEY `id_sesiones_UNIQUE` (`id_sesiones`);
+
+--
+-- Indices de la tabla `sesiones_tratamientos`
+--
+ALTER TABLE `sesiones_tratamientos`
+  ADD PRIMARY KEY (`fk_sesiones`,`fk_tratamientos`);
+
+--
+-- Indices de la tabla `tratamientos`
+--
+ALTER TABLE `tratamientos`
+  ADD PRIMARY KEY (`id_tratamientos`),
+  ADD UNIQUE KEY `id_tratamientos_UNIQUE` (`id_tratamientos`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `estados_sesiones`
+--
+ALTER TABLE `estados_sesiones`
+  MODIFY `id_estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `fechas_horas`
+--
+ALTER TABLE `fechas_horas`
+  MODIFY `id_fechas_horas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT de la tabla `historial_acciones`
+--
+ALTER TABLE `historial_acciones`
+  MODIFY `id_accion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT de la tabla `metodos_pago`
+--
+ALTER TABLE `metodos_pago`
+  MODIFY `id_metodos_pago` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `personas`
+--
+ALTER TABLE `personas`
+  MODIFY `id_personas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT de la tabla `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id_rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `sesiones`
+--
+ALTER TABLE `sesiones`
+  MODIFY `id_sesiones` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT de la tabla `tratamientos`
+--
+ALTER TABLE `tratamientos`
+  MODIFY `id_tratamientos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
