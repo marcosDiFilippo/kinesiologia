@@ -77,6 +77,10 @@
                         <label for="telefono">Telefono:</label>
                         <input class="col-12 input-paciente" type="number" name="telefono" id="telefono" placeholder="Ingrese el telefono">
                     </div>
+                    <div>
+                        <input class="col-12 input-paciente mt-3" type="text" name="contrasenia" id="contrasenia" placeholder="Ingrese la contrasenia del paciente">
+                        <p>La contrasenia que se ingrese va ser inicial, luego el paciente va poder modificarla desde su perfil.</p>
+                    </div>
                 </div>
                 <div>
                     <button class="submit-paciente" type="submit" value="Cargar Paciente">Cargar Paciente</button>

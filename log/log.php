@@ -14,7 +14,7 @@
         }
         $redireccion = "";
 
-        $lecturaUsuarios .= " WHERE `email`='$email'";
+        $lecturaUsuarios .= " WHERE `email`='$email' and `contrasenia`=MD5('$contrasenia')";
 
         $resultadoUsuario = mysqli_query($conexion, $lecturaUsuarios);
 
@@ -25,12 +25,8 @@
             else {
                 $redireccion = "Location: ../index.php";
             }
-            if ((md5($contrasenia) == $usuario["contrasenia"]) or ($usuario["contrasenia"] == NULL and empty($contrasenia))) {
-                header($redireccion);
-                $_SESSION = $usuario;
-                return;
-            }
-            header("Location: ../paginas/login.php?usuarioNoEncontrado=ok");
+            header($redireccion);
+            $_SESSION = $usuario;
             return;
         }
         header("Location: ../paginas/login.php?usuarioNoEncontrado=ok");

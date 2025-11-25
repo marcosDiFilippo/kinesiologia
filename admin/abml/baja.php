@@ -53,9 +53,9 @@
     if (isset($_GET["idS"])) {
         $idSesion = (int) htmlspecialchars($_GET["idS"]);
 
-        mysqli_query($conexion,"DELETE FROM `sesiones` WHERE `id_sesiones`='$idSesion'");
         mysqli_query($conexion,"DELETE FROM `sesiones_tratamientos` WHERE `fk_sesiones`='$idSesion'");
         mysqli_query($conexion,"DELETE FROM `pago_sesiones` WHERE `fk_sesiones`='$idSesion'");
+        mysqli_query($conexion,"DELETE FROM `sesiones` WHERE `id_sesiones`='$idSesion'");
 
         header("Location: ../sesiones.php?bajaS=ok");
         mysqli_query($conexion,"INSERT INTO `historial_acciones`(`fecha`,`hora`,`descripcion`) VALUES (CURDATE(),CURTIME(),'Se dio de baja la sesion numero $idSesion')");

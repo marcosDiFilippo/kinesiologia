@@ -1,4 +1,5 @@
 <?php
+    $seccion = "Historial";
     include_once("../componentes-admin/header.php");
 ?>
 <main>

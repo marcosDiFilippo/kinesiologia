@@ -1,4 +1,6 @@
 <?php
+    $seccion = "General";
+
     include_once("../componentes-admin/header.php");
 
     $resultadoPromedio = mysqli_query($conexion, "SELECT AVG(monto) FROM `sesiones`");
@@ -12,7 +14,7 @@
     $cantidadSesiones = mysqli_num_rows(mysqli_query($conexion,$lecturaSesiones));
 
     $promedioGeneral = 0;
-    if ($ses = mysqli_fetch_array($resultadoPromedio)) {
+    if ($ses = mysqli_fetch_array($resultadoPromedio) and $ses["AVG(monto)"] > 0) {
         $promedioGeneral = $ses["AVG(monto)"];
     }
 ?>

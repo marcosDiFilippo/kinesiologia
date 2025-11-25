@@ -1,7 +1,4 @@
 <?php
-    error_reporting(E_ALL);
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
     session_start();
     if ($_SESSION == NULL) {
         header("Location: ../../index.php");
@@ -155,7 +152,6 @@ ini_set('display_startup_errors', 1);
             if ($user = mysqli_fetch_array(mysqli_query($conexion, $lecturaUsuarios .= " WHERE `id_personas`='$idUsuario'"))) {
                 $usuarioIngresado = $user;
             }
-            var_dump($usuarioIngresado);
             mysqli_query($conexion,"INSERT INTO `historial_acciones`(`fecha`,`hora`,`descripcion`) VALUES (CURDATE(),CURTIME(),'Se agrego una nueva sesion del paciente $usuarioIngresado[nombre]  $usuarioIngresado[apellido] a la lista')");
             header("Location: ../sesiones.php?alta=ok");
         }
