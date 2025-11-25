@@ -3,26 +3,29 @@
     padding: 0;
 }
 
+a {
+    text-decoration: none;
+}
+
 .logo {
     width: 150px;
     height: auto;
 }
 
 .div-log {
-    width: 400px;
+    width: 500px;
     margin-right: 2.5rem;
 }
 
-.div-log > a {
-    text-decoration: none;
+.div-log > a, .configuracion > a {
     font-size: 1.4rem;
     width: 100%;
-    color: black;
-    transition: font-size 0.2s ease;
+    color: #585858;
+    transition: color 0.2s ease;
 }
 
-.div-log > a:hover {
-    font-size: 1.7rem;
+.div-log > a:hover, .configuracion > a:hover {
+    color: black;
 }
 
 .section-index {
