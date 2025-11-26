@@ -1,7 +1,7 @@
 <?php
     include_once("../admin/abml/lectura.php");
     include_once("../componentes/config/config.php");
-    function mostrarPerfil ($conexion, $lecturaSesiones) {
+    function mostrarPerfil ($conexion) {
         $resultadoCount = mysqli_query($conexion, "SELECT COUNT(*),id_sesiones FROM `sesiones` WHERE `fk_personas`='$_SESSION[id_personas]'");
 
         $resultadoSelect = mysqli_query($conexion, "SELECT * FROM `sesiones` WHERE `fk_personas`='$_SESSION[id_personas]'");
@@ -55,6 +55,7 @@
     }
     function ingresarContraseniaActual ()  {
         echo "<form class='form-contrasenia-actual' action='modificacion-contrasenia.php' method='post'>
+                <h2>Ingrese su contrasenia actual para poder realizar el cambio</h2>
                 <div class='group'>
                     <input name='contrasenia-actual' required='' type='password' class='input'>
                     <span class='highlight'></span>
@@ -67,6 +68,7 @@
     function modificarContrasenia () {
         echo "
         <form class='form-contrasenia' action='modificacion-contrasenia.php' method='post'>
+            <h2>Ingrese una nueva contrasenia ambas veces</h2>
             <div>
                 <div class='group'>
                     <input name='contrasenia-nueva' required='' type='password' class='input'>
@@ -100,7 +102,7 @@
 
     <link rel="stylesheet" href="../configuracion-css/configuracion.css">
     <?php
-        if (isset($_GET["contrasenia"]) == "mod") {
+        if (isset($_GET["contrasenia"]) == "mod" or isset($_GET["contraIgual"])) {
             echo "<link rel='stylesheet' href='../configuracion-css/modificacion-contrasenia.css'>";
         }
         if (isset($_GET["perfil"])) {
@@ -115,7 +117,14 @@
                 <div class="card">
                     <ul class="list">
                         <li class="element">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-key"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16.555 3.843l3.602 3.602a2.877 2.877 0 0 1 0 4.069l-2.643 2.643a2.877 2.877 0 0 1 -4.069 0l-.301 -.301l-6.558 6.558a2 2 0 0 1 -1.239 .578l-.175 .008h-1.172a1 1 0 0 1 -.993 -.883l-.007 -.117v-1.172a2 2 0 0 1 .467 -1.284l.119 -.13l.414 -.414h2v-2h2v-2l2.144 -2.144l-.301 -.301a2.877 2.877 0 0 1 0 -4.069l2.643 -2.643a2.877 2.877 0 0 1 4.069 0z" /><path d="M15 9h.01" /></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-back-up"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 14l-4 -4l4 -4" /><path d="M5 10h11a4 4 0 1 1 0 8h-1" /></svg>
+                            <a href="../index.php" class="label">Volver al inicio</a>
+                        </li>
+                    </ul>
+                    <div class="separator"></div>
+                    <ul class="list">
+                        <li class="element">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-user-circle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" /></svg>
                             <a href="configuracion.php?perfil=ok" class="label">Ver Perfil</a>
                         </li>
                     </ul>
@@ -145,7 +154,7 @@
             <article>
                 <?php
                     if (isset($_GET["perfil"])) {
-                        mostrarPerfil($conexion, $lecturaSesiones);
+                        mostrarPerfil($conexion);
                     }
                     if (isset($_GET["contrasenia"]) == "mod") {
                         if (isset($_GET["contraInvalida"])) {
@@ -162,8 +171,6 @@
                         ingresarContraseniaActual();
                     }
                     if (isset($_GET["contraIgual"])) {
-                        echo "<link rel='stylesheet' href='../configuracion-css/modificacion-contrasenia.css'>";
-
                         if (isset($_GET["contraseniaC"])) {
                             echo "<div class='alert alert-danger' role='alert'>
                                 Las contrasenias no coinciden

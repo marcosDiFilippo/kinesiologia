@@ -6,10 +6,8 @@
     }
     include_once("../componentes/config/config.php");
     include_once("../admin/abml/lectura.php");
-    function validarContrasenia ($contraseniaActual, $lecturaUsuarios, $conexion) : bool {
-        $resultado = mysqli_query($conexion, $lecturaUsuarios .= " WHERE `contrasenia`=MD5('$contraseniaActual')");
-        
-        if ($usuario = mysqli_fetch_array($resultado)) {
+    function validarContrasenia ($contraseniaActual) : bool {
+        if (md5($contraseniaActual) === $_SESSION["contrasenia"]) {
             return true;
         }
 
@@ -24,7 +22,7 @@
         if (isset($_POST["contrasenia-actual"])) {
             $contraseniaActual = htmlspecialchars($_POST["contrasenia-actual"]);
             
-            $esIgual = validarContrasenia($contraseniaActual, $lecturaUsuarios, $conexion);
+            $esIgual = validarContrasenia($contraseniaActual);
             if ($esIgual == true) {
                 header("Location: configuracion.php?contraIgual=ok");
                 exit();
@@ -41,6 +39,7 @@
                 exit();
             }
             mysqli_query($conexion, "UPDATE `personas` SET `contrasenia`=MD5('$contraseniaNueva') WHERE `id_personas`='$_SESSION[id_personas]'");
+            $_SESSION["contrasenia"] = md5($contraseniaNueva);
             header("Location: configuracion.php?contrasenia=mod&contraseniaM=ok");
             exit();
         }

@@ -47,6 +47,7 @@
         $rutaSesiones;
         $rutaGeneral;
         $rutaHistorial;
+        $rutaConfiguracion;
 
         if (str_contains($_SERVER["PHP_SELF"], "abml")) {
             include_once("../../librerias/bootstrap-css.php");
@@ -59,6 +60,7 @@
             $rutaSesiones = "../sesiones.php";
             $rutaGeneral = "../informacion-general.php";
             $rutaHistorial = "../historial_acciones.php";
+            $rutaConfiguracion = "../../configuracion/configuracion.php?perfil=ok";
 
             $rutaAbml = true;
             $linkCss = "<link rel='stylesheet' href='../../css-admin/main.css'>";
@@ -74,6 +76,7 @@
             $rutaSesiones = "../admin/sesiones.php";
             $rutaGeneral = "../admin/informacion-general.php";
             $rutaHistorial = "../admin/historial_acciones.php";
+            $rutaConfiguracion = "../configuracion/configuracion.php?perfil=ok";
         }
         if ($seccion == "Administradores" and ($_SESSION["fk_rol"] == 2)) {
             header("Location: $rutaIndex");
@@ -129,7 +132,11 @@
                                 </ul>
                             </div>
                         </div>
-                        <div>
+                        <div class="d-flex">
+                            <a style="color: #333333;" class='d-flex align-items-center me-3' href='../configuracion/configuracion.php?perfil=ok'>
+                                <svg xmlns='http://www.w3.org/2000/svg' style="color: #333333;" width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='icon icon-tabler icons-tabler-outline icon-tabler-settings'><path stroke='none' d='M0 0h24v24H0z' fill='none'/><path d='M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z' /><path d='M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0' /></svg>
+                                Configuracion
+                            </a>
                             <a class="nav-link" href=<?php echo $rutaCerrarSesion?> >Cerrar Sesion</a>
                         </div>
                     </div>
