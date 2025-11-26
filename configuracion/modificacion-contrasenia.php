@@ -4,7 +4,6 @@
         header("Location: ../index.php");
         exit();
     }
-    include_once("../admin/validaciones.php");
     include_once("../componentes/config/config.php");
     include_once("../admin/abml/lectura.php");
     function validarContrasenia ($contraseniaActual, $lecturaUsuarios, $conexion) : bool {
@@ -43,6 +42,7 @@
             }
             mysqli_query($conexion, "UPDATE `personas` SET `contrasenia`=MD5('$contraseniaNueva') WHERE `id_personas`='$_SESSION[id_personas]'");
             header("Location: configuracion.php?contrasenia=mod&contraseniaM=ok");
+            exit();
         }
     }
 ?>
