@@ -22,8 +22,8 @@
         if (isset($_POST["contrasenia-actual"])) {
             $contraseniaActual = htmlspecialchars($_POST["contrasenia-actual"]);
             
-            $esIgual = validarContrasenia($contraseniaActual);
-            if ($esIgual == true) {
+            $esIgualContrasenia = validarContrasenia($contraseniaActual);
+            if ($esIgualContrasenia == true) {
                 header("Location: configuracion.php?contraIgual=ok");
                 exit();
             }

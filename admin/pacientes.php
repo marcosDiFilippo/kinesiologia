@@ -117,7 +117,12 @@
                     <?php
                         $idUsuario;
 
-                        $lecturaUsuarios .= "WHERE `fk_rol`=3";
+                        if ($_SESSION["fk_rol"] == 2) {
+                            $lecturaUsuarios .= "WHERE `fk_rol`=3 and `email`!='$_SESSION[email]'";
+                        }
+                        else {
+                            $lecturaUsuarios .= " WHERE `email`!='$_SESSION[email]'";
+                        }
                         
                         $usuarios = mysqli_query($conexion,$lecturaUsuarios);
                         

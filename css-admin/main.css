@@ -219,3 +219,9 @@ footer p:last-of-type {
     color: #8a8d8a;
     font-weight: 600;
 }
+
+.select-roles {
+    border: #333333 solid 1px;
+    border-radius: 6px;
+    background-color: #EAF1E8;
+}

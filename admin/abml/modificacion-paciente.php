@@ -91,6 +91,19 @@
                             <label for="telefono">Telefono:</label>
                             <input class="col-12 input-paciente" type="number" name="telefono" id="telefono" placeholder="Ingrese el telefono" value="<?php echo $telefono?>">
                         </div>
+                        <div class="d-flex flex-column">
+                            <label class="mt-4" for="rol">Elija el permiso o rol que va tener este usuario</label>
+                            <select class="select-roles col-3 mt-3" name="rol" id="rol">
+                                <?php
+                                    $resultadoRoles = mysqli_query($conexion, $lecturaRoles);
+                                    
+                                    while ($rol = mysqli_fetch_array($resultadoRoles)) {
+                                        $nombreRol = strtoupper($rol["nombre"]);
+                                        echo "<option value='$rol[id_rol]'>$nombreRol</option>";
+                                    }
+                                ?>
+                            </select>
+                        </div>
                     </div>
                     <div>
                         <button class="submit-paciente" type="submit" value="Modificar Paciente">Modificar Paciente</button>

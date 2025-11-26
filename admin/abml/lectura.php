@@ -8,4 +8,5 @@
     $lecturaPagoSesiones = "SELECT * FROM `pago_sesiones`";
     $lecturaSesionesTratamientos = "SELECT * FROM `sesiones_tratamientos`";
     $lecturaHistorialAcciones = "SELECT * FROM `historial_acciones`";
+    $lecturaRoles = "SELECT * FROM `roles`";
 ?>

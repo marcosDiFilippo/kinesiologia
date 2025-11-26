@@ -1,10 +1,6 @@
 <?php
     session_start();
-    if ($_SESSION == NULL) {
-        header("Location: ../../index.php");
-        exit();
-    }
-    if ($_SESSION["fk_rol"] == 3) {
+    if ($_SESSION == NULL or $_SESSION["fk_rol"] == 3) {
         header("Location: ../../index.php");
         exit();
     }
@@ -21,7 +17,7 @@
     }
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         //modificacion usuario
-        if (isset($_POST["nombre"]) and isset($_POST["apellido"]) and isset($_POST["dni"]) and isset($_POST["fecha-nacimiento"]) and isset($_POST["email"]) and isset($_POST["telefono"]) and isset($_POST["id_paciente"])) {
+        if (isset($_POST["nombre"]) and isset($_POST["apellido"]) and isset($_POST["dni"]) and isset($_POST["fecha-nacimiento"]) and isset($_POST["email"]) and isset($_POST["telefono"]) and isset($_POST["id_paciente"]) and isset($_POST["rol"])) {
             $idPaciente = $_POST["id_paciente"];
 
             $emailAnterior;
@@ -47,6 +43,8 @@
             $email = htmlspecialchars($_POST["email"]);
 
             $telefonoAux = htmlspecialchars($_POST["telefono"]);
+
+            $rol = (int) htmlspecialchars($_POST["rol"]);
 
             $campos = [$nombre, $apellido, $dniAux, $fechaNacimiento, $email, $telefonoAux];
             if (validarCamposVacios($campos) == true) {
@@ -96,8 +94,8 @@
             $dni = (int) $dniAux;
             $telefono = (int) $telefonoAux;
 
-            $consultaMod = "UPDATE `personas` SET `nombre`='$nombre',`apellido`='$apellido',`dni`='$dni',`fecha_nacimiento`='$fechaNacimiento',`telefono`='$telefono',`email`='$email' WHERE `id_personas`='$idPaciente'";
-            
+            $consultaMod = "UPDATE `personas` SET `nombre`='$nombre',`apellido`='$apellido',`dni`='$dni',`fecha_nacimiento`='$fechaNacimiento',`telefono`='$telefono',`email`='$email',`fk_rol`='$rol' WHERE `id_personas`='$idPaciente'";
+
             $modificacionUsuario = mysqli_query($conexion, $consultaMod);
             
             header("Location: ../pacientes.php?mod=ok");
