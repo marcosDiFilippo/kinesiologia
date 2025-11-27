@@ -1,11 +1,13 @@
 <?php
+    $seccion = "Tratamientos";
+
     include_once("../componentes/header.php");
+
     $id;
     if (isset($_GET["id"])) {
         $id = $_GET["id"];
     }
-?>
-<?php
+
     $tituloTratamiento = "";
     if ($t = mysqli_fetch_array(mysqli_query($conexion, $lecturaTratamientos .= " WHERE `id_tratamientos`=$id"))) {
         $tituloTratamiento = $t["nombre"];

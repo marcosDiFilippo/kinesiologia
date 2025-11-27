@@ -3,6 +3,8 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 550px;
+    margin-bottom: 3.7rem;
 }
 
 .form {

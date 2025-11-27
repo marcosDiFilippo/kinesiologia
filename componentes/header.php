@@ -7,13 +7,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
+    <title><?php echo $seccion?></title>
 
     <link rel="icon" type="image/x-icon" href="../imagenes/logo-kine.ico">   
     <?php
         include_once("../librerias/bootstrap-css.php");
         include_once("../admin/abml/lectura.php");
         include_once("../componentes/config/config.php");
+        if (isset($seccion)) {
+            if ($seccion == "Login") {
+                echo "<link rel='stylesheet' href='../css-log/log.css'>";
+            }
+            if ($seccion == "Registro") {
+                echo "<link rel='stylesheet' href='../css-log/reg.css'>";
+            }
+        }
     ?>
     <link rel="stylesheet" href="../css-paginas/main.css">
 </head>

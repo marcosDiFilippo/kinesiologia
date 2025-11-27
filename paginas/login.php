@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio Sesion</title>
-
-    <link rel="stylesheet" href="../css-log/log.css">
-
-    <?php
-        include_once("../librerias/bootstrap-css.php");
-    ?>  
-</head>
-<body>
-    <main class="mt-5">
+<?php
+    $seccion = "Login";
+    include_once("../componentes/header.php");
+?>
+    <main id="main-login">
         <?php
             if (isset($_GET["ambos"])) {
                 echo "<div class='alert alert-danger' role='alert'>
@@ -53,5 +43,6 @@
             <p>No te has registrado todavia?<a href="register.php">Registrarse</a></p>
         </form>
     </main>
-</body>
-</html>
+<?php
+    include_once("../componentes/footer.php");
+?>

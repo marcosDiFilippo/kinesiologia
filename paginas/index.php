@@ -1,4 +1,5 @@
 <?php
+    $seccion = "Inicio";
     include_once("../componentes/header.php");
 ?>
 <main id="main-index">
