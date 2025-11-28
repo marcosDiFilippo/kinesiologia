@@ -5,11 +5,11 @@
 
     $resultadoPromedio = mysqli_query($conexion, "SELECT AVG(monto) FROM `sesiones`");
 
-    $cantidadCompletadas = mysqli_num_rows(mysqli_query($conexion,"SELECT * FROM `sesiones` WHERE `fk_estado_sesion`=1"));
+    $cantidadCompletadas = mysqli_num_rows(mysqli_query($conexion,"SELECT * FROM `sesiones` WHERE `fk_estado_sesion`=3"));
 
     $cantidadProceso = mysqli_num_rows(mysqli_query($conexion,"SELECT * FROM `sesiones` WHERE `fk_estado_sesion`=2"));
 
-    $cantidadPendientes = mysqli_num_rows(mysqli_query($conexion,"SELECT * FROM `sesiones` WHERE `fk_estado_sesion`=3"));
+    $cantidadPendientes = mysqli_num_rows(mysqli_query($conexion,"SELECT * FROM `sesiones` WHERE `fk_estado_sesion`=1"));
 
     $cantidadSesiones = mysqli_num_rows(mysqli_query($conexion,$lecturaSesiones));
 
