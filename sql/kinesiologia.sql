@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 25-11-2025 a las 12:39:59
+-- Tiempo de generación: 28-11-2025 a las 12:08:53
 -- Versión del servidor: 10.11.13-MariaDB-0ubuntu0.24.04.1
 -- Versión de PHP: 8.3.6
 
@@ -77,7 +77,8 @@ INSERT INTO `fechas_horas` (`id_fechas_horas`, `fecha`, `hora`) VALUES
 (17, '2025-11-29', '20:42:00'),
 (18, '2025-11-19', '19:44:00'),
 (19, '2025-11-30', '13:45:00'),
-(20, '2025-11-30', '12:40:00');
+(20, '2025-11-30', '12:40:00'),
+(21, '2025-11-30', '13:10:00');
 
 -- --------------------------------------------------------
 
@@ -107,7 +108,8 @@ INSERT INTO `historial_acciones` (`id_accion`, `fecha`, `descripcion`, `hora`) V
 (8, '2025-11-21', 'Se dio de baja al paciente  y todas sus sesiones relacionadas', '16:45:31'),
 (9, '2025-11-21', 'Se dio de baja al paciente  y todas sus sesiones relacionadas', '16:45:41'),
 (10, '2025-11-21', 'Se dio de baja al paciente marcosprueba y todas sus sesiones relacionadas', '16:47:46'),
-(11, '2025-11-21', 'Se dio de baja al paciente benja  beltramini y todas sus sesiones relacionadas', '16:48:37');
+(11, '2025-11-21', 'Se dio de baja al paciente benja  beltramini y todas sus sesiones relacionadas', '16:48:37'),
+(12, '2025-11-28', 'Se agrego una nueva sesion del paciente benicio  mercante2 a la lista', '09:06:06');
 
 -- --------------------------------------------------------
 
@@ -146,14 +148,10 @@ CREATE TABLE `pago_sesiones` (
 --
 
 INSERT INTO `pago_sesiones` (`fk_metodos_pago`, `fk_sesiones`) VALUES
-(1, 15),
-(2, 7),
-(2, 9),
-(2, 17),
-(3, 7),
-(3, 9),
-(3, 15),
-(4, 17);
+(1, 1),
+(2, 1),
+(3, 1),
+(4, 1);
 
 -- --------------------------------------------------------
 
@@ -224,7 +222,7 @@ CREATE TABLE `sesiones` (
 --
 
 INSERT INTO `sesiones` (`id_sesiones`, `detalles`, `imagen`, `fk_personas`, `fk_fechas_horas`, `fk_estado_sesion`, `monto`) VALUES
-(7, 'holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaholaaaaaaaaaaaa', '1763404852.jpg', 13, 18, 3, 34566);
+(1, 'sesion a benicio', '1764331566.webp', 3, 21, 3, 67000);
 
 -- --------------------------------------------------------
 
@@ -242,10 +240,14 @@ CREATE TABLE `sesiones_tratamientos` (
 --
 
 INSERT INTO `sesiones_tratamientos` (`fk_sesiones`, `fk_tratamientos`) VALUES
-(7, 2),
-(7, 4),
-(9, 3),
-(9, 6);
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(1, 6),
+(1, 7),
+(1, 9);
 
 -- --------------------------------------------------------
 
@@ -357,13 +359,13 @@ ALTER TABLE `estados_sesiones`
 -- AUTO_INCREMENT de la tabla `fechas_horas`
 --
 ALTER TABLE `fechas_horas`
-  MODIFY `id_fechas_horas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id_fechas_horas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_acciones`
 --
 ALTER TABLE `historial_acciones`
-  MODIFY `id_accion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_accion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `metodos_pago`
@@ -387,7 +389,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `sesiones`
 --
 ALTER TABLE `sesiones`
-  MODIFY `id_sesiones` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_sesiones` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `tratamientos`
