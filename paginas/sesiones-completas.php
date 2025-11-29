@@ -15,7 +15,7 @@
 ?>
 <?php
     $cards = "";
-    $sumaTotal = 0;                    
+    $sumaTotal = 0;
     $fkSesion = 0;
     $fkUsuario = 0;
     $estadoSesion = "";
