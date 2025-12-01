@@ -19,7 +19,7 @@
                 </thead>
                 <tbody>
                     <?php
-                        $resultadoHistorial = mysqli_query($conexion, $lecturaHistorialAcciones);
+                        $resultadoHistorial = mysqli_query($conexion, $lecturaHistorialAcciones . " ORDER BY `fecha` DESC, `hora` DESC");
                         
                         while ($accion = mysqli_fetch_array($resultadoHistorial)) {
                             echo "<tr>";
