@@ -42,6 +42,10 @@
             </button>
             <p>No te has registrado todavia?<a href="register.php">Registrarse</a></p>
         </form>
+        <div class="alert alert-info mt-3" style="width: 30%;" role="alert">
+            Si ya ha sido registrado por un encargado
+            su contrasenia inicial es el dni, luego la podra cambiar desde el apartado de configuracion.
+        </div>
     </main>
 <?php
     include_once("../componentes/footer.php");

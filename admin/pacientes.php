@@ -78,8 +78,7 @@
                         <input class="col-12 input-paciente" type="number" name="telefono" id="telefono" placeholder="Ingrese el telefono">
                     </div>
                     <div>
-                        <input class="col-12 input-paciente mt-3" type="text" name="contrasenia" id="contrasenia" placeholder="Ingrese la contrasenia del paciente">
-                        <p>La contrasenia que se ingrese va ser inicial, luego el paciente va poder modificarla desde su perfil.</p>
+                        <p><strong>La contrasenia inicial del paciente va ser el dni que se registre en el sistema.</strong><br>Luego el paciente podra cambiarlo desde el apartado de configuracion</p>
                     </div>
                 </div>
                 <div>

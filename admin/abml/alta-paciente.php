@@ -11,8 +11,8 @@
     include_once("../../componentes/config/config.php");
     include_once("lectura.php");
     include_once("../validaciones.php");
-    function realizarAltaPaciente ($nombre, $apellido, $dni, $fechaNacimiento, $email, $telefono, $conexion, $contrasenia) {
-        mysqli_query($conexion,"INSERT INTO `personas`(`nombre`, `apellido`, `dni`, `fecha_nacimiento`, `telefono`, `email`, `fk_rol`, `contrasenia`) VALUES ('$nombre','$apellido','$dni','$fechaNacimiento','$telefono','$email',3,'$contrasenia')");
+    function realizarAltaPaciente ($nombre, $apellido, $dni, $fechaNacimiento, $email, $telefono, $conexion) {
+        mysqli_query($conexion,"INSERT INTO `personas`(`nombre`, `apellido`, `dni`, `fecha_nacimiento`, `telefono`, `email`, `fk_rol`, `contrasenia`) VALUES ('$nombre','$apellido','$dni','$fechaNacimiento','$telefono','$email',3,MD5('$dni'))");
 
         mysqli_query($conexion,"INSERT INTO `historial_acciones`(`fecha`,`hora`,`descripcion`) VALUES (CURDATE(),CURTIME(),'Se agregado a $nombre  $apellido a la lista de pacientes')");
 
@@ -40,9 +40,7 @@
 
             $telefonoAux = htmlspecialchars($_POST["telefono"]);
 
-            $contrasenia = htmlspecialchars($_POST["contrasenia"]);
-
-            $campos = [$nombre, $apellido, $dniAux, $fechaNacimiento, $email, $telefonoAux, $contrasenia];
+            $campos = [$nombre, $apellido, $dniAux, $fechaNacimiento, $email, $telefonoAux];
             if (validarCamposVacios($campos) == true) {
                 header("Location: ../pacientes.php?camposVacios=ok");
                 exit();
@@ -84,7 +82,7 @@
             $dni = (int) $dniAux;
             $telefono = (int) $telefonoAux;
 
-            realizarAltaPaciente($nombre, $apellido,  $dni, $fechaNacimiento, $email, $telefono, $conexion, $contrasenia);
+            realizarAltaPaciente($nombre, $apellido,  $dni, $fechaNacimiento, $email, $telefono, $conexion);
         }
     }
 ?>
