@@ -28,12 +28,14 @@
             $hora = "";
             $tratamientosSesion = "";
             $detalles = "";
+            $haySesiones = false;
 
             $lecturaSesionesTratamientos .= " WHERE `fk_tratamientos`='$id'";
 
             $sesionesTratamientos = mysqli_query($conexion,$lecturaSesionesTratamientos);
 
             while ($sesionTratamiento = mysqli_fetch_array($sesionesTratamientos)) {
+                $haySesiones = true;
                 $fkSesion = $sesionTratamiento["fk_sesiones"];
                 $lecturaTratamientos = "SELECT * FROM `tratamientos`";
                 $lecturaSesiones = "SELECT * FROM `sesiones`";
@@ -115,6 +117,9 @@
                             </p>
                         </div>
                     </article>";
+            }
+            if ($haySesiones === false) {
+                echo "<h2 class='text-center m-5 p-5'>No hay sesiones para el tratamiento $tituloTratamiento</h2>";
             }
         ?>
     </section>
