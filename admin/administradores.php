@@ -42,7 +42,7 @@
                                 <td>$admin[telefono]</td>
                                 <td>$admin[dni]</td>
                                 <td>$admin[fecha_nacimiento]</td>
-                                <td>$rolUsuario[nombre]</td>";
+                                <td> " . strtoupper($rolUsuario["nombre"]) . "</td>";
                                 echo "</tr>";
                             }
                         }
