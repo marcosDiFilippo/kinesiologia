@@ -38,7 +38,7 @@
             $valueMonto;
             $valuesMetodosPago = [];
             $valuesTratamientos = [];
-            $valueDescripcion;
+            $valueDescripcion = "";
             $valueImagen;
 
             if ($sesion = mysqli_fetch_array($sesiones)) {
