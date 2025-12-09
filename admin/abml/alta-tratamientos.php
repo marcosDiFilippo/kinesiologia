@@ -30,7 +30,7 @@
             }
 
             mysqli_query($conexion,"INSERT INTO `tratamientos`(`nombre`) VALUES ('$tratamiento')");
-            mysqli_query($conexion,"INSERT INTO `historial_acciones`(`fecha`,`hora`,`descripcion`) VALUES (CURDATE(),CURTIME(),'Se agrego un nuevo trtamiento ($tratamiento) a la lista')");
+            mysqli_query($conexion,"INSERT INTO `historial_acciones`(`fecha`,`hora`,`descripcion`) VALUES (CURDATE(),CURTIME(),'Se agrego un nuevo tratamiento ($tratamiento) a la lista')");
             header("Location: ../tratamientos.php?alta=ok");
             exit();
         }
